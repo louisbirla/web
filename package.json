@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "npx eslint --fix . && npx prettier --write ."
   },
   "dependencies": {
     "@chakra-ui/core": "^1.0.0-rc.3",

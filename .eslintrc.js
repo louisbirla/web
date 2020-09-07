@@ -14,4 +14,12 @@ module.exports = {
       },
     ],
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  env: {
+    node: true,
+  },
 }
