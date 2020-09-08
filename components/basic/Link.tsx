@@ -7,5 +7,9 @@ import NextLink from 'next/link'
 export const Link: React.FC<{
   href: string
 }> = ({ href, children }) => {
-  return <NextLink href={href}>{children}</NextLink>
+  return (
+    <NextLink href={href}>
+      <a>{children}</a>
+    </NextLink>
+  )
 }
