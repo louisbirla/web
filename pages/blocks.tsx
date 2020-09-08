@@ -1,7 +1,7 @@
 import { Layout } from '../components/Layout'
 import { Heading, Center, VStack, Text, Container } from '@chakra-ui/core'
 
-const IndexPage = () => {
+const BlocksPage = () => {
   return (
     <Layout title='Blocks | Loop'>
       <Center dir='column' textAlign='center'>
@@ -145,4 +145,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default BlocksPage
