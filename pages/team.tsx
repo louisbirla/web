@@ -13,9 +13,7 @@ const TeamPage = () => {
               Team
             </Text>
           </Heading>
-          <Container>
-            <Text>These are the people who are making Loop happen.</Text>
-          </Container>
+          <Text>These are the people who are making Loop happen.</Text>
           <Wrap justify='center' spacing={10}>
             <TeamMemberCard
               img='/team/louis.jpeg'
