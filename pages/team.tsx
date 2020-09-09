@@ -1,5 +1,5 @@
 import { Layout } from '../components/Layout'
-import { Heading, Center, VStack, Text, Container, Wrap, Box } from '@chakra-ui/core'
+import { Heading, Center, VStack, Text, Container, Wrap } from '@chakra-ui/core'
 import { TeamMemberCard } from '../components/static/TeamMemberCard'
 
 const TeamPage = () => {
