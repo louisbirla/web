@@ -11,7 +11,7 @@ export const TeamMemberCard: React.FC<{
   img?: string
   about?: string
 }> = ({ linkedIn, name, role, img, about, githubName }) => {
-  const { color , opposite} = useBlackOrWhite()
+  const { color, opposite } = useBlackOrWhite()
   return (
     <Card maxWidth='20rem'>
       <Avatar size='2xl' name={name} src={img} />
