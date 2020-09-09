@@ -1,4 +1,4 @@
-import { useColorMode } from "@chakra-ui/core"
+import { useColorMode } from '@chakra-ui/core'
 
 export const useBlackOrWhite = () => {
   const { colorMode } = useColorMode()
@@ -10,6 +10,6 @@ export const useBlackOrWhite = () => {
   }
   return {
     color: 'white',
-    opposite: 'black'
+    opposite: 'black',
   }
 }
