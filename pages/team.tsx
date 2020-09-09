@@ -18,14 +18,14 @@ const TeamPage = () => {
           </Container>
           <Wrap justify='center' spacing={10}>
             <TeamMemberCard
-              img='/team/louis.png'
+              img='/team/louis.jpeg'
               name='Louis Birla'
               role='Founder'
               about={`Louis is in charge of Loop's development and management. Along with creating all the concepts, Louis develops Loop's API and web app.`}
               githubName='nilaeus'
             />
             <TeamMemberCard
-              img='/team/amit.png'
+              img='/team/amit.jpeg'
               linkedIn='https://www.linkedin.com/in/maheshwa?trk=profile-badge'
               name='Amit Maheshwari'
               role='Advisor'
