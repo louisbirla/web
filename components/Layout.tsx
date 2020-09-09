@@ -4,32 +4,37 @@ import { GitHub } from 'react-feather'
 import { Link } from './basic/Link'
 import { ThemeSwitcher } from './util/ThemeSwitcher'
 import { LogoImage } from './LogoImage'
+import { Nav } from './Nav'
 
 type Props = {
   title?: string
   noLogo?: boolean
+  noNav?: boolean
 }
 
-export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = false }) => (
+export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = false, noNav = false }) => (
   <Box>
     <Head>
       <title>{title}</title>
     </Head>
     <Center as='header'>
-      {noLogo || (
-        <Link href='/'>
-          <HStack
-            _hover={{
-              opacity: 0.7,
-            }}
-          >
-            <LogoImage height='1.5rem' />
-            <Text fontWeight='800' fontSize='2rem'>
-              Loop
-            </Text>
-          </HStack>
-        </Link>
-      )}
+      <VStack spacing={0}>
+        {noLogo || (
+          <Link href='/'>
+            <HStack
+              _hover={{
+                opacity: 0.7,
+              }}
+            >
+              <LogoImage height='1.5rem' />
+              <Text fontWeight='800' fontSize='2rem'>
+                Loop
+              </Text>
+            </HStack>
+          </Link>
+        )}
+        {noNav || <Nav mb={5} />}
+      </VStack>
     </Center>
     {children}
     <Box as='footer' mt={10}>

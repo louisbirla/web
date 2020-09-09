@@ -1,16 +1,18 @@
 import { Layout } from '../components/Layout'
 import { Heading, Center, VStack, Text, Container, Button, Link } from '@chakra-ui/core'
 import { LogoImage } from '../components/LogoImage'
+import { Nav } from '../components/Nav'
 
 const IndexPage = () => {
   return (
-    <Layout title='Loop' noLogo>
+    <Layout title='Loop' noLogo noNav>
       <Center dir='column' textAlign='center'>
         <VStack>
           <LogoImage width={100} mt={10} />
           <Heading as='h1' fontSize='5rem' fontWeight='800'>
             Loop
           </Heading>
+          <Nav />
           <Text color='gray.500'>(Coming Soon)</Text>
           <VStack fontSize={20} as='section' spacing={10}>
             <Heading fontSize='2.5rem'>
