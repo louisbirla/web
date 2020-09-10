@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "yarn gql:gen && next build",
+    "build": "yarn gql:build && next build",
     "start": "next start",
     "format": "npx eslint --fix . && npx prettier --write .",
-    "gql:gen": "yarn gql:reset && apollo client:codegen gql --target typescript && npx prettier --write ./**/gql/*.*",
+    "gql:build": "yarn gql:reset && yarn gql:gen && npx prettier --write ./**/gql/*.*",
+    "gql:gen": "apollo client:codegen gql --target typescript ",
     "gql:dev": "yarn gql:gen --watch",
     "gql:reset": "rm gql/*.* & rm ./**/gql/*.* || true"
   },
