@@ -13,7 +13,7 @@ const iconPath = '/donuts'
  */
 export const Metadata: React.FC = () => {
   ReactGA.initialize('G-V7WFFJCYCW')
-  const {color} = useBlackOrWhite()
+  const { color } = useBlackOrWhite()
   return (
     <>
       <Head>
