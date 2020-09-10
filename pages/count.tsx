@@ -2,7 +2,7 @@ import { Layout } from '../components/Layout'
 import { Center } from '@chakra-ui/core'
 import { CountManager } from '../components/count/CountManager'
 
-const IndexPage = () => {
+const CountPage = () => {
   return (
     <Layout title='Count | Loop'>
       <Center>
@@ -12,4 +12,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default CountPage
