@@ -3,9 +3,11 @@ import { CountDisplay } from '../components/count/CountDisplay'
 import { Center } from '@chakra-ui/core'
 import { CountCrement } from '../components/count/CountCrement'
 import { gql, useQuery, useMutation } from '@apollo/client'
+import { CountQuery } from './gql/CountQuery'
+import { UpdateCount } from './gql/UpdateCount'
 
 export const COUNT = gql`
-  query GetCount {
+  query CountQuery {
     count
   }
 `
@@ -17,11 +19,10 @@ export const UPDATE_COUNT = gql`
 `
 
 const IndexPage = () => {
-  const { data, refetch } = useQuery(COUNT, {
+  const { data, refetch } = useQuery<CountQuery>(COUNT, {
     pollInterval: 1000,
-    ssr: true,
   })
-  const [updateCount] = useMutation(UPDATE_COUNT)
+  const [updateCount] = useMutation<UpdateCount>(UPDATE_COUNT)
 
   const handleCrement = (by: number) => {
     updateCount({
