@@ -24,7 +24,7 @@ export const Metadata: React.FC = () => {
           name='viewport'
           content='viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
         />
-        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+        <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='format-detection' content='telephone=no' />
         <meta name='msapplication-tap-highlight' content='no' />
         <meta name='author' content='Loop' />
