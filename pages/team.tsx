@@ -27,7 +27,7 @@ const TeamPage = () => {
               linkedIn='https://www.linkedin.com/in/maheshwa?trk=profile-badge'
               name='Amit Maheshwari'
               role='Advisor'
-              about='Something or other will go right here as a description.'
+              about={`Amit is helping jump start Loop using his startup experience and initial capital.`}
             />
           </Wrap>
         </VStack>
