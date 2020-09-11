@@ -1,7 +1,8 @@
 import { Layout } from '../components/Layout'
-import { Heading, Center, VStack, Text, Container, Button, Link } from '@chakra-ui/core'
+import { Heading, Center, VStack, Text, Container, Button } from '@chakra-ui/core'
 import { LogoImage } from '../components/LogoImage'
 import { Nav } from '../components/Nav'
+import { Link } from '../components/basic/Link'
 
 const IndexPage = () => {
   return (
