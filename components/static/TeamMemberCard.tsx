@@ -13,7 +13,7 @@ export const TeamMemberCard: React.FC<{
 }> = ({ linkedIn, name, role, img, about, githubName }) => {
   const { color, opposite } = useBlackOrWhite()
   return (
-    <Card maxWidth='20rem'>
+    <Card maxWidth='20rem' textAlign='center'>
       <Avatar size='2xl' name={name} src={img} />
       <Heading>{name}</Heading>
       <Text color='gray.500' size='1.5rem'>
