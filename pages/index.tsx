@@ -1,5 +1,5 @@
 import { Layout } from '../components/Layout'
-import { Heading, VStack, Text, Button } from '@chakra-ui/core'
+import { Heading, VStack, Text, Button, Link as ChakraLink } from '@chakra-ui/core'
 import { LogoImage } from '../components/LogoImage'
 import { Nav } from '../components/Nav'
 import { Link } from '../components/basic/Link'
@@ -38,15 +38,23 @@ const IndexPage = () => {
             that the source code is readily available to and can be improved upon by anyone. While anybody is free to
             use the code for personal use, commercial replication will not be allowed.
           </Paragraph>
+        </Section>
+        <Section>
+          <SectionHeading id='loop-credits-section'>Loop Credits</SectionHeading>
           <Paragraph>
             Loop Credits (credits) is a global currency used by Loop users. Instead of using currencies such as USD,
-            Euro or Bitcoin, Loop users can use their credits for actions within one or more of Loop’s platforms (e.g.
-            Blocks). Actions that result in credits changing hands are better defined within a particular platform. In
-            general however, new users start with a certain number of credits for free and can start earning more
-            through usage, watching voluntary advertisements, purchasing advanced features or selling content to other
-            users. Credits can also be purchased from Loop. Credits will initially be implemented in a straightforward
-            secure manner using a combination of Loop data structures and commercial payment gateways. Later on, Loop
-            may use Blockchain technology for additional scale, security and fidelity.
+            Euro or Bitcoin, Loop users can use their credits for actions within one or more of Loop’s platforms (e.g.{' '}
+            <Link href='/blocks'>
+              <ChakraLink color='#6eb6ff'>
+                Blocks
+              </ChakraLink>
+            </Link>
+            ). Actions that result in credits changing hands are better defined within a particular platform. In general
+            however, new users start with a certain number of credits for free and can start earning more through usage,
+            watching voluntary advertisements, purchasing advanced features or selling content to other users. Credits
+            can also be purchased from Loop. Credits will initially be implemented in a straightforward secure manner
+            using a combination of Loop data structures and commercial payment gateways. Later on, Loop may use
+            Blockchain technology for additional scale, security and fidelity.
           </Paragraph>
           <Paragraph>
             Loop’s revenue comes from charging a % transaction fees when a user exchanges their credits for real-world

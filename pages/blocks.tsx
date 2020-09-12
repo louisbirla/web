@@ -1,8 +1,9 @@
 import { Layout } from '../components/Layout'
-import { Text, VStack } from '@chakra-ui/core'
+import { Text, VStack, Link as ChakraLink } from '@chakra-ui/core'
 import { Paragraph } from '../components/static/Paragraph'
 import { SectionHeading } from '../components/static/SectionHeading'
 import { Section } from '../components/static/Section'
+import { Link } from '../components/basic/Link'
 
 const BlocksPage = () => {
   return (
@@ -73,21 +74,26 @@ const BlocksPage = () => {
             cross-platform using this syntax, using libraries supplied by Loop.
           </Paragraph>
           <Paragraph>
-            While using Loop is free, certain actions and customizations will cost Loop credits. However, most of the
-            exchange of credits will be peer-to-peer such as like buying Block types developed by 3rd party developers
-            or buying access to certain Blocks (and their content) that users create. This means that Loop users will
-            need credits, and for that there are four options. The first, and the easiest, is to simply use Loop.
-            Through a streak system, and achievement system down the line, users will earn a small amount of credits.
-            However, this would take time, so another option is to make great content and distribute them via Blocks
-            (e.g. an Art exhibition, a live event, or an album). By offering access to these content rich Blocks for
-            credits, users can earn money and add valuable Block content to Loop at the same time. A third option will
-            appeal to developers, where creating an entirely new block type would mean earning credits every time
-            someone uses that developer’s block type (e.g. a game or an fantasy sports app). In this way, everyone wins
-            because the developer will earn credits and Loop/users will have an entirely new block type to use. The
-            fourth option is the most obvious, which is to simply purchase credits from Loop. Purchasing credits will be
-            1-to-1 to the value of credits to the currency, and will add Liquidity to Loop. Then, when people wish to
-            exchange credits for a liquid currency, they can do so with a small percentage less than the original 1-to-1
-            ratio. This small percentage during exchange of credits to currency is loop’s revenue.
+            While using Blocks is free, certain actions and customizations will cost Loop Credits (credits). However,
+            most of the exchange of credits will be peer-to-peer such as like buying Block types developed by 3rd party
+            developers or buying access to certain Blocks (and their content) that users create. This means that Block
+            users will need credits, and for that there are four options. The first, and the easiest, is to simply use
+            Blocks (or any other Loop platform). Through a streak system, and achievement system down the line, users
+            will earn a small amount of credits. However, this would take time, so another option is to make great
+            content and distribute them via Blocks (e.g. an Art exhibition, a live event, or an album). By offering
+            access to these content rich Blocks for credits, users can earn money and add valuable Block content to the
+            platform at the same time. A third option will appeal to developers, where creating an entirely new block
+            type would mean earning credits every time someone uses that developer’s block type (e.g. a game or an
+            fantasy sports app). In this way, everyone wins because the developer will earn credits and the
+            platform/users will have an entirely new block type to use. The fourth option is the most obvious, which is
+            to simply purchase credits from Loop. Purchasing credits will be 1-to-1 to the value of credits to the
+            currency, and will add Liquidity to Loop. Then, when people wish to exchange credits for a liquid currency,
+            they can do so with a small percentage less than the original 1-to-1 ratio. This small percentage during
+            exchange of credits to currency is loop’s revenue (see{' '}
+            <Link href='/#loop-credits-section'>
+              <ChakraLink color='#6eb6ff'>Loop Credits</ChakraLink>
+            </Link>
+            ).
           </Paragraph>
         </Section>
         <Section>
@@ -120,6 +126,17 @@ const BlocksPage = () => {
             vision as a company. This is why when Loop matures, and when decentralized technology matures, Loop may
             adopt a decentralized model. However, this is not something that would happen within Loop’s formative years.
           </Paragraph>
+        </Section>
+        <Section>
+          <SectionHeading>
+            <Text color='#6eb6ff' display='inline'>
+              High Level
+            </Text>{' '}
+            Implementation of <Text color='#fe91ca' display='inline'>
+              Blocks
+            </Text>
+          </SectionHeading>
+          <Paragraph>Blocks will be available as iOS, Android, and web applications, powered by an Open API.</Paragraph>
         </Section>
       </VStack>
     </Layout>
