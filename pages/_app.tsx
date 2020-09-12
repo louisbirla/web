@@ -3,6 +3,11 @@ import { ChakraProvider } from '@chakra-ui/core'
 import { customTheme } from '../utils/theme/theme'
 import { Metadata } from '../components/Metadata'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { init } from '@sentry/react'
+
+init({
+  dsn: 'https://190272e39fa74484a58c821b9ed30555@o336780.ingest.sentry.io/5420493',
+})
 
 const client = new ApolloClient({
   uri: 'https://api.loop.page',
