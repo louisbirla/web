@@ -132,7 +132,8 @@ const BlocksPage = () => {
             <Text color='#6eb6ff' display='inline'>
               High Level
             </Text>{' '}
-            Implementation of <Text color='#fe91ca' display='inline'>
+            Implementation of{' '}
+            <Text color='#fe91ca' display='inline'>
               Blocks
             </Text>
           </SectionHeading>
