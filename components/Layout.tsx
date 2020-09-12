@@ -17,7 +17,7 @@ export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = fal
     <Head>
       <title>{title}</title>
     </Head>
-    <Center as='header'>
+    <Box as='header'>
       <VStack spacing={0}>
         {noLogo || (
           <Link href='/'>
@@ -35,7 +35,7 @@ export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = fal
         )}
         {noNav || <Nav mb={5} />}
       </VStack>
-    </Center>
+    </Box>
     {children}
     <Box as='footer' mt={10}>
       <Center color='gray.500'>
@@ -46,7 +46,7 @@ export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = fal
             </Link>
             <ThemeSwitcher />
           </Box>
-          <Text>© Loop Revolution • 2020</Text>
+          <Text>© 2020 Loop Revolution</Text>
         </VStack>
       </Center>
     </Box>
