@@ -10,7 +10,5 @@ export const LogoImage: React.FC<ImageProps> = (props) => {
   const { colorMode } = useColorMode()
   const src = dark({ colorMode }) ? '/donuts/white-donut.svg' : '/donuts/black-donut.svg'
 
-  return (
-      <Image opacity={isLoading ? 0 : 1} onLoad={() => setIsLoading(false)} src={src} alt='Loop Logo' {...props} />
-  )
+  return <Image opacity={isLoading ? 0 : 1} onLoad={() => setIsLoading(false)} src={src} alt='Loop Logo' {...props} />
 }
