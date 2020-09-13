@@ -1,6 +1,6 @@
 # tests
 coverage
-text-report.xml
+test-report.xml
 
 # developer
 .vscode
