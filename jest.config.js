@@ -8,5 +8,5 @@ module.exports = {
   },
   testResultsProcessor: 'jest-sonar-reporter',
   collectCoverage: true,
-  collectCoverageFrom: ['components/**/*.{tsx,ts}', 'pages/**/*.{tsx,ts}', 'utils/**/*.{tsx,ts}']
+  collectCoverageFrom: ['components/**/*.{tsx,ts}', 'pages/**/*.{tsx,ts}', 'utils/**/*.{tsx,ts}'],
 }

@@ -15,7 +15,7 @@ export const UPDATE_COUNT = gql`
     updateCount(by: $by)
   }
 `
-export const CountManager: React.FC<{pollInterval?: number}> = ({pollInterval = 500}) => {
+export const CountManager: React.FC<{ pollInterval?: number }> = ({ pollInterval = 500 }) => {
   const { data, refetch } = useQuery<CountQuery>(COUNT, {
     pollInterval,
   })
