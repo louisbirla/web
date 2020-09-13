@@ -9,7 +9,8 @@
     "gql:build": "yarn gql:reset && yarn gql:gen && npx prettier --write ./**/gql/*.*",
     "gql:gen": "apollo client:codegen gql --target typescript ",
     "gql:dev": "yarn gql:gen --watch",
-    "gql:reset": "rm gql/*.* & rm ./**/gql/*.* || true"
+    "gql:reset": "rm gql/*.* & rm ./**/gql/*.* || true",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/client": "3.1.5",
@@ -24,12 +25,19 @@
     "react-ga": "3.1.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.2",
+    "@types/jest": "^26.0.13",
     "@types/node": "12.12.58",
     "@types/react": "16.9.49",
     "@types/react-dom": "16.9.8",
     "apollo": "2.30.3",
+    "babel-jest": "^26.3.0",
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-react": "7.20.6",
+    "jest": "^26.4.2",
+    "jest-sonar-reporter": "^2.0.0",
+    "ts-jest": "^26.3.0",
     "typescript": "4.0.2"
   },
   "license": "MIT"

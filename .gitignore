@@ -1,3 +1,7 @@
+# tests
+coverage
+text-report.xml
+
 # developer
 .vscode
 

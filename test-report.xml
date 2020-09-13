@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/nullaeus_gmail_com/web/test/count/counter.test.tsx">
+    <testCase name="counter should increment/decrement on click" duration="317"/>
+  </file>
+</testExecutions>
