@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
-import { render, screen, fireEvent, findFirstText } from '../testUtils'
+import { findFirstText } from '../testUtils'
 import { CountManager, COUNT, UPDATE_COUNT } from '../../components/count/CountManager'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 /** For keeping track of the count (starts at 1) */
 let count = 1

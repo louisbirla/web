@@ -1,5 +1,6 @@
-import { render, findFirstText, screen } from '../testUtils'
+import { findFirstText } from '../testUtils'
 import IndexPage from '../../pages'
+import { screen, render } from '@testing-library/react'
 
 describe('index page', () => {
   test('should have loop name', async () => {

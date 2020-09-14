@@ -1,5 +1,5 @@
-import { render, fireEvent, screen } from '../testUtils'
 import { CountCrement } from '../../components/count/CountCrement'
+import { render, fireEvent, screen } from '@testing-library/react'
 
 describe('count buttons', () => {
   test('clicking should call update function', async () => {

@@ -1,5 +1,6 @@
-import { render, findFirstText } from '../testUtils'
+import { findFirstText } from '../testUtils'
 import { CountDisplay } from '../../components/count/CountDisplay'
+import { render } from '@testing-library/react'
 
 describe('count display', () => {
   test('display should show number', async () => {
