@@ -12,6 +12,7 @@ describe('index page', () => {
     expect(await findFirstText('Team')).toBeInTheDocument()
     expect(await findFirstText('Blocks')).toBeInTheDocument()
     // 3 nav buttons & extra links
-    expect((await screen.findAllByRole('link')).length).toBeGreaterThan(3)
+    const navButtonCount = 3
+    expect((await screen.findAllByRole('link')).length).toBeGreaterThan(navButtonCount)
   })
 })
