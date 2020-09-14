@@ -45,7 +45,7 @@ const IndexPage = () => {
           <Paragraph>
             Loop Credits (credits) is a global currency used by Loop users. Instead of using currencies such as USD,
             Euro or Bitcoin, Loop users can use their credits for actions within one or more of Loop’s platforms (e.g.{' '}
-            <Text fontWeight='bold' display='inline' color='#6eb6ff'>
+            <Text as='span' fontWeight='bold' display='inline' color='#6eb6ff'>
               <ChakraLink as={NextLink} href='/blocks'>
                 Blocks
               </ChakraLink>

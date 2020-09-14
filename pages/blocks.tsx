@@ -90,7 +90,7 @@ const BlocksPage = () => {
             currency, and will add Liquidity to Loop. Then, when people wish to exchange credits for a liquid currency,
             they can do so with a small percentage less than the original 1-to-1 ratio. This small percentage during
             exchange of credits to currency is loop’s revenue (see{' '}
-            <Text fontWeight='bold' display='inline' color='#6eb6ff'>
+            <Text as='span' fontWeight='bold' display='inline' color='#6eb6ff'>
               <ChakraLink as={Link} href='/#loop-credits-section'>
                 Loop Credits
               </ChakraLink>
