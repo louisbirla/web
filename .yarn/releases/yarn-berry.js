@@ -6875,15 +6875,13 @@ module.exports = (() => {
               for (const t of e.peerDependencies.values())
                 d.set(l.structUtils.requirableIdent(t), null), I.add(l.structUtils.stringifyIdent(t))
             return (
-              l.miscUtils
-                .getMapWithDefault(this.packageRegistry, r)
-                .set(n, {
-                  packageLocation: f,
-                  packageDependencies: d,
-                  packagePeers: I,
-                  linkType: e.linkType,
-                  discardFromLookup: t.discardFromLookup || !1,
-                }),
+              l.miscUtils.getMapWithDefault(this.packageRegistry, r).set(n, {
+                packageLocation: f,
+                packageDependencies: d,
+                packagePeers: I,
+                linkType: e.linkType,
+                discardFromLookup: t.discardFromLookup || !1,
+              }),
               i && this.blacklistedPaths.add(f),
               { packageLocation: h, buildDirective: a.length > 0 && s ? a : null }
             )
@@ -31969,13 +31967,17 @@ PERFORMANCE OF THIS SOFTWARE.
         }
       },
       97369: (e, t) => {
-        var r, n, i, A
-        /*!
-         * is-windows <https://github.com/jonschlinkert/is-windows>
-         *
-         * Copyright © 2015-2018, Jon Schlinkert.
-         * Released under the MIT License.
-         */ ;(A = function () {
+        var r,
+          n,
+          i,
+          A
+          /*!
+           * is-windows <https://github.com/jonschlinkert/is-windows>
+           *
+           * Copyright © 2015-2018, Jon Schlinkert.
+           * Released under the MIT License.
+           */
+        ;(A = function () {
           'use strict'
           return function () {
             return process && ('win32' === process.platform || /^(msys|cygwin)$/.test(process.env.OSTYPE))
