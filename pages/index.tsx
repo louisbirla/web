@@ -3,6 +3,7 @@ import { Heading, VStack, Text, Button, Link as ChakraLink } from '@chakra-ui/co
 import { LogoImage } from '../components/LogoImage'
 import { Nav } from '../components/Nav'
 import { Link } from '../components/basic/Link'
+import NextLink from 'next/link'
 import { Paragraph } from '../components/static/Paragraph'
 import { SectionHeading } from '../components/static/SectionHeading'
 import { Section } from '../components/static/Section'
@@ -44,9 +45,11 @@ const IndexPage = () => {
           <Paragraph>
             Loop Credits (credits) is a global currency used by Loop users. Instead of using currencies such as USD,
             Euro or Bitcoin, Loop users can use their credits for actions within one or more of Loop’s platforms (e.g.{' '}
-            <ChakraLink as={Link} href='/blocks' color='#6eb6ff'>
-              Blocks
-            </ChakraLink>
+            <Text fontWeight='bold' display='inline' color='#6eb6ff'>
+              <ChakraLink as={NextLink} href='/blocks'>
+                Blocks
+              </ChakraLink>
+            </Text>
             ). Actions that result in credits changing hands are better defined within a particular platform. In general
             however, new users start with a certain number of credits for free and can start earning more through usage,
             watching voluntary advertisements, purchasing advanced features or selling content to other users. Credits
