@@ -11,8 +11,8 @@ const iconPath = '/donuts'
  * Everything needed in the header.
  * Adds icons, metadata, Google Analytics
  */
-export const Metadata: React.FC = () => {
-  ReactGA.initialize('G-V7WFFJCYCW')
+export const Metadata: React.FC<{ga?: boolean}> = ({ga = true}) => {
+  ga && ReactGA.initialize('G-V7WFFJCYCW')
   const { color } = useBlackOrWhite()
   return (
     <>

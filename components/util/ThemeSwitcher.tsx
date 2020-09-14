@@ -9,14 +9,14 @@ export const ThemeSwitcher: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const commonProps = {
     color: 'gray.500',
+    onClick: () => {
+      toggleColorMode()
+    },
+    margin: '1rem',
   }
-  return (
-    <button onClick={toggleColorMode} style={{ margin: '1rem' }}>
-      {dark({ colorMode }) ? (
-        <IconButton icon={<Icon as={Sun} />} aria-label='Switch to light mode' {...commonProps} />
-      ) : (
-        <IconButton icon={<Icon as={Moon} />} aria-label='Switch to dark mode' {...commonProps} />
-      )}
-    </button>
-  )
+  if (dark({ colorMode })) {
+    return <IconButton icon={<Icon as={Sun} />} title='Turn on light mode' aria-label='Switch to light mode' {...commonProps} />
+  } else {
+    return <IconButton icon={<Icon as={Moon} />} title='Turn on dark mode' aria-label='Switch to dark mode' {...commonProps} />
+  }
 }

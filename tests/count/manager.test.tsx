@@ -34,7 +34,7 @@ const updateCountMock = (by: number): MockedResponse => ({
   },
 })
 
-describe('counter', () => {
+describe('count manager', () => {
   test('should increment/decrement on click', async () => {
     render(
       <MockedProvider

@@ -10,7 +10,8 @@
     "gql:gen": "apollo client:codegen gql --target typescript ",
     "gql:dev": "yarn gql:gen --watch",
     "gql:reset": "rm gql/*.* & rm ./**/gql/*.* || true",
-    "test": "jest"
+    "test": "jest",
+    "test:dev": "yarn test --watch"
   },
   "dependencies": {
     "@apollo/client": "3.1.5",
