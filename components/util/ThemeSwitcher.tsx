@@ -15,8 +15,22 @@ export const ThemeSwitcher: React.FC = () => {
     margin: '1rem',
   }
   if (dark({ colorMode })) {
-    return <IconButton icon={<Icon as={Sun} />} title='Turn on light mode' aria-label='Switch to light mode' {...commonProps} />
+    return (
+      <IconButton
+        icon={<Icon as={Sun} />}
+        title='Turn on light mode'
+        aria-label='Switch to light mode'
+        {...commonProps}
+      />
+    )
   } else {
-    return <IconButton icon={<Icon as={Moon} />} title='Turn on dark mode' aria-label='Switch to dark mode' {...commonProps} />
+    return (
+      <IconButton
+        icon={<Icon as={Moon} />}
+        title='Turn on dark mode'
+        aria-label='Switch to dark mode'
+        {...commonProps}
+      />
+    )
   }
 }
