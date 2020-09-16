@@ -65,7 +65,9 @@ const IndexPage = () => {
             money.
           </Paragraph>
           <Link href='/blocks'>
-            <Button leftIcon={<Box size={15} />} variant='solid'>What are Blocks?</Button>
+            <Button leftIcon={<Box size={15} />} variant='solid'>
+              What are Blocks?
+            </Button>
           </Link>
         </Section>
       </VStack>

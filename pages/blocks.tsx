@@ -145,13 +145,20 @@ const BlocksPage = () => {
           <Paragraph>
             Blocks will be available as iOS, Android, and web applications, powered by an Open API (located at{' '}
             <LinkStyling>
-              <ChakraLink href='https://api.loop.page' isExternal>api.loop.page</ChakraLink>
+              <ChakraLink href='https://api.loop.page' isExternal>
+                api.loop.page
+              </ChakraLink>
             </LinkStyling>
             ).
           </Paragraph>
         </Section>
         <ChakraLink isExternal href='https://app.lucidchart.com/documents/view/98d13c36-0c61-4c25-b067-d47279344815'>
-          <Button textDecor='none' rightIcon={<ExternalLink size={12} />} leftIcon={<BookOpen size={15} />} variant='solid'>
+          <Button
+            textDecor='none'
+            rightIcon={<ExternalLink size={12} />}
+            leftIcon={<BookOpen size={15} />}
+            variant='solid'
+          >
             Block Diagram
           </Button>
         </ChakraLink>
