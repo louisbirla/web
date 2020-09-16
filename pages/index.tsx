@@ -7,6 +7,9 @@ import NextLink from 'next/link'
 import { Paragraph } from '../components/static/Paragraph'
 import { SectionHeading } from '../components/static/SectionHeading'
 import { Section } from '../components/static/Section'
+import { colors } from '../utils/theme/colors'
+import { LinkStyling } from '../components/styling/LinkStyling'
+import { Box } from 'react-feather'
 
 const IndexPage = () => {
   return (
@@ -20,7 +23,7 @@ const IndexPage = () => {
         <Section>
           <SectionHeading>
             What is{' '}
-            <Text display='inline' color='#6eb6ff'>
+            <Text display='inline' color={colors.blue}>
               Loop
             </Text>
             ?
@@ -45,11 +48,11 @@ const IndexPage = () => {
           <Paragraph>
             Loop Credits (credits) is a global currency used by Loop users. Instead of using currencies such as USD,
             Euro or Bitcoin, Loop users can use their credits for actions within one or more of Loop’s platforms (e.g.{' '}
-            <Text as='span' fontWeight='bold' display='inline' color='#6eb6ff'>
+            <LinkStyling>
               <ChakraLink as={NextLink} href='/blocks'>
                 Blocks
               </ChakraLink>
-            </Text>
+            </LinkStyling>
             ). Actions that result in credits changing hands are better defined within a particular platform. In general
             however, new users start with a certain number of credits for free and can start earning more through usage,
             watching voluntary advertisements, purchasing advanced features or selling content to other users. Credits
@@ -62,7 +65,7 @@ const IndexPage = () => {
             money.
           </Paragraph>
           <Link href='/blocks'>
-            <Button variant='outline'>What are Blocks?</Button>
+            <Button leftIcon={<Box size={15} />} variant='solid'>What are Blocks?</Button>
           </Link>
         </Section>
       </VStack>

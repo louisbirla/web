@@ -1,9 +1,12 @@
 import { Layout } from '../components/Layout'
-import { Text, VStack, Link as ChakraLink } from '@chakra-ui/core'
+import { Text, VStack, Link as ChakraLink, Button } from '@chakra-ui/core'
 import { Paragraph } from '../components/static/Paragraph'
 import { SectionHeading } from '../components/static/SectionHeading'
 import { Section } from '../components/static/Section'
 import { Link } from '../components/basic/Link'
+import { BookOpen, ExternalLink } from 'react-feather'
+import { LinkStyling } from '../components/styling/LinkStyling'
+import { colors } from '../utils/theme/colors'
 
 const BlocksPage = () => {
   return (
@@ -12,7 +15,7 @@ const BlocksPage = () => {
         <Section>
           <SectionHeading>
             The{' '}
-            <Text display='inline' color='#28df99'>
+            <Text display='inline' color={colors.green}>
               Block Platform
             </Text>
           </SectionHeading>
@@ -54,11 +57,11 @@ const BlocksPage = () => {
         <Section>
           <SectionHeading>
             The{' '}
-            <Text display='inline' color='#ffc93c'>
+            <Text display='inline' color={colors.gold}>
               Block Store
             </Text>{' '}
             &{' '}
-            <Text display='inline' color='#fe91ca'>
+            <Text display='inline' color={colors.pink}>
               Credit Economy
             </Text>
           </SectionHeading>
@@ -90,22 +93,22 @@ const BlocksPage = () => {
             currency, and will add Liquidity to Loop. Then, when people wish to exchange credits for a liquid currency,
             they can do so with a small percentage less than the original 1-to-1 ratio. This small percentage during
             exchange of credits to currency is loop’s revenue (see{' '}
-            <Text as='span' fontWeight='bold' display='inline' color='#6eb6ff'>
+            <LinkStyling>
               <ChakraLink as={Link} href='/#loop-credits-section'>
                 Loop Credits
               </ChakraLink>
-            </Text>
+            </LinkStyling>
             ).
           </Paragraph>
         </Section>
         <Section>
           <SectionHeading>
             The{' '}
-            <Text display='inline' color='#6eb6ff'>
+            <Text display='inline' color={colors.blue}>
               Block Platform
             </Text>{' '}
             vs{' '}
-            <Text display='inline' color='#28df99'>
+            <Text display='inline' color={colors.green}>
               Blockchain
             </Text>
           </SectionHeading>
@@ -131,16 +134,27 @@ const BlocksPage = () => {
         </Section>
         <Section>
           <SectionHeading>
-            <Text color='#6eb6ff' display='inline'>
+            <Text color={colors.blue} display='inline'>
               High Level
             </Text>{' '}
             Implementation of{' '}
-            <Text color='#fe91ca' display='inline'>
+            <Text color={colors.pink} display='inline'>
               Blocks
             </Text>
           </SectionHeading>
-          <Paragraph>Blocks will be available as iOS, Android, and web applications, powered by an Open API.</Paragraph>
+          <Paragraph>
+            Blocks will be available as iOS, Android, and web applications, powered by an Open API (located at{' '}
+            <LinkStyling>
+              <ChakraLink href='https://api.loop.page' isExternal>api.loop.page</ChakraLink>
+            </LinkStyling>
+            ).
+          </Paragraph>
         </Section>
+        <ChakraLink isExternal href='https://app.lucidchart.com/documents/view/98d13c36-0c61-4c25-b067-d47279344815'>
+          <Button textDecor='none' rightIcon={<ExternalLink size={12} />} leftIcon={<BookOpen size={15} />} variant='solid'>
+            Block Diagram
+          </Button>
+        </ChakraLink>
       </VStack>
     </Layout>
   )
