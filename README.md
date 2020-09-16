@@ -1,5 +1,6 @@
 # Loop Web App
 
+![Tests](https://github.com/loop-revolution/web/workflows/Tests/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=loop-revolution_web&metric=alert_status)](https://sonarcloud.io/dashboard?id=loop-revolution_web)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=loop-revolution_web&metric=coverage)](https://sonarcloud.io/dashboard?id=loop-revolution_web)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=loop-revolution_web&metric=code_smells)](https://sonarcloud.io/dashboard?id=loop-revolution_web)
