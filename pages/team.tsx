@@ -2,6 +2,7 @@ import { Layout } from '../components/Layout'
 import { VStack, Text, Wrap } from '@chakra-ui/core'
 import { TeamMemberCard } from '../components/static/TeamMemberCard'
 import { SectionHeading } from '../components/static/SectionHeading'
+import { colors } from '../utils/theme/colors'
 
 const TeamPage = () => {
   return (
@@ -9,7 +10,7 @@ const TeamPage = () => {
       <VStack>
         <SectionHeading>
           The{' '}
-          <Text display='inline' color='#ffc93c'>
+          <Text display='inline' color={colors.gold}>
             Team
           </Text>
         </SectionHeading>
