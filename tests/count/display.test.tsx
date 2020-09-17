@@ -1,4 +1,4 @@
-import { findFirstText } from '../testUtils'
+import { findFirstText } from '../__helpers'
 import { CountDisplay } from '../../components/count/CountDisplay'
 import { render } from '@testing-library/react'
 

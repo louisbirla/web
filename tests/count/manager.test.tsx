@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
-import { findFirstText } from '../testUtils'
+import { findFirstText } from '../__helpers'
 import { CountManager, COUNT, UPDATE_COUNT } from '../../components/count/CountManager'
 import { fireEvent, render, screen } from '@testing-library/react'
 
