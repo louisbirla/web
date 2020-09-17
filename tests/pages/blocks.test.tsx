@@ -1,4 +1,4 @@
-import { findFirstText } from '../testUtils'
+import { findFirstText } from '../__helpers'
 import BlocksPage from '../../pages/blocks'
 import { render } from '@testing-library/react'
 
