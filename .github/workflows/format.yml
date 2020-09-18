@@ -7,6 +7,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - uses: technote-space/auto-cancel-redundant-job@v1
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
@@ -19,7 +20,7 @@ jobs:
       - name: Check if there are changes
         id: changes
         uses: UnicornGlobal/has-changes-action@v1.0.11
-      - name: Create a PR on changes
+      - name: Commit formatting changes
         if: steps.changes.outputs.changed == 1
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
