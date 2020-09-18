@@ -26,7 +26,7 @@ export const CountManager: React.FC<{ pollInterval?: number }> = ({ pollInterval
   const { data, refetch } = useQuery<CountQuery>(COUNT, {
     pollInterval,
   })
-  const [updateCount] =useMutation<UpdateCount>(UPDATE_COUNT)
+  const [updateCount] = useMutation<UpdateCount>(UPDATE_COUNT)
 
   const handleCrement = (by: number) => {
     updateCount({
