@@ -1,4 +1,4 @@
-import { Heading, Grid, Box } from '@chakra-ui/core'
+import { Heading } from '@chakra-ui/core'
 import { Paragraph } from '../../Paragraph'
 import { Section } from '../../Section'
 import { Steps } from '../Steps'
