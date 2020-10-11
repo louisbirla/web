@@ -40,6 +40,7 @@ export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = fal
     <Box as='footer' mt={10}>
       <Center color='gray.500'>
         <VStack>
+          <Nav />
           <Box>
             <Link href='https://github.com/loop-revolution'>
               <IconButton icon={<Icon as={GitHub} color='gray.500' />} aria-label='GitHub Repository' />
