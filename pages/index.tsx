@@ -1,7 +1,7 @@
 import { Layout } from '../components/Layout'
 import { Heading, VStack, Text, Button, Link as ChakraLink } from '@chakra-ui/core'
 import { LogoImage } from '../components/LogoImage'
-import { Nav } from '../components/Nav'
+import { Nav } from '../components/nav/Nav'
 import { Link } from '../components/basic/Link'
 import NextLink from 'next/link'
 import { Paragraph } from '../components/static/Paragraph'

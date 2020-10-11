@@ -1,9 +1,11 @@
 import { Text, Container } from '@chakra-ui/core'
 
-export const Paragraph: React.FC = ({ children }) => {
+export const Paragraph: React.FC<{ b?: boolean; id?: string }> = ({ children, b, id }) => {
   return (
     <Container maxW='sm'>
-      <Text>{children}</Text>
+      <Text id={id} fontWeight={b ? 'bold' : undefined}>
+        {children}
+      </Text>
     </Container>
   )
 }
