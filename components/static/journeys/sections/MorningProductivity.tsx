@@ -31,7 +31,8 @@ export const MorningProductivity: React.FC = () => {
             `Mel wants to see what she’s assigned to herself today, so she opens her to-do feed from her home page and scrolls through it to see.`,
             `(At this point, it’s pretty much like a regular task-managing app.)`,
             `Mel sees a task that she won’t do anymore, so she cancels it.`,
-            `She presses the button to add a block, and enters the primary text of the block. She also adds a start & due date (Since it’s the to-do page, Loop should know to default to a task block here).`,
+            `She presses the button to add a block, and enters the primary text of the block.
+            She also adds a start & due date (Since it’s the to-do page, Loop should know to default to a task block here).`,
           ]}
         />
       </Journey>

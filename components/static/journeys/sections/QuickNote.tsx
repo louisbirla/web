@@ -16,7 +16,8 @@ export const QuickNote: React.FC = () => {
         <Steps
           steps={[
             `Dillan takes his phone out and opens the Loop app. This opens up the home screen, where there is a button to make a new block.`,
-            `He taps the button to make a new block, which then shows him a field for where he can enter his note. (That button changes default type based on location in app, in this case a Text block)`,
+            `He taps the button to make a new block, which then shows him a field for where he can enter his note.
+            (That button changes default type based on location in app, in this case a Text block)`,
             `He types out the text, and taps the button to confirm it. (I’m thinking that there could be 2 buttons, “Save + Open” and “Save + Close”)`,
             `Dillan is done for now, so he puts his phone away and continues his walk.`,
           ]}
@@ -32,7 +33,9 @@ export const QuickNote: React.FC = () => {
       >
         <Steps
           steps={[
-            `Dillan visits the Loop website on his computer. The home screen displays a Dashboard block, that Dillan has configured to show a couple feeds, including one for recent blocks he’s made. In that section is displayed the note he made before.`,
+            `Dillan visits the Loop website on his computer.
+            The home screen displays a Dashboard block, that Dillan has configured to show a couple feeds, including one for recent blocks he’s made.
+            In that section is displayed the note he made before.`,
             `He clicks on the memo he made, which opens it’s page. This displays the full text he wrote down, so he can re-read it.`,
           ]}
         />

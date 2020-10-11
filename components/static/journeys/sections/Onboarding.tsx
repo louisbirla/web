@@ -12,7 +12,8 @@ export const Onboarding: React.FC = () => {
       >
         <Steps
           steps={[
-            `Evelyn clicks on the link her friend sent her. There, she skims through the home-page to learn what it’s about. There should be many visuals to help explain some of the more complicated concepts, but afterwards Evelyn is intrigued but still a bit confused.`,
+            `Evelyn clicks on the link her friend sent her. There, she skims through the home-page to learn what it’s about.
+            There should be many visuals to help explain some of the more complicated concepts, but afterwards Evelyn is intrigued but still a bit confused.`,
             `After making an account a tutorial Block is automatically created for her. She plays around with it until she understands Loop’s concepts.`,
           ]}
         />
