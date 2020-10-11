@@ -5,6 +5,7 @@ import TeamPage from '../../pages/team'
 import BlockStorePage from '../../pages/blocks/store'
 import FAQPage from '../../pages/faq'
 import PitchPage from '../../pages/elevator-pitch'
+import JourneysPage from '../../pages/user-journeys'
 
 describe('blocks page', () => {
   test('should render have loop name', async () => {
@@ -39,5 +40,11 @@ describe('elevator pitch page', () => {
   test('should have page name', async () => {
     render(<PitchPage />)
     expect(await findFirstText('Elevator Pitch')).toBeInTheDocument()
+  })
+})
+
+describe('user journeys page', () => {
+  test('should render', async () => {
+    render(<JourneysPage />)
   })
 })
