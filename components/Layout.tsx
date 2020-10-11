@@ -4,7 +4,7 @@ import { GitHub } from 'react-feather'
 import { Link } from './basic/Link'
 import { ThemeSwitcher } from './util/ThemeSwitcher'
 import { LogoImage } from './LogoImage'
-import { Nav } from './Nav'
+import { Nav } from './nav/Nav'
 
 type Props = {
   title?: string

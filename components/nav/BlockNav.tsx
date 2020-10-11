@@ -1,25 +1,31 @@
 import { Box, Text, Button, BoxProps } from '@chakra-ui/core'
-import { Link } from './basic/Link'
+import { Link } from '../basic/Link'
 
-export const Nav: React.FC<BoxProps> = (props) => {
+export const BlockNav: React.FC<BoxProps> = (props) => {
   return (
     <Box as='nav' {...props}>
       <Text color='gray.500'>
-        <Link href='/'>
-          <Button size='sm' variant='link'>
-            Loop
-          </Button>
-        </Link>{' '}
-        •{' '}
         <Link href='/blocks'>
           <Button size='sm' variant='link'>
-            Blocks
+            Block Platform
           </Button>
         </Link>{' '}
         •{' '}
-        <Link href='/team'>
+        <Link href='/elevator-pitch'>
           <Button size='sm' variant='link'>
-            Team
+            Elevator Pitch
+          </Button>
+        </Link>{' '}
+        •{' '}
+        <Link href='/blocks/store'>
+          <Button size='sm' variant='link'>
+            Block Store
+          </Button>
+        </Link>{' '}
+        •{' '}
+        <Link href='/faq'>
+          <Button size='sm' variant='link'>
+            FAQ
           </Button>
         </Link>
       </Text>

@@ -6,8 +6,9 @@ import { Section } from '../../components/static/Section'
 import { Link } from '../../components/basic/Link'
 import { LinkStyling } from '../../components/styling/LinkStyling'
 import { colors } from '../../utils/theme/colors'
+import { BlockNav } from '../../components/nav/BlockNav'
 
-const BlocksPage = () => {
+const BlockStorePage = () => {
   return (
     <Layout title='The Block Store | Loop'>
       <VStack>
@@ -22,6 +23,7 @@ const BlocksPage = () => {
               Credit Economy
             </Text>
           </SectionHeading>
+          <BlockNav />
           <Paragraph>
             Blocks cost a few credits to make, depending on the block type. There is also the option to purchase a block
             type, which costs more but is a one time fee. This allows developers to develop their own blocks, that they
@@ -58,9 +60,10 @@ const BlocksPage = () => {
             ).
           </Paragraph>
         </Section>
+        <BlockNav />
       </VStack>
     </Layout>
   )
 }
 
-export default BlocksPage
+export default BlockStorePage
