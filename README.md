@@ -9,7 +9,7 @@
 
 This repository hosts everything that is [loop.page](https://loop.page). It is a [Next.js](https://nextjs.org)/[React](https://reactjs.org) application hosted on [Vercel](https://vercel.com) that uses the [Apollo Client](https://www.apollographql.com/docs/react/) to interact with the [Loop API](https://github.com/loop-revolution/loop-api).
 
-Read more about [Loop](https://loop.page) or [Blocks](https://loop.page/blocks) on the [Loop website](https://loop.page)
+Read more about [Loop](https://loop.page) on the [Loop website](https://loop.page)
 
 <hr />
 

@@ -11,15 +11,27 @@ export const Nav: React.FC<BoxProps> = (props) => {
           </Button>
         </Link>{' '}
         •{' '}
-        <Link href='/blocks'>
+        <Link href='/block-technology'>
           <Button size='sm' variant='link'>
-            Blocks
+            Block Technology
+          </Button>
+        </Link>{' '}
+        •{' '}
+        <Link href='/company'>
+          <Button size='sm' variant='link'>
+            Company
           </Button>
         </Link>{' '}
         •{' '}
         <Link href='/team'>
           <Button size='sm' variant='link'>
             Team
+          </Button>
+        </Link>{' '}
+        •{' '}
+        <Link href='/faq'>
+          <Button size='sm' variant='link'>
+            FAQ
           </Button>
         </Link>
       </Text>
