@@ -13,7 +13,7 @@ export const Nav: React.FC<BoxProps> = (props) => {
         •{' '}
         <Link href='/block-technology'>
           <Button size='sm' variant='link'>
-            Block Technology
+            Blocks
           </Button>
         </Link>{' '}
         •{' '}
