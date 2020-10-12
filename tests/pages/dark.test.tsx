@@ -3,7 +3,7 @@ import { ChakraWrapper, findFirstText } from '../__helpers'
 import { ThemeSwitcher } from '../../components/util/ThemeSwitcher'
 import IndexPage from '../../pages'
 import { useBlackOrWhite } from '../../utils/theme/useBlackOrWhite'
-import BlocksPage from '../../pages/blocks'
+import BlockTechnologyPage from '../../pages/block-technology'
 
 describe('dark mode', () => {
   test('theme switcher', async () => {
@@ -23,10 +23,10 @@ describe('dark mode', () => {
     )
     expect(await findFirstText('Loop')).toBeInTheDocument()
   })
-  test('blocks page', async () => {
+  test('block technology page', async () => {
     render(
       <ChakraWrapper colorMode='dark'>
-        <BlocksPage />
+        <BlockTechnologyPage />
       </ChakraWrapper>,
     )
     expect(await findFirstText('Loop')).toBeInTheDocument()

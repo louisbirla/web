@@ -5,7 +5,7 @@ export const Steps: React.FC<{ steps: Array<string | JSX.Element> }> = ({ steps 
   return (
     <OrderedList>
       {steps.map((step) => (
-        <ListItem>
+        <ListItem key={step.toString()}>
           <Paragraph>{step}</Paragraph>
         </ListItem>
       ))}
