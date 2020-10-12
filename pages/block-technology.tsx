@@ -32,6 +32,16 @@ const BlockTechnologyPage = () => {
             src='https://lucid.app/publicSegments/view/f082ca01-c9e1-4448-b3ac-444f0856548b/image.png'
             alt={`Diagram illustrating a Block's parts. There are permissions, properties, Block Types, and data.`}
           />
+          <Paragraph>
+            A certain 4 Block types generally provides navigation and organization on Loop, besides searching. These are
+            the Feed, Dashboard, Group, and Document blocks. A Dashboard Block is a type of Block that organizes
+            layouts. For example, the Loop home screen will be a customizable Dashboard block, where you can add Feeds,
+            certain blocks, and position them to your liking. Feeds are a kind of block that can intelligently create a
+            stream of Blocks, based on it’s parameters. Common feeds would be Following, Latest, Messages, and Tasks.
+            Groups can be thought of as advanced folders, and are an integral building block of Block structure.
+            Document blocks are quite straightforwards in terms of interface, but when using Loop as a sort of
+            knowledge-base, Documents with connected Blocks is key.
+          </Paragraph>
         </Section>
         <Section>
           <SectionHeading>The Block Store</SectionHeading>
