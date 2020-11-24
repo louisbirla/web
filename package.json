@@ -16,7 +16,7 @@
   "dependencies": {
     "@apollo/client": "3.2.7",
     "@chakra-ui/core": "1.0.0-rc.5",
-    "@sentry/react": "5.27.4",
+    "@sentry/react": "5.27.6",
     "graphql": "15.4.0",
     "next": "10.0.1",
     "next-seo": "4.17.0",
