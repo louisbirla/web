@@ -14,7 +14,7 @@
     "test:dev": "yarn test --watch"
   },
   "dependencies": {
-    "@apollo/client": "3.2.9",
+    "@apollo/client": "3.3.2",
     "@chakra-ui/core": "1.0.0-rc.5",
     "@sentry/react": "5.28.0",
     "graphql": "15.4.0",
