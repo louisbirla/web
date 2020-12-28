@@ -1,5 +1,5 @@
 import { Heading, Text, Button, Icon, Avatar, Box } from '@chakra-ui/core'
-import { Linkedin, GitHub } from 'react-feather'
+import { Linkedin, GitHub, Compass } from 'react-feather'
 import { Card } from '../styling/Card'
 import { useBlackOrWhite } from '../../utils/theme/useBlackOrWhite'
 
@@ -10,7 +10,8 @@ export const TeamMemberCard: React.FC<{
   role: string
   img?: string
   about?: string
-}> = ({ linkedIn, name, role, img, about, githubName }) => {
+  websiteURL?: string
+}> = ({ linkedIn, name, role, img, about, githubName, websiteURL }) => {
   const { color, opposite } = useBlackOrWhite()
   return (
     <Card maxWidth='20rem' textAlign='center'>
@@ -21,9 +22,26 @@ export const TeamMemberCard: React.FC<{
       </Text>
       {about && <Text>{about}</Text>}
       <Box mt={4}>
+        {websiteURL && (
+          <a href={websiteURL}>
+            <Button
+              _hover={{
+                backgroundColor: color,
+                color: opposite,
+                opacity: 0.7,
+              }}
+              variant='solid'
+              backgroundColor={color}
+              color={opposite}
+              leftIcon={<Icon marginBottom='1.5px' as={Compass} />}
+            >
+              Website
+            </Button>
+          </a>
+        )}
         {linkedIn && (
           <a href={linkedIn}>
-            <Button variant='solid' colorScheme='blue' leftIcon={<Icon as={Linkedin} />}>
+            <Button variant='solid' colorScheme='blue' leftIcon={<Icon marginBottom='1.5px' as={Linkedin} />}>
               LinkedIn
             </Button>
           </a>
