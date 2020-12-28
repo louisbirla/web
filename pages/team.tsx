@@ -23,7 +23,7 @@ const TeamPage = () => {
             name='Louis Birla'
             role='Founder'
             about={`Louis is in charge of Loop's development and management. Along with creating all the concepts, Louis develops Loop's API and web app.`}
-            githubName='nilaeus'
+            websiteURL='https://birla.io'
           />
           <TeamMemberCard
             img='/team/amit.jpeg'
