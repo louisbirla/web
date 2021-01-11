@@ -1,17 +1,17 @@
-import { Layout } from '../components/Layout'
-import { VStack } from '@chakra-ui/core'
-import { SectionHeading } from '../components/static/SectionHeading'
-import { Section } from '../components/static/Section'
-import { Paragraph } from '../components/static/Paragraph'
-import { KnowledgeBase } from '../components/static/journeys/sections/KnowledgeBase'
-import { CommunalTasks } from '../components/static/journeys/sections/CommunalTasks'
-import { Notes } from '../components/static/journeys/Notes'
-import { Personas } from '../components/static/journeys/Personas'
-import { QuickNote } from '../components/static/journeys/sections/QuickNote'
-import { MorningProductivity } from '../components/static/journeys/sections/MorningProductivity'
-import { Blog } from '../components/static/journeys/sections/Blog'
-import { Onboarding } from '../components/static/journeys/sections/Onboarding'
-import { StudyGroup } from '../components/static/journeys/sections/StudyGroup'
+import { Layout } from "../components/Layout"
+import { VStack } from "@chakra-ui/core"
+import { SectionHeading } from "../components/static/SectionHeading"
+import { Section } from "../components/static/Section"
+import { Paragraph } from "../components/static/Paragraph"
+import { KnowledgeBase } from "../components/static/journeys/sections/KnowledgeBase"
+import { CommunalTasks } from "../components/static/journeys/sections/CommunalTasks"
+import { Notes } from "../components/static/journeys/Notes"
+import { Personas } from "../components/static/journeys/Personas"
+import { QuickNote } from "../components/static/journeys/sections/QuickNote"
+import { MorningProductivity } from "../components/static/journeys/sections/MorningProductivity"
+import { Blog } from "../components/static/journeys/sections/Blog"
+import { Onboarding } from "../components/static/journeys/sections/Onboarding"
+import { StudyGroup } from "../components/static/journeys/sections/StudyGroup"
 
 const JourneysPage = () => {
   return (

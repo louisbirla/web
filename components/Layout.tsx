@@ -1,10 +1,9 @@
-import Head from 'next/head'
-import { Box, Icon, IconButton, Center, VStack, Text, HStack } from '@chakra-ui/core'
-import { GitHub } from 'react-feather'
-import { Link } from './basic/Link'
-import { ThemeSwitcher } from './util/ThemeSwitcher'
-import { LogoImage } from './LogoImage'
-import { Nav } from './nav/Nav'
+import Head from "next/head"
+import { Box, Icon, IconButton, Center, VStack, Text, HStack } from "@chakra-ui/core"
+import { GitHub } from "react-feather"
+import { Link } from "./basic/Link"
+import { LogoImage } from "./LogoImage"
+import { Nav } from "./nav/Nav"
 
 type Props = {
   title?: string
@@ -12,7 +11,7 @@ type Props = {
   noNav?: boolean
 }
 
-export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = false, noNav = false }) => (
+export const Layout: React.FC<Props> = ({ children, title = "Loop", noLogo = false, noNav = false }) => (
   <Box>
     <Head>
       <title>{title}</title>
@@ -45,9 +44,8 @@ export const Layout: React.FC<Props> = ({ children, title = 'Loop', noLogo = fal
             <Link href='https://github.com/loop-revolution'>
               <IconButton icon={<Icon as={GitHub} color='gray.500' />} aria-label='GitHub Repository' />
             </Link>
-            <ThemeSwitcher />
           </Box>
-          <Text>© 2020 Loop Revolution</Text>
+          <Text>© 2021 Loop Revolution</Text>
         </VStack>
       </Center>
     </Box>
