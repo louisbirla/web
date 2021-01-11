@@ -45,7 +45,7 @@ export const Layout: React.FC<Props> = ({ children, title = "Loop", noLogo = fal
               <IconButton icon={<Icon as={GitHub} color='gray.500' />} aria-label='GitHub Repository' />
             </Link>
           </Box>
-          <Text>© 2020 Loop Revolution</Text>
+          <Text>© 2021 Loop Revolution</Text>
         </VStack>
       </Center>
     </Box>
