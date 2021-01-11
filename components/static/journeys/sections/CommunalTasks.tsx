@@ -1,8 +1,8 @@
-import { Link } from '@chakra-ui/core'
-import { colors } from '../../../../utils/theme/colors'
-import { Journey } from '../Journey'
-import { JourneyGroup } from '../JourneyGroup'
-import { Steps } from '../Steps'
+import { Link } from "@chakra-ui/core"
+import { colors } from "../../../../utils/theme/colors"
+import { Journey } from "../Journey"
+import { JourneyGroup } from "../JourneyGroup"
+import { Steps } from "../Steps"
 
 export const CommunalTasks: React.FC = () => {
   return (

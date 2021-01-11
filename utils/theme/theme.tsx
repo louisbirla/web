@@ -1,21 +1,20 @@
-import { extendTheme } from '@chakra-ui/core'
-import { dark } from './dark'
+import { extendTheme } from "@chakra-ui/core"
 
 export const customTheme = extendTheme({
   styles: {
-    global: (props) => ({
+    global: () => ({
       body: {
-        bg: dark(props) ? 'black' : 'white',
-        color: dark(props) ? 'white' : 'black',
-        fontFamily: 'body',
-        lineHeight: 'base',
+        bg: "white",
+        color: "black",
+        fontFamily: "body",
+        lineHeight: "base",
       },
     }),
   },
   components: {
     Button: {
       defaultProps: {
-        variant: 'ghost',
+        variant: "ghost",
       },
     },
   },

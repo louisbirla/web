@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/core'
+import { VStack } from "@chakra-ui/core"
 
 export const Section: React.FC = ({ children }) => {
   return (

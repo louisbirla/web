@@ -1,7 +1,7 @@
-import { Heading } from '@chakra-ui/core'
-import { Paragraph } from '../../Paragraph'
-import { Section } from '../../Section'
-import { Steps } from '../Steps'
+import { Heading } from "@chakra-ui/core"
+import { Paragraph } from "../../Paragraph"
+import { Section } from "../../Section"
+import { Steps } from "../Steps"
 
 export const StudyGroup = () => (
   <Section>

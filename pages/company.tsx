@@ -1,8 +1,8 @@
-import { Layout } from '../components/Layout'
-import { VStack } from '@chakra-ui/core'
-import { Paragraph } from '../components/static/Paragraph'
-import { SectionHeading } from '../components/static/SectionHeading'
-import { Section } from '../components/static/Section'
+import { Layout } from "../components/Layout"
+import { VStack } from "@chakra-ui/core"
+import { Paragraph } from "../components/static/Paragraph"
+import { SectionHeading } from "../components/static/SectionHeading"
+import { Section } from "../components/static/Section"
 
 const CompanyPage = () => {
   return (

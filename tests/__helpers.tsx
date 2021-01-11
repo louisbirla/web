@@ -1,21 +1,11 @@
-import { screen, SelectorMatcherOptions } from '@testing-library/react'
-import { customTheme } from '../utils/theme/theme'
-import { ChakraProvider, ColorMode, useColorMode } from '@chakra-ui/core'
-import '@testing-library/jest-dom'
-import { useEffect } from 'react'
+import { screen, SelectorMatcherOptions } from "@testing-library/react"
+import { customTheme } from "../utils/theme/theme"
+import { ChakraProvider } from "@chakra-ui/core"
+import "@testing-library/jest-dom"
 
-const UseColor: React.FC<{ colorMode: ColorMode }> = ({ colorMode }) => {
-  const { setColorMode } = useColorMode()
-  useEffect(() => {
-    setColorMode(colorMode)
-  }, [colorMode])
-  return <></>
-}
-
-export const ChakraWrapper: React.FC<{ colorMode?: ColorMode }> = ({ children, colorMode }) => {
+export const ChakraWrapper: React.FC = ({ children }) => {
   return (
     <ChakraProvider resetCSS theme={customTheme}>
-      {colorMode && <UseColor colorMode={colorMode} />}
       {children}
     </ChakraProvider>
   )
