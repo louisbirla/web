@@ -6,7 +6,6 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "babel-jest",
   },
-  testResultsProcessor: "jest-sonar-reporter",
   collectCoverage: true,
   collectCoverageFrom: ["components/**/*.{tsx,ts}", "pages/**/*.{tsx,ts}", "utils/**/*.{tsx,ts}"],
   coveragePathIgnorePatterns: ["pages/_app.tsx", "pages/_document.tsx"],
