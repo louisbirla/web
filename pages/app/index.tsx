@@ -1,5 +1,5 @@
 import { Layout } from "../../components/Layout"
-import { Center, Text } from '@chakra-ui/core';
+import { Center, Text } from "@chakra-ui/core"
 import { Welcome } from "../../components/app/Welcome"
 import { Suspense } from "react"
 

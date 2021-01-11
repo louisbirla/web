@@ -5,10 +5,10 @@ import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider as UrqlProvider } from "urql"
 import { Provider as JotaiProvider } from "jotai"
-import { LoginPanel } from '../components/app/LoginPanel';
+import { LoginPanel } from "../components/app/LoginPanel"
 import { authExchange } from "@urql/exchange-auth"
 import { errorExchange } from "@urql/core"
-import { AuthState, getAuth, addAuthToOperation } from '../utils/auth';
+import { AuthState, getAuth, addAuthToOperation } from "../utils/auth"
 import { SignupPanel } from "../components/app/SignupPanel"
 
 const prod = process.env.NODE_ENV === "production"
@@ -25,19 +25,19 @@ export const client = createClient({
     dedupExchange,
     cacheExchange,
     errorExchange({
-      onError: error => {
+      onError: (error) => {
         const isAuthError = error.graphQLErrors.some((e) => e.message.includes("[uar]"))
 
         if (isAuthError && process.browser) {
           localStorage.removeItem("token")
         }
-      }
+      },
     }),
     authExchange<AuthState>({
       addAuthToOperation,
       getAuth,
     }),
-    fetchExchange
+    fetchExchange,
   ],
 })
 

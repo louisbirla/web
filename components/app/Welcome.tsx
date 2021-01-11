@@ -1,9 +1,9 @@
-import { Box, Button, Heading, Text, HStack } from '@chakra-ui/core';
+import { Box, Button, Heading, Text, HStack } from "@chakra-ui/core"
 import { atom, useAtom } from "jotai"
 import { client } from "../../pages/_app"
 import { useLogout } from "../../utils/auth"
 import { loginPanelOpen } from "./LoginPanel"
-import { signupPanelOpen } from './SignupPanel';
+import { signupPanelOpen } from "./SignupPanel"
 
 const UserQuery = `
   query {
@@ -40,9 +40,9 @@ export const Welcome: React.FC = () => {
         <Button size='xs' colorScheme='red' variant='outline' onClick={logout}>
           Log out
         </Button>
-				<Heading pt={3}>Hello, {user.username}</Heading>
-				<Text>You are user #{user.id}</Text>
-				<Text>You have {user.credits} credits.</Text>
+        <Heading pt={3}>Hello, {user.username}</Heading>
+        <Text>You are user #{user.id}</Text>
+        <Text>You have {user.credits} credits.</Text>
       </Box>
     )
   }

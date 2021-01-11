@@ -16,7 +16,7 @@ import { useMutation } from "urql"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { ArrowLeft } from "react-feather"
-import { IconButton } from '@chakra-ui/core';
+import { IconButton } from "@chakra-ui/core"
 
 export const signupPanelOpen = atom(false)
 
@@ -108,8 +108,7 @@ const ConfirmStep: React.FC<{ username: string; sessionCode: string; back: () =>
   return (
     <form onSubmit={handleSubmit(confirmEmail)}>
       <ModalHeader>
-        <IconButton aria-label="back to signup" icon={<ArrowLeft size={20} />} size='xs' onClick={back} />{" "}
-        Confirm Email
+        <IconButton aria-label='back to signup' icon={<ArrowLeft size={20} />} size='xs' onClick={back} /> Confirm Email
       </ModalHeader>
       <ModalCloseButton />
       <ModalBody>
