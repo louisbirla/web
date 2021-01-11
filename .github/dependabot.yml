@@ -10,6 +10,9 @@ updates:
     labels:
       - "topic: dependencies"
       - "type: maintenance"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -18,3 +21,6 @@ updates:
     labels:
       - "topic: dependencies"
       - "type: maintenance"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
