@@ -29,7 +29,7 @@ export const Metadata: React.FC<{ ga?: boolean }> = ({ ga = true }) => {
         <meta name='theme-color' content='#000' />
         <meta name='mobile-web-app-capable' content='no' />
 
-        <link rel='shortcut icon' type='image/png' href={`${iconPath}/$black-donut.png`} />
+        <link rel='shortcut icon' type='image/png' href={`${iconPath}/black-donut.png`} />
         <meta name='apple-mobile-web-app-capable' content='no' />
       </Head>
       <NextSeo
