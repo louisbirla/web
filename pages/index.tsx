@@ -1,13 +1,13 @@
-import { Layout } from '../components/Layout'
-import { Heading, VStack, Button, Link as ChakraLink } from '@chakra-ui/core'
-import { LogoImage } from '../components/LogoImage'
-import { Link } from '../components/basic/Link'
-import { Paragraph } from '../components/static/Paragraph'
-import { SectionHeading } from '../components/static/SectionHeading'
-import { Section } from '../components/static/Section'
-import { Box, Users } from 'react-feather'
-import { Image } from '../components/static/Image'
-import { LinkStyling } from '../components/styling/LinkStyling'
+import { Layout } from "../components/Layout"
+import { Heading, VStack, Button, Link as ChakraLink } from "@chakra-ui/core"
+import { LogoImage } from "../components/LogoImage"
+import { Link } from "../components/basic/Link"
+import { Paragraph } from "../components/static/Paragraph"
+import { SectionHeading } from "../components/static/SectionHeading"
+import { Section } from "../components/static/Section"
+import { Box, Users } from "react-feather"
+import { Image } from "../components/static/Image"
+import { LinkStyling } from "../components/styling/LinkStyling"
 
 const IndexPage = () => {
   return (
@@ -116,7 +116,7 @@ const IndexPage = () => {
             The chat block is composed of many other blocks, while the messaging app is full of links and bad functionality.`}
           />
           <Paragraph>
-            Loop will be available as iOS, Android, and web applications, powered by an Open API (located at{' '}
+            Loop will be available as iOS, Android, and web applications, powered by an Open API (located at{" "}
             <LinkStyling>
               <ChakraLink href='https://api.loop.page' isExternal>
                 api.loop.page

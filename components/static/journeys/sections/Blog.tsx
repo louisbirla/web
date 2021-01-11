@@ -1,7 +1,7 @@
-import { Paragraph } from '../../Paragraph'
-import { Journey } from '../Journey'
-import { JourneyGroup } from '../JourneyGroup'
-import { Steps } from '../Steps'
+import { Paragraph } from "../../Paragraph"
+import { Journey } from "../Journey"
+import { JourneyGroup } from "../JourneyGroup"
+import { Steps } from "../Steps"
 
 export const Blog: React.FC = () => {
   return (

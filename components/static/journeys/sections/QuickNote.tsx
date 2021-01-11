@@ -1,9 +1,9 @@
-import { Link } from '@chakra-ui/core'
-import { colors } from '../../../../utils/theme/colors'
-import { Paragraph } from '../../Paragraph'
-import { Journey } from '../Journey'
-import { JourneyGroup } from '../JourneyGroup'
-import { Steps } from '../Steps'
+import { Link } from "@chakra-ui/core"
+import { colors } from "../../../../utils/theme/colors"
+import { Paragraph } from "../../Paragraph"
+import { Journey } from "../Journey"
+import { JourneyGroup } from "../JourneyGroup"
+import { Steps } from "../Steps"
 
 export const QuickNote: React.FC = () => {
   return (

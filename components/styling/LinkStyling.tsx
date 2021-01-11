@@ -1,5 +1,5 @@
-import { Text } from '@chakra-ui/core'
-import { colors } from '../../utils/theme/colors'
+import { Text } from "@chakra-ui/core"
+import { colors } from "../../utils/theme/colors"
 
 export const LinkStyling: React.FC = ({ children }) => {
   return (
