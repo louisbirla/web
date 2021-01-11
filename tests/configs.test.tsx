@@ -7,6 +7,6 @@ describe("config files", () => {
   })
   test("jest config", () => {
     // Should have sonarcloud upload
-    expect(JSON.stringify(jest).includes("sonar")).toBeTruthy()
+    expect(JSON.stringify(jest).includes("coverage")).toBeTruthy()
   })
 })
