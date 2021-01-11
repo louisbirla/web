@@ -1,4 +1,4 @@
-import { BoxProps, Box } from '@chakra-ui/core'
+import { BoxProps, Box } from "@chakra-ui/core"
 
 export const Card: React.FC<BoxProps> = (props) => {
   const { children } = props

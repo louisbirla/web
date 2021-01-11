@@ -1,4 +1,4 @@
-import { Paragraph } from '../Paragraph'
+import { Paragraph } from "../Paragraph"
 
 export const Journey: React.FC<{ context: JSX.Element | string; intent?: JSX.Element | string; name: string }> = ({
   children,

@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: automerge
-        uses: 'pascalgn/automerge-action@c6f2699cc4c19ea7ce7f560dbebd85565b744377'
+        uses: "pascalgn/automerge-action@c6f2699cc4c19ea7ce7f560dbebd85565b744377"
         env:
-          GITHUB_TOKEN: '${{ secrets.AUTOTHINGS_TOKEN }}'
-          MERGE_FORKS: 'false'
-          MERGE_REMOVE_LABELS: 'automerge'
+          GITHUB_TOKEN: "${{ secrets.AUTOTHINGS_TOKEN }}"
+          MERGE_FORKS: "false"
+          MERGE_REMOVE_LABELS: "automerge"

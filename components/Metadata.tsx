@@ -1,19 +1,17 @@
-import { NextSeo } from 'next-seo'
-import ReactGA from 'react-ga'
-import Head from 'next/head'
-import { useBlackOrWhite } from '../utils/theme/useBlackOrWhite'
+import { NextSeo } from "next-seo"
+import ReactGA from "react-ga"
+import Head from "next/head"
 
 const description = `Creating innovative platforms, in a manner that is ethical, transparent, extensible and forward-thinking.`
-const name = 'Loop'
-const iconPath = '/donuts'
+const name = "Loop"
+const iconPath = "/donuts"
 
 /**
  * Everything needed in the header.
  * Adds icons, metadata, Google Analytics
  */
 export const Metadata: React.FC<{ ga?: boolean }> = ({ ga = true }) => {
-  ga && ReactGA.initialize('G-V7WFFJCYCW')
-  const { color } = useBlackOrWhite()
+  ga && ReactGA.initialize("G-V7WFFJCYCW")
   return (
     <>
       <Head>
@@ -31,7 +29,7 @@ export const Metadata: React.FC<{ ga?: boolean }> = ({ ga = true }) => {
         <meta name='theme-color' content='#000' />
         <meta name='mobile-web-app-capable' content='no' />
 
-        <link rel='shortcut icon' type='image/png' href={`${iconPath}/${color}-donut.png`} />
+        <link rel='shortcut icon' type='image/png' href={`${iconPath}/$black-donut.png`} />
         <meta name='apple-mobile-web-app-capable' content='no' />
       </Head>
       <NextSeo
@@ -40,20 +38,20 @@ export const Metadata: React.FC<{ ga?: boolean }> = ({ ga = true }) => {
         canonical='https://loop.page'
         openGraph={{
           description,
-          url: 'https://loop.page',
+          url: "https://loop.page",
           title: name,
           images: [
             {
               url: `https://loop.page${iconPath}/black-donut.png`,
-              alt: 'Loop Logo',
+              alt: "Loop Logo",
             },
           ],
           site_name: name,
         }}
         twitter={{
-          handle: '@nilaeus',
-          site: '@loop_revolution',
-          cardType: 'summary_large_image',
+          handle: "@loop_revolution",
+          site: "https://loop.page",
+          cardType: "summary_large_image",
         }}
       />
     </>

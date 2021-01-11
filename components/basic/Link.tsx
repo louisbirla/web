@@ -1,4 +1,4 @@
-import NextLink from 'next/link'
+import NextLink from "next/link"
 
 /**
  * A custom wrapper for Links.

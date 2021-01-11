@@ -1,8 +1,8 @@
-import { Link } from '@chakra-ui/core'
-import { colors } from '../../../utils/theme/colors'
-import { Paragraph } from '../Paragraph'
-import { Section } from '../Section'
-import { SectionHeading } from '../SectionHeading'
+import { Link } from "@chakra-ui/core"
+import { colors } from "../../../utils/theme/colors"
+import { Paragraph } from "../Paragraph"
+import { Section } from "../Section"
+import { SectionHeading } from "../SectionHeading"
 
 export const Personas = () => (
   <Section>

@@ -1,6 +1,6 @@
-import { Journey } from '../Journey'
-import { JourneyGroup } from '../JourneyGroup'
-import { Steps } from '../Steps'
+import { Journey } from "../Journey"
+import { JourneyGroup } from "../JourneyGroup"
+import { Steps } from "../Steps"
 
 export const KnowledgeBase: React.FC = () => {
   return (
