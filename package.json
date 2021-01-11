@@ -22,6 +22,7 @@
     "react-feather": "2.0.9",
     "react-ga": "3.3.0",
     "react-hook-form": "^6.14.1",
+    "scheduler": "^0.20.1",
     "urql": "^1.11.5"
   },
   "devDependencies": {
