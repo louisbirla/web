@@ -4,14 +4,14 @@ import "@testing-library/jest-dom"
 import { jukeError } from "../__helpers"
 
 describe("logo image", () => {
-  test("image loading", async () => {
-    jukeError(() => {
-      const image = render(
-        <>
-          <LogoImage skipLoading />
-        </>,
-      )
-      expect(image).toBeTruthy()
-    })
-  })
+	test("image loading", async () => {
+		jukeError(() => {
+			const image = render(
+				<>
+					<LogoImage skipLoading />
+				</>,
+			)
+			expect(image).toBeTruthy()
+		})
+	})
 })

@@ -5,11 +5,11 @@ import NextLink from "next/link"
  * Useful for shorthand links
  */
 export const Link: React.FC<{
-  href: string
+	href: string
 }> = ({ href, children }) => {
-  return (
-    <NextLink href={href}>
-      <a>{children}</a>
-    </NextLink>
-  )
+	return (
+		<NextLink href={href}>
+			<a>{children}</a>
+		</NextLink>
+	)
 }
