@@ -13,7 +13,7 @@
     "@chakra-ui/core": "1.0.0-rc.5",
     "@sentry/react": "5.30.0",
     "@urql/exchange-auth": "^0.1.2",
-    "graphql": "^15.4.0",
+    "graphql": "^15.5.0",
     "jotai": "^0.12.7",
     "next": "10.0.5",
     "next-seo": "4.17.0",
