@@ -19,7 +19,6 @@ export const EmbedBlock: React.FC<{ id: number; component?: ComponentObject }> =
 	let [res] = useQuery<BlockResult, BlockArgs>({
 		query: BlockQuery,
 		variables: { id },
-		pollInterval: 1000,
 		pause: false,
 		requestPolicy: "network-only",
 	})

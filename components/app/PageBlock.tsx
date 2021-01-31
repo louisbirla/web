@@ -19,7 +19,6 @@ export const PageBlock: React.FC<{ id: number; display?: DisplayObject }> = ({ i
 	let [res] = useQuery<BlockResult, BlockArgs>({
 		query: BlockQuery,
 		variables: { id },
-		pollInterval: 1000,
 		pause: false,
 		requestPolicy: "network-only",
 	})
