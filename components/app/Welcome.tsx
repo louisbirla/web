@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text, HStack, Divider, Flex } from "@chakra-ui/core"
+import { Box, Button, Heading, Text, HStack, Divider, Flex, ButtonGroup } from "@chakra-ui/core"
 import { atom, useAtom } from "jotai"
 import { client } from "../../pages/_app"
 import { useLogout } from "../../utils/auth"
@@ -73,6 +73,7 @@ const UserDashboard: React.FC = () => {
 	const [user] = useAtom(userAtom)
 	const [logout] = useLogout()
 	const [createOpen, setCreateOpen] = useState(false)
+	const [createType, setCreateType] = useState("text")
 
 	if (user == undefined) {
 		return <Welcome />
@@ -95,7 +96,7 @@ const UserDashboard: React.FC = () => {
 					Back
 				</Button>
 				<CreateBlockScreen
-					type='data'
+					type={createType}
 					done={() => {
 						setCreateOpen(false)
 						reFetchBlocks()
@@ -114,11 +115,20 @@ const UserDashboard: React.FC = () => {
 			<Text>You are user #{user.id}</Text>
 			<Text>You have {user.credits} credits.</Text>
 			<Text pt={5}>Here's a block for you:</Text>
-			<Flex>{blocks}</Flex>
+			<Flex flexWrap="wrap" maxW="70vw">{blocks}</Flex>
 			<Divider my={4} />
-			<Button variant='solid' colorScheme='red' onClick={() => createBlock()}>
-				Create Block
+			<ButtonGroup spacing={4} variant="solid">
+			<Button colorScheme='red' onClick={() => {
+				setCreateType("data")
+				createBlock()
+			}}>
+				Create Data Block
 			</Button>
+			<Button colorScheme='red' onClick={() => {
+				setCreateType("text")
+			createBlock()}}>
+				Create Text Block
+			</Button></ButtonGroup>
 		</Box>
 	)
 }

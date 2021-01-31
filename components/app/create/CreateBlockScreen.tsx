@@ -3,6 +3,7 @@ import { CreationObject } from "display-api"
 import { gql, useQuery, useMutation } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
 import { Button } from "@chakra-ui/core"
+import { populate_template } from "../display/method"
 
 const CreateBlockQuery = gql`
 	mutation($type: String!, $input: String!) {
@@ -32,19 +33,9 @@ export const CreateBlockScreen: React.FC<{ type: string; done: () => void }> = (
 	})
 
 	const createBlock = async (template: string) => {
-		let input = template
-		let vars = template.match(/\$\[[\w\d]+\]\$/g)
-		if (vars) {
-			vars.forEach((wrappedName: string) => {
-				const name = wrappedName.replace(/[\$\[\]]/g, "")
-				const value = localStorage.getItem(`loop_davar_${name}`)
-				if (value) {
-					input = input.replace(wrappedName, value)
-				}
-			})
-		}
+		let input = populate_template(template)
 		const res = await createBlockMut({
-			type: "data",
+			type,
 			input,
 		})
 
