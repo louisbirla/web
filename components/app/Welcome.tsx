@@ -115,20 +115,30 @@ const UserDashboard: React.FC = () => {
 			<Text>You are user #{user.id}</Text>
 			<Text>You have {user.credits} credits.</Text>
 			<Text pt={5}>Here's a block for you:</Text>
-			<Flex flexWrap="wrap" maxW="70vw">{blocks}</Flex>
+			<Flex flexWrap='wrap' maxW='70vw'>
+				{blocks}
+			</Flex>
 			<Divider my={4} />
-			<ButtonGroup spacing={4} variant="solid">
-			<Button colorScheme='red' onClick={() => {
-				setCreateType("data")
-				createBlock()
-			}}>
-				Create Data Block
-			</Button>
-			<Button colorScheme='red' onClick={() => {
-				setCreateType("text")
-			createBlock()}}>
-				Create Text Block
-			</Button></ButtonGroup>
+			<ButtonGroup spacing={4} variant='solid'>
+				<Button
+					colorScheme='red'
+					onClick={() => {
+						setCreateType("data")
+						createBlock()
+					}}
+				>
+					Create Data Block
+				</Button>
+				<Button
+					colorScheme='red'
+					onClick={() => {
+						setCreateType("text")
+						createBlock()
+					}}
+				>
+					Create Text Block
+				</Button>
+			</ButtonGroup>
 		</Box>
 	)
 }

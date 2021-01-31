@@ -8,7 +8,7 @@ const BlockPage = () => {
 	const router = useRouter()
 	const id = router.query.blockId as string
 	return (
-			<Box bgColor='#EDEFF1'>
+		<Box bgColor='#EDEFF1'>
 			<Box pl={10}>
 				<NextLink href='/app'>
 					<Link fontWeight='bold' color='#5D80FE'>
@@ -21,7 +21,7 @@ const BlockPage = () => {
 					<PageBlock id={parseInt(id)} />
 				</Suspense>
 			</Center>
-			</Box>
+		</Box>
 	)
 }
 
