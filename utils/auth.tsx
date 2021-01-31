@@ -29,7 +29,7 @@ export const addAuthToOperation = ({ authState, operation }: { authState: AuthSt
 			...fetchOptions,
 			headers: {
 				...fetchOptions.headers,
-				Authorization: "Bearer " + authState.token,
+				Authorization: authState.token,
 			},
 		},
 	})
