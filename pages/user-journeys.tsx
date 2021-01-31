@@ -14,30 +14,30 @@ import { Onboarding } from "../components/static/journeys/sections/Onboarding"
 import { StudyGroup } from "../components/static/journeys/sections/StudyGroup"
 
 const JourneysPage = () => {
-  return (
-    <Layout title='User Journeys | Loop'>
-      <VStack>
-        <Section>
-          <SectionHeading>User Journeys</SectionHeading>
-          <Paragraph>
-            These are made-up scenarios for what a first release of Loop would look like. This does not represent all of
-            the features Loop is planned to have, or any that come after what I think would be feasible for a first
-            launch.
-          </Paragraph>
-        </Section>
-        <Personas />
-        <SectionHeading>Journeys</SectionHeading>
-        <KnowledgeBase />
-        <StudyGroup />
-        <CommunalTasks />
-        <QuickNote />
-        <MorningProductivity />
-        <Blog />
-        <Onboarding />
-        <Notes />
-      </VStack>
-    </Layout>
-  )
+	return (
+		<Layout title='User Journeys | Loop'>
+			<VStack>
+				<Section>
+					<SectionHeading>User Journeys</SectionHeading>
+					<Paragraph>
+						These are made-up scenarios for what a first release of Loop would look like. This does not represent all of
+						the features Loop is planned to have, or any that come after what I think would be feasible for a first
+						launch.
+					</Paragraph>
+				</Section>
+				<Personas />
+				<SectionHeading>Journeys</SectionHeading>
+				<KnowledgeBase />
+				<StudyGroup />
+				<CommunalTasks />
+				<QuickNote />
+				<MorningProductivity />
+				<Blog />
+				<Onboarding />
+				<Notes />
+			</VStack>
+		</Layout>
+	)
 }
 
 export default JourneysPage

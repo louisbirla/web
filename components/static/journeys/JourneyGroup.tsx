@@ -3,11 +3,11 @@ import { Paragraph } from "../Paragraph"
 import { Section } from "../Section"
 
 export const JourneyGroup: React.FC<{ name: string; desc?: string }> = ({ children, name, desc }) => {
-  return (
-    <Section>
-      <Heading size='md'>{name}</Heading>
-      <Paragraph>{desc}</Paragraph>
-      {children}
-    </Section>
-  )
+	return (
+		<Section>
+			<Heading size='md'>{name}</Heading>
+			<Paragraph>{desc}</Paragraph>
+			{children}
+		</Section>
+	)
 }
