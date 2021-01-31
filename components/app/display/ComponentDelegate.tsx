@@ -3,6 +3,7 @@ import { ComponentObject } from "display-api"
 import { TextComponent } from "./Text"
 import { CardComponent } from "./Card"
 import { InputComponent } from "./Input"
+import { StackComponent } from "./Stack"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject }> = ({ component }) => {
 	switch (component.cid) {
@@ -12,6 +13,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject }> = ({ co
 			return <CardComponent {...component.args} />
 		case "input":
 			return <InputComponent {...component.args} />
+		case "stack":
+			return <StackComponent {...component.args} />
 		default:
 			return <Text>Bad Component.</Text>
 	}
