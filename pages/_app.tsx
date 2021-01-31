@@ -19,7 +19,7 @@ if (prod) {
 }
 
 export const client = createClient({
-	url: "https://api-pr-100-zpsq.onrender.com/graphql",
+	url: "https://loop.page",
 	exchanges: [
 		dedupExchange,
 		cacheExchange,
