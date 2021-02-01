@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/core"
+import { Box, Button } from "@chakra-ui/react"
 import { User } from "../user/userAtom"
 
 export const CreditsMenu: React.FC<{ user: User }> = ({ user }) => {

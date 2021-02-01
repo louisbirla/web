@@ -1,4 +1,4 @@
-import { Flex, HStack, Stack } from "@chakra-ui/core"
+import { Flex, HStack, Stack } from "@chakra-ui/react"
 import { StackArgs } from "display-api"
 import { ComponentDelegate } from "../ComponentDelegate"
 

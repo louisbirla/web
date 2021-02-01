@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/core"
+import { Text } from "@chakra-ui/react"
 import { ComponentObject } from "display-api"
 import { TextComponent } from "./components/Text"
 import { CardComponent } from "./components/Card"

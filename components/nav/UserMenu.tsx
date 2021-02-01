@@ -1,4 +1,4 @@
-import { Box, Button, Icon, MenuButton, MenuItem, MenuList, Menu, Avatar } from "@chakra-ui/core"
+import { Box, Button, Icon, MenuButton, MenuItem, MenuList, Menu, Avatar } from "@chakra-ui/react"
 import { ChevronDown, HelpCircle, LogOut, User as UserIcon } from "react-feather"
 import Link from "next/link"
 import { User } from "../user/userAtom"

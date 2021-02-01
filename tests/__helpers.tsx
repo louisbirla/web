@@ -1,5 +1,5 @@
 import { screen, SelectorMatcherOptions } from "@testing-library/react"
-import { ChakraProvider } from "@chakra-ui/core"
+import { ChakraProvider } from "@chakra-ui/react"
 import "@testing-library/jest-dom"
 
 export const ChakraWrapper: React.FC = ({ children }) => {

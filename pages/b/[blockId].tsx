@@ -1,4 +1,4 @@
-import { Spinner } from "@chakra-ui/core"
+import { Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
 import { useRouter } from "next/router"
 import { PageRender } from "../../components/display/PageRender"

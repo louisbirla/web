@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Flex } from "@chakra-ui/core"
+import { Button, ButtonGroup, Flex } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { loginPanelOpen } from "../user/auth/LoginPanel"
 import { signupPanelOpen } from "../user/auth/SignupPanel"

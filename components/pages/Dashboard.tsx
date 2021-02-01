@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Flex } from "@chakra-ui/core"
+import { Box, Heading, Text, Flex } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { gql, useQuery } from "urql"
 import { EmbedBlock } from "../display/EmbedBlock"

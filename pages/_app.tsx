@@ -1,5 +1,5 @@
 import { AppProps } from "next/dist/next-server/lib/router/router"
-import { ChakraProvider } from "@chakra-ui/core"
+import { ChakraProvider } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider as UrqlProvider } from "urql"

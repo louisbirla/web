@@ -1,10 +1,11 @@
-import { Box, Flex, Image } from "@chakra-ui/core"
+import { Box, Flex, Image } from "@chakra-ui/react"
 import { useAtom } from "jotai"
 import { Suspense } from "react"
 import Link from "next/link"
 import { userAtom } from "../user/userAtom"
 import { WithUserNav } from "./WithUserNav"
 import { NoUserNav } from "./NoUserNav"
+import { SearchComponent } from "../search/SearchComponent"
 
 export const Nav: React.FC = () => {
 	return (
@@ -23,10 +24,13 @@ export const Nav: React.FC = () => {
 				pr={5}
 				zIndex='100'
 			>
-				<Link href='/'>
-					<Image cursor='pointer' src='/light-logo.svg' height={10} alt='Loop Logo' />
-				</Link>
-				<Suspense fallback={<></>}>
+				<Box zIndex={10}>
+					<Link href='/'>
+						<Image cursor='pointer' src='/light-logo.svg' height={10} alt='Loop Logo' />
+					</Link>
+				</Box>
+				<SearchComponent />
+				<Suspense fallback={<Box></Box>}>
 					<NavDistributor />
 				</Suspense>
 			</Flex>

@@ -10,7 +10,9 @@
 		"test:dev": "yarn test --watch"
 	},
 	"dependencies": {
-		"@chakra-ui/core": "1.0.0-rc.8",
+		"@chakra-ui/react": "^1.2.1",
+		"@emotion/react": "^11.1.4",
+		"@emotion/styled": "^11.0.0",
 		"@sentry/react": "6.0.3",
 		"@urql/exchange-auth": "^0.1.2",
 		"display-api": "^0.0.9",

@@ -1,4 +1,4 @@
-import { Heading, Text } from "@chakra-ui/core"
+import { Heading, Text } from "@chakra-ui/react"
 import { TextArgs } from "display-api"
 
 export const TextComponent: React.FC<TextArgs> = ({ text, color, preset }) => {

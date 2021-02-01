@@ -10,13 +10,13 @@ import {
 	ModalOverlay,
 	Stack,
 	Text,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { atom, useAtom } from "jotai"
 import { gql, useMutation } from "urql"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { ArrowLeft } from "react-feather"
-import { IconButton } from "@chakra-ui/core"
+import { IconButton } from "@chakra-ui/react"
 
 export const signupPanelOpen = atom(false)
 
