@@ -5,6 +5,7 @@ import Link from "next/link"
 import { userAtom } from "../user/userAtom"
 import { WithUserNav } from "./WithUserNav"
 import { NoUserNav } from "./NoUserNav"
+import { SearchComponent } from "../SearchComponent"
 
 export const Nav: React.FC = () => {
 	return (
@@ -26,6 +27,7 @@ export const Nav: React.FC = () => {
 				<Link href='/'>
 					<Image cursor='pointer' src='/light-logo.svg' height={10} alt='Loop Logo' />
 				</Link>
+				<SearchComponent />
 				<Suspense fallback={<></>}>
 					<NavDistributor />
 				</Suspense>
