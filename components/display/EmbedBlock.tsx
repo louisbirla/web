@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/react"
 import { ComponentObject } from "display-api"
 import { Loader } from "react-feather"
 import { gql, useQuery } from "urql"

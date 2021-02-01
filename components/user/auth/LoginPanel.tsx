@@ -10,7 +10,7 @@ import {
 	ModalOverlay,
 	Stack,
 	Text,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { atom, useAtom } from "jotai"
 import { gql, useMutation } from "urql"
 import { useForm } from "react-hook-form"

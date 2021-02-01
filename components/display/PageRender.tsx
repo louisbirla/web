@@ -1,4 +1,4 @@
-import { Box, Spinner } from "@chakra-ui/core"
+import { Box, Spinner } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import { gql, useQuery } from "urql"
 import { DisplayRender } from "./DisplayRender"

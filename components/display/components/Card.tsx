@@ -1,4 +1,4 @@
-import { Box, Heading, HStack } from "@chakra-ui/core"
+import { Box, Heading, HStack } from "@chakra-ui/react"
 import { CardArgs, CardIcon } from "display-api"
 import Link from "next/link"
 import { CheckCircle, Folder, IconProps, MessageSquare, Type, Box as BoxIcon, Rss } from "react-feather"

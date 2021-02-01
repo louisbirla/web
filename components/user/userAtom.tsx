@@ -20,7 +20,6 @@ export const UserQuery = gql`
 			id
 			displayName
 			username
-			credits
 		}
 	}
 `
@@ -29,7 +28,7 @@ export type User = {
 	id: number
 	username: string
 	displayName?: string
-	credits: number
+	credits?: number
 }
 
 export const userAtom = atom(

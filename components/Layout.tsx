@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { Box, BoxProps } from "@chakra-ui/core"
+import { Box, BoxProps } from "@chakra-ui/react"
 import { Nav } from "./nav/Nav"
 
 export const Layout: React.FC<{ title?: string; contain?: BoxProps }> = ({ children, title = "Loop", contain }) => {

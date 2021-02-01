@@ -1,4 +1,4 @@
-import { Heading, Text, Link as ChakraLink } from "@chakra-ui/core"
+import { Heading, Text, Link as ChakraLink } from "@chakra-ui/react"
 import { Layout } from "../components/Layout"
 
 const AppPage = () => {

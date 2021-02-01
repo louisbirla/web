@@ -8,11 +8,11 @@ import {
 	ModalOverlay,
 	Spinner,
 	Text,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { CreationObject } from "display-api"
 import { gql, useQuery, useMutation } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
-import { Button } from "@chakra-ui/core"
+import { Button } from "@chakra-ui/react"
 import { populate_template } from "../display/method"
 import { atom, useAtom } from "jotai"
 import { useState } from "react"

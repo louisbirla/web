@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, Input, IconButton, Icon, Text } from "@chakra-ui/core"
+import { Box, ButtonGroup, Input, IconButton, Icon, Text } from "@chakra-ui/react"
 import { InputArgs } from "display-api"
 import { setMethodVar, blockMethod } from "../method"
 import { useState } from "react"

@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/core"
+import { Flex } from "@chakra-ui/react"
 import { User } from "../user/userAtom"
 import { CreditsMenu } from "./CreditsMenu"
 import { CreateBlockButton } from "./CreateBlockButton"

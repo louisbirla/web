@@ -1,4 +1,4 @@
-import { Avatar, Box, Heading, Spinner, Text } from "@chakra-ui/core"
+import { Avatar, Box, Heading, Spinner, Text } from "@chakra-ui/react"
 import { useQuery } from "urql"
 import { User, UserQuery } from "./userAtom"
 

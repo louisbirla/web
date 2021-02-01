@@ -1,4 +1,4 @@
-import { Spinner } from "@chakra-ui/core"
+import { Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
 import { Layout } from "../components/Layout"
 import { Dashboard } from "../components/pages/Dashboard"

@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/core"
+import { Heading } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
