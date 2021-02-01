@@ -11,7 +11,7 @@
 	},
 	"dependencies": {
 		"@chakra-ui/core": "1.0.0-rc.8",
-		"@sentry/react": "5.30.0",
+		"@sentry/react": "6.0.3",
 		"@urql/exchange-auth": "^0.1.2",
 		"display-api": "^0.0.9",
 		"framer-motion": "^3.2.2-rc.1",
@@ -31,7 +31,7 @@
 		"@testing-library/jest-dom": "5.11.9",
 		"@testing-library/react": "11.2.3",
 		"@types/jest": "26.0.20",
-		"@types/node": "14.14.21",
+		"@types/node": "14.14.22",
 		"@types/react": "17.0.0",
 		"@types/react-dom": "17.0.0",
 		"babel-jest": "26.6.3",
