@@ -2,9 +2,7 @@ import { NextSeo } from "next-seo"
 import ReactGA from "react-ga"
 import Head from "next/head"
 
-const description = `Creating innovative platforms, in a manner that is ethical, transparent, extensible and forward-thinking.`
-const name = "Loop"
-const iconPath = "/donuts"
+const description = `The next generation app platform.`
 
 /**
  * Everything needed in the header.
@@ -28,25 +26,35 @@ export const Metadata: React.FC<{ ga?: boolean }> = ({ ga = true }) => {
 				<meta name='author' content='Loop' />
 				<meta name='theme-color' content='#000' />
 				<meta name='mobile-web-app-capable' content='no' />
+				<link rel='apple-touch-icon' sizes='180x180' href='/icons/apple-touch-icon.png' />
+				<link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
+				<link rel='icon' type='image/png' sizes='16x16' href='/icons/favicon-16x16.png' />
+				<link rel='manifest' href='/icons/site.webmanifest' />
+				<link rel='mask-icon' href='/icons/safari-pinned-tab.svg' color='#466efd' />
+				<link rel='shortcut icon' href='/icons/favicon.ico' />
+				<meta name='apple-mobile-web-app-title' content='Loop' />
+				<meta name='application-name' content='Loop' />
+				<meta name='msapplication-TileColor' content='#466efd' />
+				<meta name='msapplication-config' content='/icons/browserconfig.xml' />
+				<meta name='theme-color' content='#ffffff'></meta>
 
-				<link rel='shortcut icon' type='image/png' href={`${iconPath}/black-donut.png`} />
 				<meta name='apple-mobile-web-app-capable' content='no' />
 			</Head>
 			<NextSeo
-				title={name}
+				title='Loop'
 				description={description}
 				canonical='https://loop.page'
 				openGraph={{
 					description,
 					url: "https://loop.page",
-					title: name,
+					title: "Loop",
 					images: [
 						{
-							url: `https://loop.page${iconPath}/black-donut.png`,
+							url: `https://app.loop.page/light-logo.svg`,
 							alt: "Loop Logo",
 						},
 					],
-					site_name: name,
+					site_name: "Loop",
 				}}
 				twitter={{
 					handle: "@loop_revolution",
