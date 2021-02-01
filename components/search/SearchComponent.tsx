@@ -1,8 +1,7 @@
 import { Box, Icon, IconButton, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
 import { Search, XCircle } from "react-feather"
-import { useState } from "react"
 import { SearchResults } from "./SearchResults"
-import { atom, useAtom } from 'jotai';
+import { atom, useAtom } from "jotai"
 
 export const searchQueryAtom = atom("")
 
