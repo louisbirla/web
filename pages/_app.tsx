@@ -4,11 +4,13 @@ import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider as UrqlProvider } from "urql"
 import { Provider as JotaiProvider } from "jotai"
-import { LoginPanel } from "../components/app/LoginPanel"
 import { authExchange } from "@urql/exchange-auth"
 import { errorExchange } from "@urql/core"
 import { AuthState, getAuth, addAuthToOperation } from "../utils/auth"
-import { SignupPanel } from "../components/app/SignupPanel"
+import { CreateBlockPanel } from "../components/panels/CreateBlockPanel"
+import { LoginPanel } from "../components/user/auth/LoginPanel"
+import { SignupPanel } from "../components/user/auth/SignupPanel"
+import { theme } from "../utils/theme/theme"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -44,11 +46,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<UrqlProvider value={client}>
 			<JotaiProvider>
-				<ChakraProvider resetCSS>
+				<ChakraProvider resetCSS theme={theme}>
 					<Metadata ga={prod} />
+					<Component {...pageProps} />
 					<LoginPanel />
 					<SignupPanel />
-					<Component {...pageProps} />
+					<CreateBlockPanel />
 				</ChakraProvider>
 			</JotaiProvider>
 		</UrqlProvider>

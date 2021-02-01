@@ -10,10 +10,11 @@
 		"test:dev": "yarn test --watch"
 	},
 	"dependencies": {
-		"@chakra-ui/core": "1.0.0-rc.5",
+		"@chakra-ui/core": "1.0.0-rc.8",
 		"@sentry/react": "5.30.0",
 		"@urql/exchange-auth": "^0.1.2",
 		"display-api": "^0.0.9",
+		"framer-motion": "^3.2.2-rc.1",
 		"graphql": "^15.4.0",
 		"jotai": "^0.12.4",
 		"next": "10.0.6",
