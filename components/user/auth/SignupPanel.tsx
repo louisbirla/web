@@ -25,8 +25,8 @@ import { IconButton } from "@chakra-ui/react"
 export const signupPanelOpen = atom(false)
 
 const SignupMutation = gql`
-	mutation($username: String!, $password: String!, $email: String!) {
-		signup(username: $username, password: $password, email: $email) {
+	mutation($username: String!, $password: String!, $email: String!, $displayName: String) {
+		signup(username: $username, password: $password, email: $email, displayName: $displayName) {
 			sessionCode
 		}
 	}
@@ -34,7 +34,7 @@ const SignupMutation = gql`
 
 type SignupMutationResult = { signup: { sessionCode: string } }
 
-type SignupMutationVars = { username: string; password: string; email: string }
+type SignupMutationVars = { username: string; password: string; email: string; displayName?: string }
 
 const SignupStep: React.FC<{ next: (username: string, sessionCode: string) => void }> = ({ next }) => {
 	const [signupResult, signupMut] = useMutation<SignupMutationResult, SignupMutationVars>(SignupMutation)
@@ -59,7 +59,8 @@ const SignupStep: React.FC<{ next: (username: string, sessionCode: string) => vo
 			<ModalCloseButton />
 			<ModalBody>
 				<Stack spacing={3}>
-					<Input ref={register} placeholder='username' name='username' />
+					<Input placeholder='display name' name='displayName' ref={register} />
+					<Input placeholder='username' name='username' ref={register} />
 					<Input placeholder='password' type='password' name='password' ref={register} />
 					<Input placeholder='email' type='email' name='email' ref={register} />
 				</Stack>
