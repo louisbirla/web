@@ -1,5 +1,7 @@
 import {
+	Box,
 	Button,
+	HStack,
 	Input,
 	Modal,
 	ModalBody,
@@ -8,6 +10,8 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	PinInput,
+	PinInputField,
 	Stack,
 	Text,
 } from "@chakra-ui/react"
@@ -21,8 +25,8 @@ import { IconButton } from "@chakra-ui/react"
 export const signupPanelOpen = atom(false)
 
 const SignupMutation = gql`
-	mutation($username: String!, $password: String!, $email: String!) {
-		signup(username: $username, password: $password, email: $email) {
+	mutation($username: String!, $password: String!, $email: String!, $displayName: String) {
+		signup(username: $username, password: $password, email: $email, displayName: $displayName) {
 			sessionCode
 		}
 	}
@@ -30,7 +34,7 @@ const SignupMutation = gql`
 
 type SignupMutationResult = { signup: { sessionCode: string } }
 
-type SignupMutationVars = { username: string; password: string; email: string }
+type SignupMutationVars = { username: string; password: string; email: string; displayName?: string }
 
 const SignupStep: React.FC<{ next: (username: string, sessionCode: string) => void }> = ({ next }) => {
 	const [signupResult, signupMut] = useMutation<SignupMutationResult, SignupMutationVars>(SignupMutation)
@@ -55,7 +59,8 @@ const SignupStep: React.FC<{ next: (username: string, sessionCode: string) => vo
 			<ModalCloseButton />
 			<ModalBody>
 				<Stack spacing={3}>
-					<Input ref={register} placeholder='username' name='username' />
+					<Input placeholder='display name' name='displayName' ref={register} />
+					<Input placeholder='username' name='username' ref={register} />
 					<Input placeholder='password' type='password' name='password' ref={register} />
 					<Input placeholder='email' type='email' name='email' ref={register} />
 				</Stack>
@@ -88,12 +93,11 @@ const ConfirmStep: React.FC<{ username: string; sessionCode: string; back: () =>
 	back,
 }) => {
 	const [confirmResult, confirmMut] = useMutation<ConfirmMutationResult, ConfirmMutationVars>(ConfirmMutation)
-	const [isLoading, setIsLoading] = useState(false)
-	const { register, handleSubmit } = useForm<{ code: string }>()
+	const [, setIsLoading] = useState(false)
 
-	const confirmEmail = (data: { code: string }) => {
+	const confirmEmail = (code: string) => {
 		setIsLoading(true)
-		confirmMut({ username, sessionCode, verificationCode: data.code }).then(({ data }) => {
+		confirmMut({ username, sessionCode, verificationCode: code }).then(({ data }) => {
 			setIsLoading(false)
 			if (data != undefined) {
 				const token = data.confirmEmail.token
@@ -106,22 +110,28 @@ const ConfirmStep: React.FC<{ username: string; sessionCode: string; back: () =>
 	let error = confirmResult.error && <Text color='red.500'>{confirmResult.error.message.replace(/\[\w+\]/g, "")}</Text>
 
 	return (
-		<form onSubmit={handleSubmit(confirmEmail)}>
+		<Box>
 			<ModalHeader>
 				<IconButton aria-label='back to signup' icon={<ArrowLeft size={20} />} size='xs' onClick={back} /> Confirm Email
 			</ModalHeader>
 			<ModalCloseButton />
 			<ModalBody>
-				<Text as='label'>Enter verification code from email</Text>
-				<Input placeholder='verification code' type='number' name='code' ref={register} />
+				<Text as='label'>Please enter the 6-digit verification code we sent to your email.</Text>
+				<Box display='flex' justifyContent='center'>
+					<HStack display='inline-block' mb={5} mt={2}>
+						<PinInput placeholder='' onComplete={confirmEmail}>
+							<PinInputField />
+							<PinInputField />
+							<PinInputField />
+							<PinInputField />
+							<PinInputField />
+							<PinInputField />
+						</PinInput>
+					</HStack>
+				</Box>
 				{error}
 			</ModalBody>
-			<ModalFooter>
-				<Button type='submit' isLoading={isLoading} colorScheme='blue' variant='outline'>
-					Confirm
-				</Button>
-			</ModalFooter>
-		</form>
+		</Box>
 	)
 }
 
