@@ -1,6 +1,7 @@
-import { Box, Heading, HStack } from "@chakra-ui/react"
+import { Box, BoxProps, Heading, HStack } from "@chakra-ui/react"
 import { CardArgs } from "display-api"
 import Link from "next/link"
+import React from "react"
 import { ComponentDelegate } from "../ComponentDelegate"
 import { IconComponent } from "./Icon"
 
@@ -30,22 +31,28 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 		)
 	}
 	return (
-		<Box
-			bgColor='white'
-			boxShadow='xl'
-			pt={3}
-			pb={3}
-			pl={2}
-			pr={3}
-			borderRadius={4}
-			borderLeft={`3px solid ${color}`}
-			display='inline-block'
-			m={2}
-		>
+		<Card borderLeft={`3px solid ${color}`}>
 			{cardHeader}
 			<Box pl={2}>
 				<ComponentDelegate component={content} />
 			</Box>
-		</Box>
+		</Card>
 	)
 }
+
+export const Card: React.FC<BoxProps> = (props) => (
+	<Box
+		bgColor='white'
+		boxShadow='xl'
+		pt={3}
+		pb={3}
+		pl={2}
+		pr={3}
+		borderRadius={4}
+		display='inline-block'
+		m={2}
+		{...props}
+	>
+		{props.children}
+	</Box>
+)

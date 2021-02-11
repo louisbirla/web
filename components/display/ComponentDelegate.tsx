@@ -5,10 +5,12 @@ import { CardComponent } from "./components/Card"
 import { InputComponent } from "./components/Input"
 import { StackComponent } from "./components/Stack"
 
-export const ComponentDelegate: React.FC<{ component: ComponentObject }> = ({ component }) => {
+export type Environment = "create" | "page"
+
+export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
 	switch (component.cid) {
 		case "text":
-			return <TextComponent {...component.args} />
+			return <TextComponent env={env} {...component.args} />
 		case "card":
 			return <CardComponent {...component.args} />
 		case "input":

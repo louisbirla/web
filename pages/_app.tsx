@@ -11,6 +11,7 @@ import { CreateBlockPanel } from "../components/panels/CreateBlockPanel"
 import { LoginPanel } from "../components/user/auth/LoginPanel"
 import { SignupPanel } from "../components/user/auth/SignupPanel"
 import { theme } from "../utils/theme/theme"
+import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -52,6 +53,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<LoginPanel />
 					<SignupPanel />
 					<CreateBlockPanel />
+					<ChooseTypePanel />
 				</ChakraProvider>
 			</JotaiProvider>
 		</UrqlProvider>
