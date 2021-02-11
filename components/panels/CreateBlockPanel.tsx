@@ -1,10 +1,10 @@
 import {
+	Box,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
 	ModalContent,
 	ModalFooter,
-	ModalHeader,
 	ModalOverlay,
 	Spinner,
 	Text,
@@ -80,15 +80,15 @@ const CreateBlockContent: React.FC<{ type: string; done: () => void }> = ({ type
 		let creationObject: CreationObject = JSON.parse(displayResult.data.blockCreationDisplay)
 		return (
 			<>
-				<ModalHeader>
-					<ComponentDelegate component={creationObject.header_component} />
-				</ModalHeader>
 				<ModalBody>
-					<ComponentDelegate component={creationObject.main_component} />
+					<Box mb={5}>
+						<ComponentDelegate env='create' component={creationObject.header_component} />
+					</Box>
+					<ComponentDelegate env='create' component={creationObject.main_component} />
 					{error && <Text colorScheme='red'>{error}</Text>}
 				</ModalBody>
 				<ModalFooter>
-					<Button mt={5} colorScheme='blue' color='white' onClick={() => createBlock(creationObject.input_template)}>
+					<Button mt={4} colorScheme='blue' color='white' onClick={() => createBlock(creationObject.input_template)}>
 						Create
 					</Button>
 				</ModalFooter>
