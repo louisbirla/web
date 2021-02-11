@@ -4,6 +4,7 @@ test-report.xml
 
 # developer
 .vscode
+.idea
 
 # dependencies
 node_modules
