@@ -22,7 +22,7 @@ if (prod) {
 }
 
 export const client = createClient({
-	url: "https://api.loop.page",
+	url: "http://localhost:4000",
 	exchanges: [
 		dedupExchange,
 		cacheExchange,

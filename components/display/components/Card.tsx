@@ -43,7 +43,7 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 export const Card: React.FC<BoxProps> = (props) => (
 	<Box
 		bgColor='white'
-		boxShadow='xl'
+		boxShadow='base'
 		pt={3}
 		pb={3}
 		pl={2}

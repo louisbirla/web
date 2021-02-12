@@ -8,9 +8,9 @@ const BlockPage = () => {
 	const router = useRouter()
 	const id = router.query.blockId as string
 	return (
-		<Layout>
+		<Layout contain={{ mt: 12 }}>
 			<Suspense fallback={<Spinner />}>
-				<PageRender id={parseInt(id)} />
+				<PageRender withBreadcrumb id={parseInt(id)} />
 			</Suspense>
 		</Layout>
 	)
