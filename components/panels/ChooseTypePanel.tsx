@@ -16,7 +16,7 @@ import { atom, useAtom } from "jotai"
 import { Card } from "../display/components/Card"
 import { IconComponent } from "../display/components/Icon"
 import { Info } from "react-feather"
-import { blue } from "../../utils/theme/colors"
+import { bg, blue } from "../../utils/theme/colors"
 
 export type TypeReject = () => void
 export type TypeResolve = (name: string) => void
@@ -44,7 +44,7 @@ export const ChooseTypePanel: React.FC = () => {
 	return (
 		<Modal isOpen={enabled} onClose={reject}>
 			<ModalOverlay />
-			<ModalContent bg='#edeff1'>
+			<ModalContent bg={bg}>
 				<ModalCloseButton />
 				{enabled && <ChooseTypeContent resolve={resolve} />}
 			</ModalContent>

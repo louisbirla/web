@@ -30,3 +30,5 @@ export const yellow = {
 }
 
 export const text_color = "#393939"
+
+export const bg = "#edeff1"
