@@ -12,6 +12,7 @@ import { LoginPanel } from "../components/user/auth/LoginPanel"
 import { SignupPanel } from "../components/user/auth/SignupPanel"
 import { theme } from "../utils/theme/theme"
 import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
+import { api_url } from "../utils/endpoint"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -22,7 +23,7 @@ if (prod) {
 }
 
 export const client = createClient({
-	url: "http://localhost:4000",
+	url: api_url,
 	exchanges: [
 		dedupExchange,
 		cacheExchange,
