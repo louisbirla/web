@@ -1,6 +1,8 @@
 import {
 	Avatar,
 	Box,
+	Breadcrumb,
+	BreadcrumbItem,
 	Flex,
 	LinkBox,
 	LinkOverlay,
@@ -20,6 +22,8 @@ import { userAtom } from "../user/userAtom"
 import { HStack, Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
 import { searchQueryAtom } from "./SearchComponent"
+import { Crumb } from "../nav/Breadcrumb"
+import { IconComponent } from "../display/components/Icon"
 
 const UserQuery = gql`
 	query($query: String!) {
@@ -32,19 +36,34 @@ const UserQuery = gql`
 
 type UserArray = Array<{ displayName?: string; username: string }>
 type UserQueryResults = { searchUsers: UserArray }
-type UserQueryVars = { query: string }
+
+const BlockQuery = gql`
+	query($query: String!) {
+		searchBlocks(query: $query) {
+			blockId
+			name
+		}
+	}
+`
+
+type BlockQueryResults = { searchBlocks: Crumb[][] }
+type QueryVars = { query: string }
 
 export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
-	let [userRes] = useQuery<UserQueryResults, UserQueryVars>({
+	let [userRes] = useQuery<UserQueryResults, QueryVars>({
 		query: UserQuery,
+		variables: { query },
+	})
+	let [blockRes] = useQuery<BlockQueryResults, QueryVars>({
+		query: BlockQuery,
 		variables: { query },
 	})
 
 	return (
-		<Box width={400} bg='white' borderTopRadius={40} borderBottomRadius={20} pt={1} display='block'>
-			<Tabs defaultIndex={1} align='center'>
+		<Box shadow='lg' width={400} bg='white' borderTopRadius={40} borderBottomRadius={20} pt={1} display='block'>
+			<Tabs align='center'>
 				<TabList fontWeight='bold'>
-					<Tab isDisabled mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
+					<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
 						Blocks
 					</Tab>
 					<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
@@ -52,7 +71,11 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 					</Tab>
 				</TabList>
 				<TabPanels>
-					<TabPanel>Coming soon!</TabPanel>
+					<TabPanel padding={0}>
+						<Suspense fallback={<Spinner />}>
+							<BlockResults breadcrumbs={blockRes.data?.searchBlocks} />
+						</Suspense>
+					</TabPanel>
 					<TabPanel padding={0}>
 						<Suspense fallback={<Spinner />}>
 							<UserResults users={userRes.data?.searchUsers} />
@@ -106,7 +129,54 @@ const UserResults: React.FC<{ users?: UserArray }> = ({ users = [] }) => {
 		)
 	})
 	return (
-		<Stack spacing={0} divider={<StackDivider borderColor='gray.200' />}>
+		<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
+			{results}
+		</Stack>
+	)
+}
+
+const BlockResults: React.FC<{ breadcrumbs?: Crumb[][] }> = ({ breadcrumbs = [] }) => {
+	const [, setQuery] = useAtom(searchQueryAtom)
+	if (breadcrumbs.length === 0) {
+		return (
+			<Box display='block' py={4}>
+				<Text>No results.</Text>
+			</Box>
+		)
+	}
+	const results = breadcrumbs.map((crumbs, i) => {
+		const isLast = breadcrumbs.length === i + 1
+		const lastCrumbIndex = crumbs.length - 1
+		const blockId = crumbs[lastCrumbIndex].blockId
+
+		return (
+			<LinkBox
+				key={blockId}
+				cursor='pointer'
+				px={4}
+				pt={7.5}
+				_hover={{ bg: "gray.200" }}
+				borderBottomRadius={isLast ? 20 : undefined}
+				pb={isLast ? 6 : 9.5}
+				onClick={() => setQuery("")}
+			>
+				<LinkOverlay as={NextLink} href={`/b/${blockId}`}>
+					<Flex alignItems='center'>
+						<IconComponent name='Folder' />
+						<Breadcrumb ml={2} spacing={1} display='block'>
+							{crumbs.map((crumb) => (
+								<BreadcrumbItem key={crumb.name}>
+									<Text>{crumb.name}</Text>
+								</BreadcrumbItem>
+							))}
+						</Breadcrumb>
+					</Flex>
+				</LinkOverlay>
+			</LinkBox>
+		)
+	})
+	return (
+		<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
 			{results}
 		</Stack>
 	)
