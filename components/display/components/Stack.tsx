@@ -1,16 +1,22 @@
-import { Flex, HStack, Stack } from "@chakra-ui/react"
+import { Box, Flex, HStack, Stack } from "@chakra-ui/react"
 import { StackArgs } from "display-api"
 import { ComponentDelegate } from "../ComponentDelegate"
 
-export const StackComponent: React.FC<StackArgs> = ({ direction = "vertical", items }) => {
+export const StackComponent: React.FC<StackArgs> = ({ direction = "Fit", items }) => {
 	const content = items.map(({ component }) => (
-		<ComponentDelegate key={JSON.stringify(component)} component={component} />
+		<Box>
+			<ComponentDelegate key={JSON.stringify(component)} component={component} />
+		</Box>
 	))
 	switch (direction) {
-		case "horizontal":
+		case "Horizontal":
 			return <HStack>{content}</HStack>
-		case "fit":
-			return <Flex flexWrap='wrap'>{content}</Flex>
+		case "Fit":
+			return (
+				<Flex flexWrap='wrap' justifyItems='flex-start'>
+					{content}
+				</Flex>
+			)
 		default:
 			return <Stack>{content}</Stack>
 	}
