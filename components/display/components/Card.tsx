@@ -31,7 +31,7 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 		)
 	}
 	return (
-		<Card borderLeft={`3px solid ${color}`}>
+		<Card maxW={400} ml={0} pr={4} borderLeft={`3px solid ${color}`}>
 			{cardHeader}
 			<Box pl={2}>
 				<ComponentDelegate component={content} />
