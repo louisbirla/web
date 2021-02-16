@@ -6438,10 +6438,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-urql@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/urql/-/urql-2.0.0.tgz#a420031a99dd97d702de6b20cda13ab43fd5f069"
-  integrity sha512-4Xlsmnb6lbRgNaZEfNwOMUPz7N69AnKmR/Ne9gS3Txc+w5v2JV61Smcdg9YXNPJnnEylinWpzlj6sFyyZkFLDA==
+urql@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/urql/-/urql-2.0.1.tgz#16c024ab0340328001b0c400ebe1368887af3823"
+  integrity sha512-UTYLaMMw/N2iM2nHbcZ1XvN+opZxtWKwJaczV+MAco8buFpR3JR9CFrgKvx9p4uz+EayqQ69LZTWreJx+c196w==
   dependencies:
     "@urql/core" "^2.0.0"
     wonka "^4.0.14"
