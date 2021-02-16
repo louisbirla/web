@@ -18,7 +18,7 @@
 		"display-api": "^0.0.11",
 		"framer-motion": "^3.3.0",
 		"graphql": "^15.4.0",
-		"jotai": "^0.14.0",
+		"jotai": "^0.14.1",
 		"next": "10.0.7",
 		"next-seo": "4.19.0",
 		"react": "0.0.0-experimental-3310209d0",
