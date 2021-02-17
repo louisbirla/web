@@ -73,6 +73,7 @@ const CreateBlockContent: React.FC<{ type: string; done: () => void }> = ({ type
 			setError(res.error.message)
 		} else {
 			done()
+			location.href = `/b/${res.data?.createBlock.id}`
 		}
 	}
 

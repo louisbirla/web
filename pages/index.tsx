@@ -5,7 +5,7 @@ import { Dashboard } from "../components/pages/Dashboard"
 
 const AppPage = () => {
 	return (
-		<Layout>
+		<Layout contain={{ mt: 12 }}>
 			<Suspense fallback={<Spinner />}>
 				<Dashboard />
 			</Suspense>

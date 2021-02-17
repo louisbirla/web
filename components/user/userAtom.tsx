@@ -9,6 +9,9 @@ const WhoamiQuery = gql`
 			displayName
 			username
 			credits
+			root {
+				id
+			}
 		}
 	}
 `
@@ -29,6 +32,9 @@ export type User = {
 	username: string
 	displayName?: string
 	credits?: number
+	root?: {
+		id: number
+	}
 }
 
 export const userAtom = atom(

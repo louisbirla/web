@@ -1,28 +1,15 @@
-import { Box, Heading, Text, Flex } from "@chakra-ui/react"
+import { Box, Center, Text } from "@chakra-ui/react"
 import { useAtom } from "jotai"
-import { gql, useQuery } from "urql"
-import { EmbedBlock } from "../display/EmbedBlock"
-import { userAtom } from "../user/userAtom"
-
-const UserBlocks = gql`
-	query($id: Int!) {
-		userById(id: $id) {
-			blocks {
-				id
-				embedDisplay
-			}
-		}
-	}
-`
-
-type UserBlocksResult = { userById: { blocks: Array<{ id: number; embedDisplay: string }> } }
-type UserBlocksVars = { id: number }
+import { User, userAtom } from "../user/userAtom"
+import { PageRender } from "../display/PageRender"
+import { ChooseTypeContent } from "../panels/ChooseTypePanel"
+import { createBlockAtom } from "../panels/CreateBlockPanel"
 
 export const Dashboard: React.FC = () => {
 	const [user] = useAtom(userAtom)
 
 	if (user) {
-		return <UserDashboard />
+		return <UserDashboard user={user} />
 	}
 
 	return (
@@ -32,29 +19,18 @@ export const Dashboard: React.FC = () => {
 	)
 }
 
-const UserDashboard: React.FC = () => {
-	const [user] = useAtom(userAtom)
-
-	if (user == undefined) {
-		return <Dashboard />
+const UserDashboard: React.FC<{ user: User }> = ({ user }) => {
+	if (user.root == undefined) {
+		return <CreateFirstBlock />
 	}
+	return <PageRender id={user.root?.id} withBreadcrumb />
+}
 
-	const [res] = useQuery<UserBlocksResult, UserBlocksVars>({
-		query: UserBlocks,
-		variables: { id: user?.id },
-	})
-	let blocks = res.data?.userById.blocks.map(({ id, embedDisplay }) => (
-		<EmbedBlock component={JSON.parse(embedDisplay)} id={id} key={id} />
-	))
-
+const CreateFirstBlock = () => {
+	const [, setCreating] = useAtom(createBlockAtom)
 	return (
-		<Box>
-			<Heading pt={3}>Hello, {user.username}</Heading>
-			<Text>You are user #{user.id}</Text>
-			<Text pt={5}>Your blocks:</Text>
-			<Flex flexWrap='wrap' maxW='70vw'>
-				{blocks}
-			</Flex>
-		</Box>
+		<Center flexDirection='column' mt={20}>
+			<ChooseTypeContent resolve={(name) => setCreating(name)} />
+		</Center>
 	)
 }

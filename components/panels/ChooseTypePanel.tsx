@@ -1,4 +1,5 @@
 import {
+	Box,
 	Heading,
 	Icon,
 	Modal,
@@ -42,17 +43,21 @@ export const ChooseTypePanel: React.FC = () => {
 	let resolve = params?.resolve || empty_resolve
 	let enabled = params != undefined
 	return (
-		<Modal isOpen={enabled} onClose={reject}>
+		<Modal size='xl' isOpen={enabled} onClose={reject}>
 			<ModalOverlay />
 			<ModalContent bg={bg}>
 				<ModalCloseButton />
-				{enabled && <ChooseTypeContent resolve={resolve} />}
+				{enabled && (
+					<ModalBody>
+						<ChooseTypeContent resolve={resolve} />
+					</ModalBody>
+				)}
 			</ModalContent>
 		</Modal>
 	)
 }
 
-const ChooseTypeContent: React.FC<{ resolve: TypeResolve }> = ({ resolve }) => {
+export const ChooseTypeContent: React.FC<{ resolve: TypeResolve }> = ({ resolve }) => {
 	let [typeRes] = useQuery<TypesQueryResult>({
 		query: TypesQuery,
 	})
@@ -62,29 +67,21 @@ const ChooseTypeContent: React.FC<{ resolve: TypeResolve }> = ({ resolve }) => {
 	if (types != undefined) {
 		return (
 			<>
-				<ModalBody>
-					<Heading size='lg'>Create a block</Heading>
-					<Text mb={5}>Choose a block type for the block.</Text>
+				<Heading size='lg'>Create a block</Heading>
+				<Text mb={5}>Choose a block type for the block.</Text>
+				<Box textAlign='center'>
 					{types.map((block) => (
 						<BlockTypeCard onClick={() => resolve(block.name)} {...block} />
 					))}
-				</ModalBody>
+				</Box>
 			</>
 		)
 	}
 
 	if (typeRes.error?.message) {
-		return (
-			<ModalBody>
-				<Text colorScheme='red'>{typeRes.error.message}</Text>
-			</ModalBody>
-		)
+		return <Text colorScheme='red'>{typeRes.error.message}</Text>
 	}
-	return (
-		<ModalBody>
-			<Spinner />
-		</ModalBody>
-	)
+	return <Spinner />
 }
 
 export const useChooseType = () => {
