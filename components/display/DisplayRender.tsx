@@ -30,7 +30,7 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 		if (display.meta.page.menu) {
 			meta = (
 				<>
-					<Flex justifyItems='space-between'>
+					<Flex justifyContent='space-between'>
 						<Box>{meta}</Box>
 						<Box>
 							<PageMenu menu={display.meta.page.menu} />
