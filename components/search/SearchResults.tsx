@@ -64,7 +64,7 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 			<Tabs align='center'>
 				<TabList fontWeight='bold'>
 					<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
-						Blocks
+						Blocks ({blockRes.data?.searchBlocks.length ?? ".."})
 					</Tab>
 					<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
 						People ({userRes.data?.searchUsers.length ?? ".."})
@@ -73,12 +73,12 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 				<TabPanels>
 					<TabPanel padding={0}>
 						<Suspense fallback={<Spinner />}>
-							<BlockResults breadcrumbs={blockRes.data?.searchBlocks} />
+							<BlockResults loading={blockRes.fetching} breadcrumbs={blockRes.data?.searchBlocks} />
 						</Suspense>
 					</TabPanel>
 					<TabPanel padding={0}>
 						<Suspense fallback={<Spinner />}>
-							<UserResults users={userRes.data?.searchUsers} />
+							<UserResults loading={userRes.fetching} users={userRes.data?.searchUsers} />
 						</Suspense>
 					</TabPanel>
 				</TabPanels>
@@ -87,9 +87,16 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 	)
 }
 
-const UserResults: React.FC<{ users?: UserArray }> = ({ users = [] }) => {
+const UserResults: React.FC<{ users?: UserArray; loading?: boolean }> = ({ users = [], loading }) => {
 	const [self] = useAtom(userAtom)
 	const [, setQuery] = useAtom(searchQueryAtom)
+	if (loading === true) {
+		return (
+			<Box display='block' py={4}>
+				<Text>Loading...</Text>
+			</Box>
+		)
+	}
 	if (users.length === 0) {
 		return (
 			<Box display='block' py={4}>
@@ -135,8 +142,16 @@ const UserResults: React.FC<{ users?: UserArray }> = ({ users = [] }) => {
 	)
 }
 
-const BlockResults: React.FC<{ breadcrumbs?: Crumb[][] }> = ({ breadcrumbs = [] }) => {
+const BlockResults: React.FC<{ breadcrumbs?: Crumb[][]; loading?: boolean }> = ({ breadcrumbs = [], loading }) => {
 	const [, setQuery] = useAtom(searchQueryAtom)
+	if (loading === true) {
+		return (
+			<Box display='block' py={4}>
+				<Text>Loading...</Text>
+				<Text>Block search results will get quicker soon.</Text>
+			</Box>
+		)
+	}
 	if (breadcrumbs.length === 0) {
 		return (
 			<Box display='block' py={4}>
