@@ -3,8 +3,8 @@ import { StackArgs } from "display-api"
 import { ComponentDelegate } from "../ComponentDelegate"
 
 export const StackComponent: React.FC<StackArgs> = ({ direction = "Fit", items }) => {
-	const content = items.map(({ component }) => (
-		<Box>
+	const content = items.map(({ component }, i) => (
+		<Box key={`${i}${component.cid}`}>
 			<ComponentDelegate key={JSON.stringify(component)} component={component} />
 		</Box>
 	))

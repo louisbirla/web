@@ -4,6 +4,7 @@ import Link from "next/link"
 import React from "react"
 import { ComponentDelegate } from "../ComponentDelegate"
 import { IconComponent } from "./Icon"
+import { CardMenu } from "./menu/CardMenu"
 
 export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) => {
 	color = color || "#5D80FE"
@@ -18,7 +19,7 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 			)
 		}
 		cardHeader = (
-			<Box pb={2}>
+			<Box pb={2} display='flex' justifyContent='space-between'>
 				<HStack>
 					<IconComponent name={header.icon} color={color} />
 					{wrapLink(
@@ -27,6 +28,7 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 						</Heading>,
 					)}
 				</HStack>
+				<Box ml={2}>{header.menu == null ? <></> : <CardMenu menu={header.menu} />}</Box>
 			</Box>
 		)
 	}
