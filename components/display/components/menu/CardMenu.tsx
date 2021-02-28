@@ -6,11 +6,13 @@ import { useShareButton } from "./ShareButton"
 import { useDeleteBlockButton } from "./DeleteBlockButton"
 import { useStarButton } from "./StarButton"
 import { useNotificationsButton } from "./NotificationsButton"
+import { usePermissionButton } from "./PermissionsButton"
 
 export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
+	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
 	return (
 		<Menu closeOnSelect={false}>
@@ -36,13 +38,20 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 					</MenuItem>
 				)}
 				{menu.permissions && (
-					<MenuItem isDisabled command={`${menu.permissions.edit + menu.permissions.full + menu.permissions.view}`}>
-						{<Icon as={User} mr={2} size={17} />}
-						Permissions
-					</MenuItem>
+					<>
+						<MenuItem
+							onClick={openDrawer}
+							ref={btnRef}
+							command={`${menu.permissions.edit + menu.permissions.full + menu.permissions.view}`}
+						>
+							{<Icon as={User} mr={2} size={17} />}
+							Permissions
+						</MenuItem>
+						{drawer}
+					</>
 				)}
 				{menu.delete && (
-					<MenuItem onClick={deleteButton} isDisabled>
+					<MenuItem onClick={deleteButton} disabled>
 						{<Icon as={Trash} mr={2} size={17} />}
 						Delete Block
 					</MenuItem>
