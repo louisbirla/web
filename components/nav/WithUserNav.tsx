@@ -9,7 +9,7 @@ export const WithUserNav: React.FC<{ user: User }> = ({ user }) => {
 	return (
 		<Flex>
 			<CreditsMenu user={user} />
-			<NotificationsMenu user={user} />
+			<NotificationsMenu />
 			<UserMenu user={user} />
 			<CreateBlockButton />
 		</Flex>

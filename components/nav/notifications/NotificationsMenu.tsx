@@ -15,12 +15,11 @@ import {
 import { gql } from "@urql/core"
 import { Bell } from "react-feather"
 import { useMutation, useQuery, useSubscription } from "urql"
-import { User } from "../../user/userAtom"
 import { Stack } from "@chakra-ui/react"
 import { ClearNotifsButton } from "./ClearNotifsButton"
 import { isToday, formatDistance, isYesterday, format } from "date-fns"
 import NextLink from "next/link"
-import { bg } from "../../../utils/theme/colors"
+import { bg, yellow } from "../../../utils/theme/colors"
 import { SmallCloseIcon } from "@chakra-ui/icons"
 
 const NotificationsQuery = gql`
@@ -54,7 +53,7 @@ type Notification = {
 }
 type NotificationsResponse = { notifications: Notification[] }
 
-export const NotificationsMenu: React.FC<{ user: User }> = ({ user }) => {
+export const NotificationsMenu: React.FC = () => {
 	let [res, refetch] = useQuery<NotificationsResponse>({ query: NotificationsQuery, requestPolicy: "network-only" })
 	let notifs = res.data?.notifications ?? []
 	let token = localStorage.getItem("token")
@@ -72,7 +71,23 @@ export const NotificationsMenu: React.FC<{ user: User }> = ({ user }) => {
 					<IconButton
 						height={9}
 						width={3}
-						icon={<Bell size={20} />}
+						icon={
+							<>
+								<Bell size={20} />
+								{notifs.length > 0 && (
+									<Box
+										m={0}
+										width={2}
+										height={2}
+										rounded='full'
+										position='relative'
+										bottom={2}
+										right={2}
+										bg={yellow[400]}
+									/>
+								)}
+							</>
+						}
 						color='#9ca1a6'
 						variant='nostyle'
 						aria-label='Notifications'
