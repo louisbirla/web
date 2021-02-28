@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { Box, BoxProps } from "@chakra-ui/react"
+import { Box, BoxProps, Text } from "@chakra-ui/react"
 import { Nav } from "./nav/Nav"
 
 export const Layout: React.FC<{ title?: string; contain?: BoxProps }> = ({ children, title = "Loop", contain }) => {
@@ -9,8 +9,11 @@ export const Layout: React.FC<{ title?: string; contain?: BoxProps }> = ({ child
 				<title>{title}</title>
 			</Head>
 			<Nav />
-			<Box mt={20} mx={20} {...contain}>
+			<Box minH='100vh' mt={20} mx={20} {...contain}>
 				{children}
+			</Box>
+			<Box width='100%' textAlign='center'>
+				<Text opacity={0.8}>&#169; Loop Revolution</Text>
 			</Box>
 		</Box>
 	)
