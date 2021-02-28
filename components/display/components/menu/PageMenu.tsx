@@ -5,11 +5,13 @@ import { StarIcon } from "@chakra-ui/icons"
 import { useShareButton } from "./ShareButton"
 import { useStarButton } from "./StarButton"
 import { useNotificationsButton } from "./NotificationsButton"
+import { usePermissionButton } from "./PermissionsButton"
 
 export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
+	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
 	const props = {
 		variant: "ghost",
 		color: "#7182a5",
@@ -32,10 +34,13 @@ export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 				/>
 			)}
 			{menu.permissions && (
-				<Button isDisabled aria-label='Block permissions' {...props}>
-					<Icon as={User} size={17} mr={1} />
-					{menu.permissions.edit + menu.permissions.full + menu.permissions.view}
-				</Button>
+				<>
+					<Button onClick={openDrawer} ref={btnRef} aria-label='Block permissions' {...props}>
+						<Icon as={User} size={17} mr={1} />
+						{menu.permissions.edit + menu.permissions.full + menu.permissions.view}
+					</Button>
+					{drawer}
+				</>
 			)}
 			<IconButton {...props} icon={<Icon as={Share} size={17} />} onClick={shareButton} aria-label='Share block link' />
 		</HStack>
