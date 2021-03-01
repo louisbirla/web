@@ -5,12 +5,12 @@ import { client } from "../../pages/_app"
 declare global {
 	interface Window {
 		loop_method_vars?: {
-			[varname: string]: string
+			[varname: string]: any
 		}
 	}
 }
 
-export const setMethodVar = (name: string, value: string) => {
+export const setMethodVar = (name: string, value: any) => {
 	if (window.loop_method_vars == undefined) {
 		window.loop_method_vars = {}
 	}

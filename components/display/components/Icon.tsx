@@ -1,7 +1,7 @@
 import { IconName } from "display-api"
-import { Box as BoxIcon, CheckCircle, Folder, IconProps, MessageSquare, Rss, Type } from "react-feather"
+import { Box as BoxIcon, CheckCircle, Folder, IconProps, MessageSquare, Plus, Rss, Type } from "react-feather"
 
-export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: number }> = ({
+export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: number | string }> = ({
 	name,
 	color = "#5276f3",
 	size = 23,
@@ -20,6 +20,8 @@ export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: n
 			return <Type {...commonProps} />
 		case "Feed":
 			return <Rss {...commonProps} />
+		case "Plus":
+			return <Plus {...commonProps} />
 		default:
 			return <BoxIcon {...commonProps} />
 	}

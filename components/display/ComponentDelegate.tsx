@@ -4,6 +4,7 @@ import { TextComponent } from "./components/Text"
 import { CardComponent } from "./components/Card"
 import { InputComponent } from "./components/Input"
 import { StackComponent } from "./components/Stack"
+import { ButtonComponent } from "./components/Button"
 
 export type Environment = "create" | "page"
 
@@ -17,6 +18,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <InputComponent {...component.args} />
 		case "stack":
 			return <StackComponent {...component.args} />
+		case "button":
+			return <ButtonComponent {...component.args} />
 		default:
 			return <Text>Bad Component.</Text>
 	}
