@@ -17,16 +17,6 @@ const WhoamiQuery = gql`
 `
 type WhoamiResult = { whoami: User }
 
-export const UserQuery = gql`
-	query($username: String!) {
-		userByName(username: $username) {
-			id
-			displayName
-			username
-		}
-	}
-`
-
 export type User = {
 	id: number
 	username: string
