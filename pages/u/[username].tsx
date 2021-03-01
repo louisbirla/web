@@ -8,7 +8,7 @@ const UserNextPage = () => {
 	const router = useRouter()
 	const username = router.query.username as string
 	return (
-		<Layout>
+		<Layout contain={{ mx: 0, mt: 12 }}>
 			<Suspense fallback={<Spinner />}>
 				<UserPage username={username} />
 			</Suspense>
