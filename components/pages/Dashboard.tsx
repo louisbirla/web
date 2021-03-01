@@ -3,7 +3,7 @@ import { useAtom } from "jotai"
 import { User, userAtom } from "../user/userAtom"
 import { PageRender } from "../display/PageRender"
 import { ChooseTypeContent } from "../panels/ChooseTypePanel"
-import { createBlockAtom } from "../panels/CreateBlockPanel"
+import { useCreateBlock } from "../panels/CreateBlockPanel"
 
 export const Dashboard: React.FC = () => {
 	const [user] = useAtom(userAtom)
@@ -27,10 +27,16 @@ const UserDashboard: React.FC<{ user: User }> = ({ user }) => {
 }
 
 const CreateFirstBlock = () => {
-	const [, setCreating] = useAtom(createBlockAtom)
+	const createBlock = useCreateBlock()
 	return (
 		<Center flexDirection='column' mt={20}>
-			<ChooseTypeContent resolve={(name) => setCreating(name)} />
+			<ChooseTypeContent
+				resolve={(name) =>
+					createBlock(name).then((id) => {
+						location.href = `/b/${id}`
+					})
+				}
+			/>
 		</Center>
 	)
 }

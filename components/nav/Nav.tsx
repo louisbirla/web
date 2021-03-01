@@ -5,7 +5,7 @@ import Link from "next/link"
 import { userAtom } from "../user/userAtom"
 import { WithUserNav } from "./WithUserNav"
 import { NoUserNav } from "./NoUserNav"
-import { SearchComponent } from "../search/SearchComponent"
+import { GlobalSearchComponent } from "../search/SearchComponent"
 
 export const Nav: React.FC = () => {
 	return (
@@ -29,7 +29,7 @@ export const Nav: React.FC = () => {
 						<Image cursor='pointer' src='/light-logo.svg' height={10} alt='Loop Logo' />
 					</Link>
 				</Box>
-				<SearchComponent />
+				<GlobalSearchComponent />
 				<Suspense fallback={<Box></Box>}>
 					<NavDistributor />
 				</Suspense>

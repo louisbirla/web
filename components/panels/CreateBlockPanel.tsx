@@ -17,7 +17,11 @@ import { populate_template } from "../display/method"
 import { atom, useAtom } from "jotai"
 import { useState } from "react"
 
-export const createBlockAtom = atom<string | undefined>(undefined)
+export type CreateReject = () => void
+export type CreateResolve = (id: number) => void
+export const CreateBlockAtom = atom<{ resolve: CreateResolve; reject: CreateReject; type: string } | undefined>(
+	undefined,
+)
 
 const CreateBlockQuery = gql`
 	mutation($type: String!, $input: String!) {
@@ -39,22 +43,29 @@ const CreationDisplayQuery = gql`
 type CreationDisplayResult = { blockCreationDisplay: string }
 type CreationDisplayArgs = { type: string }
 
+const empty_reject = () => {}
+const def_resolve = (id: number) => {
+	location.href = `/b/${id}`
+}
 export const CreateBlockPanel: React.FC = () => {
-	const [creating, setCreating] = useAtom(createBlockAtom)
-	let close = () => setCreating(undefined)
+	const [params] = useAtom(CreateBlockAtom)
+	let reject = params?.reject || empty_reject
+	let resolve = params?.resolve || def_resolve
+	let type = params?.type || ""
+	let enabled = params != undefined
 
 	return (
-		<Modal isOpen={creating !== undefined} onClose={close}>
+		<Modal isOpen={enabled} onClose={reject}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalCloseButton />
-				{creating && <CreateBlockContent done={close} type={creating} />}
+				{enabled && <CreateBlockContent done={resolve} type={type} />}
 			</ModalContent>
 		</Modal>
 	)
 }
 
-const CreateBlockContent: React.FC<{ type: string; done: () => void }> = ({ type, done }) => {
+const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void }> = ({ type, done }) => {
 	let [error, setError] = useState<string>()
 	let [, createBlockMut] = useMutation<CreateBlockResult, CreateBlockArgs>(CreateBlockQuery)
 	let [displayResult] = useQuery<CreationDisplayResult, CreationDisplayArgs>({
@@ -71,9 +82,10 @@ const CreateBlockContent: React.FC<{ type: string; done: () => void }> = ({ type
 
 		if (res.error) {
 			setError(res.error.message)
+		} else if (res.data?.createBlock.id) {
+			done(res.data?.createBlock.id)
 		} else {
-			done()
-			location.href = `/b/${res.data?.createBlock.id}`
+			alert("Something broke")
 		}
 	}
 
@@ -109,4 +121,22 @@ const CreateBlockContent: React.FC<{ type: string; done: () => void }> = ({ type
 			<Spinner />
 		</ModalBody>
 	)
+}
+
+export const useCreateBlock = () => {
+	const [, setPromise] = useAtom(CreateBlockAtom)
+	return (type: string) =>
+		new Promise((resolve: CreateResolve, reject) => {
+			setPromise({
+				reject: () => {
+					setPromise(undefined)
+					reject()
+				},
+				resolve: (id) => {
+					setPromise(undefined)
+					resolve(id)
+				},
+				type,
+			})
+		})
 }
