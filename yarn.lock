@@ -4029,10 +4029,10 @@ jest@26.6.3:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jotai@0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-0.15.0.tgz#de8c1373ef12142ce3547c144acd08953bd95d67"
-  integrity sha512-pHjb8R9jn+Y+G01p8j94n0emFkJfrRlA1Ha2M2ZZyguHAF6PWMUaCF091qXR68rfMxfoEgM+i6DojTKBo7B6dg==
+jotai@0.15.2:
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-0.15.2.tgz#983d66c3830c2ee7b351e12456963645b9b349f6"
+  integrity sha512-26MxXA3PR2cN3hUfA0wYMBpoOK4UGZPdXAuFzMRRBD4ITgDdyQaGEVUFAz7B+53zFOggcOGY0G0WuClVgW7W4A==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
