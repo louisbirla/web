@@ -2574,10 +2574,10 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-display-api@0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/display-api/-/display-api-0.1.12.tgz#ac417863a544a374a0f49ab1ecb51783556506ad"
-  integrity sha512-D20TMdzwn/3xyecQ5wur1fCHvL3ppQgbt2WELKbXW4apcVueQcAtnmwevezSjfEWAigWEYYxAMCDKSKFHYUrEQ==
+display-api@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/display-api/-/display-api-0.2.3.tgz#6d8107f7980abbf47339a249ed3eef6e259a0753"
+  integrity sha512-oI+RImdsU1YEOm+zOo022RWBD5nwOPejuYjeqVM65mAnDOZ+mMFsKba2snbUE3FQ4/VygzuzMG9eGqekxaDnwQ==
 
 doctrine@^2.1.0:
   version "2.1.0"
