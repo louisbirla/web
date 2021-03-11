@@ -18,7 +18,7 @@
 		"@urql/exchange-auth": "0.1.2",
 		"date-fns": "^2.19.0",
 		"display-api": "0.2.3",
-		"framer-motion": "3.10.0",
+		"framer-motion": "3.10.2",
 		"graphql": "15.5.0",
 		"jotai": "0.15.2",
 		"next": "10.0.8",
