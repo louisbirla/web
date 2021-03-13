@@ -5,6 +5,7 @@ import { CardComponent } from "./components/Card"
 import { InputComponent } from "./components/Input"
 import { StackComponent } from "./components/Stack"
 import { ButtonComponent } from "./components/Button"
+import { BadgeComponent } from "./components/Badge"
 
 export type Environment = "create" | "page"
 
@@ -20,6 +21,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <StackComponent {...component.args} />
 		case "button":
 			return <ButtonComponent {...component.args} />
+		case "badge":
+			return <BadgeComponent {...component.args} />
 		default:
 			return <Text>Bad Component.</Text>
 	}
