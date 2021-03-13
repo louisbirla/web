@@ -14,7 +14,7 @@
 		"@chakra-ui/react": "1.3.4",
 		"@emotion/react": "11.1.5",
 		"@emotion/styled": "11.1.5",
-		"@sentry/react": "6.2.1",
+		"@sentry/react": "6.2.2",
 		"@urql/exchange-auth": "0.1.2",
 		"date-fns": "^2.19.0",
 		"display-api": "0.2.3",
