@@ -1,11 +1,12 @@
 import { Text } from "@chakra-ui/react"
 import { ComponentObject } from "display-api"
-import { TextComponent } from "./components/Text"
 import { CardComponent } from "./components/Card"
 import { InputComponent } from "./components/Input"
 import { StackComponent } from "./components/Stack"
 import { ButtonComponent } from "./components/Button"
 import { BadgeComponent } from "./components/Badge"
+import { CheckboxComponent } from "./components/Checkbox"
+import { TextComponent } from "./components/Text"
 
 export type Environment = "create" | "page"
 
@@ -23,7 +24,9 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <ButtonComponent {...component.args} />
 		case "badge":
 			return <BadgeComponent {...component.args} />
+		case "checkbox":
+			return <CheckboxComponent {...component.args} />
 		default:
-			return <Text>Bad Component.</Text>
+			return <Text color='red'>Error When Rendering Component.</Text>
 	}
 }
