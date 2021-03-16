@@ -10,6 +10,8 @@ import { TextComponent } from "./components/Text"
 import { ProgressComponent } from "./components/Progress"
 import { LinkComponent } from "./components/Link"
 import { ActionPopoverComponent } from "./components/ActionPopover"
+import { DropdownComponent } from "./components/Dropdown"
+import React from "react"
 
 export type Environment = "create" | "page" | "cardheader" | "popover"
 
@@ -35,6 +37,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <LinkComponent {...component.args} />
 		case "actionpopover":
 			return <ActionPopoverComponent {...component.args} />
+		case "dropdown":
+			return <DropdownComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
