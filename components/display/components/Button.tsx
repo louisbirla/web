@@ -57,7 +57,11 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps }> = (
 					colorScheme={color_scheme}
 					{...props}
 				>
-					<Box mr={2}>{icon && <IconComponent size='1.3em' color='none' name={icon} />}</Box>
+					{icon && (
+						<Box mr={2}>
+							<IconComponent size='1.3em' color='none' name={icon} />
+						</Box>
+					)}
 					{text}
 				</Button>
 			</ActionWrap>

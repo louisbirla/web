@@ -9,8 +9,9 @@ import { CheckboxComponent } from "./components/Checkbox"
 import { TextComponent } from "./components/Text"
 import { ProgressComponent } from "./components/Progress"
 import { LinkComponent } from "./components/Link"
+import { ActionPopoverComponent } from "./components/ActionPopover"
 
-export type Environment = "create" | "page" | "cardheader"
+export type Environment = "create" | "page" | "cardheader" | "popover"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
 	switch (component.cid) {
@@ -32,6 +33,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <ProgressComponent env={env} {...component.args} />
 		case "link":
 			return <LinkComponent {...component.args} />
+		case "actionpopover":
+			return <ActionPopoverComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}

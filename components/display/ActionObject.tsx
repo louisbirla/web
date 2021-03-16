@@ -1,10 +1,9 @@
 import { ActionObject } from "display-api"
 import { blockMethod } from "./method"
 import { SearchComponentWrapper } from "./components/Search"
-import { Box } from "@chakra-ui/layout"
 
 export const genActionObject = (object?: ActionObject): [React.FC, () => void] => {
-	let Wrapper: React.FC = ({ children }) => <Box>{children}</Box>
+	let Wrapper: React.FC = ({ children }) => <>{children}</>
 	let action = () => {}
 
 	if (object?.method) {
