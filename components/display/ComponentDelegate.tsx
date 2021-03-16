@@ -8,6 +8,7 @@ import { BadgeComponent } from "./components/Badge"
 import { CheckboxComponent } from "./components/Checkbox"
 import { TextComponent } from "./components/Text"
 import { ProgressComponent } from "./components/Progress"
+import { LinkComponent } from "./components/Link"
 
 export type Environment = "create" | "page" | "cardheader"
 
@@ -29,6 +30,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <CheckboxComponent {...component.args} />
 		case "progress":
 			return <ProgressComponent env={env} {...component.args} />
+		case "link":
+			return <LinkComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
