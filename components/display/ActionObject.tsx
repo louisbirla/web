@@ -13,6 +13,18 @@ export const genActionObject = (object?: ActionObject): [React.FC, () => void] =
 	} else if (object?.search) {
 		let search = object.search
 		Wrapper = ({ children }) => <SearchComponentWrapper component={search}>{children}</SearchComponentWrapper>
+	} else if (object?.redirect) {
+		if (object.redirect.app_path) {
+			let path = object.redirect.app_path
+			action = () => {
+				location.href = location.origin + "/" + path
+			}
+		} else if (object.redirect.url) {
+			let url = object.redirect.url
+			action = () => {
+				location.href = url
+			}
+		}
 	}
 
 	return [Wrapper, action]
