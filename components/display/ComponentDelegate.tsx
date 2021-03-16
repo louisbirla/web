@@ -9,7 +9,7 @@ import { CheckboxComponent } from "./components/Checkbox"
 import { TextComponent } from "./components/Text"
 import { ProgressComponent } from "./components/Progress"
 
-export type Environment = "create" | "page"
+export type Environment = "create" | "page" | "cardheader"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
 	switch (component.cid) {
@@ -20,7 +20,7 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 		case "input":
 			return <InputComponent {...component.args} />
 		case "stack":
-			return <StackComponent {...component.args} />
+			return <StackComponent env={env} {...component.args} />
 		case "button":
 			return <ButtonComponent {...component.args} />
 		case "badge":
@@ -28,7 +28,7 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 		case "checkbox":
 			return <CheckboxComponent {...component.args} />
 		case "progress":
-			return <ProgressComponent {...component.args} />
+			return <ProgressComponent env={env} {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
