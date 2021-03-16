@@ -4,6 +4,8 @@ import { setMethodVar, blockMethod } from "../method"
 import { useState } from "react"
 import { Check, X } from "react-feather"
 import { TextComponent } from "./Text"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 export const InputComponent: React.FC<InputArgs> = ({
 	initial_value,
@@ -72,7 +74,6 @@ export const InputComponent: React.FC<InputArgs> = ({
 			bg='white'
 			value={value}
 			name={name}
-			type={type}
 			placeholder={label}
 			width={width}
 			isInvalid={error != undefined}
@@ -93,7 +94,6 @@ export const InputComponent: React.FC<InputArgs> = ({
 				bg='white'
 				value={value}
 				name={name}
-				type={type}
 				placeholder={label}
 				isInvalid={error != undefined}
 				resize='none'
@@ -111,11 +111,46 @@ export const InputComponent: React.FC<InputArgs> = ({
 				bg='white'
 				value={value}
 				name={name}
-				type={type}
 				placeholder={label}
 				isInvalid={error != undefined}
 				size='xs'
 			/>
+		)
+	}
+	if (type === "Date") {
+		input = () => (
+			<Box borderWidth={2} rounded='lg' p={1}>
+				<DatePicker
+					onChange={(date) => {
+						const new_val = date?.toString()
+						setValue(new_val)
+						name && setMethodVar(name, new_val)
+					}}
+					selected={value == undefined ? new Date() : new Date(value)}
+					name={name}
+					showTimeSelect={false}
+					showTimeInput={false}
+				/>
+			</Box>
+		)
+	} else if (type === "Time") {
+		input = () => (
+			<Box borderWidth={2} rounded='lg' p={1}>
+				<DatePicker
+					onChange={(date) => {
+						const new_val = date?.toString()
+						setValue(new_val)
+						name && setMethodVar(name, new_val)
+					}}
+					showTimeSelect
+					showTimeSelectOnly
+					timeIntervals={15}
+					selected={value == undefined ? new Date() : new Date(value)}
+					timeCaption='Time'
+					dateFormat='h:mm aa'
+					name={name}
+				/>
+			</Box>
 		)
 	}
 	return (
