@@ -1,11 +1,11 @@
 import { Box, Flex, HStack, Stack } from "@chakra-ui/react"
 import { StackArgs } from "display-api"
-import { ComponentDelegate } from "../ComponentDelegate"
+import { ComponentDelegate, Environment } from "../ComponentDelegate"
 
-export const StackComponent: React.FC<StackArgs> = ({ direction = "Fit", items }) => {
+export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({ direction = "Fit", items, env }) => {
 	const content = items.map(({ component }, i) => (
 		<Box key={`${i}${component.cid}`}>
-			<ComponentDelegate key={JSON.stringify(component)} component={component} />
+			<ComponentDelegate env={env} key={JSON.stringify(component)} component={component} />
 		</Box>
 	))
 	switch (direction) {

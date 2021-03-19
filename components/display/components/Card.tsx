@@ -18,22 +18,28 @@ export const CardComponent: React.FC<CardArgs> = ({ header, color, content }) =>
 				</Link>
 			)
 		}
+		let headerContent = (
+			<HStack>
+				<IconComponent name={header.icon} color={color} />
+				{wrapLink(
+					<Heading pl={1} size='md' fontWeight='bold'>
+						{header.title}
+					</Heading>,
+				)}
+			</HStack>
+		)
+		if (header.custom) {
+			headerContent = <ComponentDelegate env='cardheader' component={header.custom} />
+		}
 		cardHeader = (
 			<Box pb={2} display='flex' justifyContent='space-between'>
-				<HStack>
-					<IconComponent name={header.icon} color={color} />
-					{wrapLink(
-						<Heading pl={1} size='md' fontWeight='bold'>
-							{header.title}
-						</Heading>,
-					)}
-				</HStack>
+				{headerContent}
 				<Box ml={2}>{header.menu == null ? <></> : <CardMenu menu={header.menu} />}</Box>
 			</Box>
 		)
 	}
 	return (
-		<Card maxW={400} ml={0} pr={4} borderLeft={`3px solid ${color}`}>
+		<Card maxW={600} ml={0} pr={4} borderLeft={`3px solid ${color}`}>
 			{cardHeader}
 			<Box pl={2}>
 				<ComponentDelegate component={content} />

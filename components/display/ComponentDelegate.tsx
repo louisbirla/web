@@ -1,12 +1,19 @@
 import { Text } from "@chakra-ui/react"
 import { ComponentObject } from "display-api"
-import { TextComponent } from "./components/Text"
 import { CardComponent } from "./components/Card"
 import { InputComponent } from "./components/Input"
 import { StackComponent } from "./components/Stack"
 import { ButtonComponent } from "./components/Button"
+import { BadgeComponent } from "./components/Badge"
+import { CheckboxComponent } from "./components/Checkbox"
+import { TextComponent } from "./components/Text"
+import { ProgressComponent } from "./components/Progress"
+import { LinkComponent } from "./components/Link"
+import { ActionPopoverComponent } from "./components/ActionPopover"
+import { DropdownComponent } from "./components/Dropdown"
+import React from "react"
 
-export type Environment = "create" | "page"
+export type Environment = "create" | "page" | "cardheader" | "popover"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
 	switch (component.cid) {
@@ -17,10 +24,22 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 		case "input":
 			return <InputComponent {...component.args} />
 		case "stack":
-			return <StackComponent {...component.args} />
+			return <StackComponent env={env} {...component.args} />
 		case "button":
 			return <ButtonComponent {...component.args} />
+		case "badge":
+			return <BadgeComponent {...component.args} />
+		case "checkbox":
+			return <CheckboxComponent {...component.args} />
+		case "progress":
+			return <ProgressComponent env={env} {...component.args} />
+		case "link":
+			return <LinkComponent {...component.args} />
+		case "actionpopover":
+			return <ActionPopoverComponent {...component.args} />
+		case "dropdown":
+			return <DropdownComponent {...component.args} />
 		default:
-			return <Text>Bad Component.</Text>
+			return <Text color='red'>Error When Rendering Component.</Text>
 	}
 }

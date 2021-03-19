@@ -1,4 +1,4 @@
-import { Button, ButtonProps, IconButton } from "@chakra-ui/button"
+import { Button, ButtonProps, IconButton, Box } from "@chakra-ui/react"
 import { ButtonArgs } from "display-api"
 import { IconComponent } from "./Icon"
 import { genActionObject } from "../ActionObject"
@@ -7,11 +7,25 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps }> = (
 	interact,
 	icon,
 	text,
-	variant = "ghost",
-	size = "20",
+	variant,
+	size: jsonSize,
 	color_scheme,
 	props,
+	disabled,
+	readonly,
 }) => {
+	let size: string | undefined = jsonSize
+	switch (size) {
+		case "Small":
+			size = "sm"
+			break
+		case "Medium":
+			size = "md"
+			break
+		case "Large":
+			size = "lg"
+			break
+	}
 	const [ActionWrap, action] = genActionObject(interact)
 	if (text.trim().length == 0) {
 		return (
@@ -19,9 +33,13 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps }> = (
 				<IconButton
 					m={1}
 					onClick={action}
-					variant={variant}
-					icon={<IconComponent color={color_scheme} size={size} name={icon} />}
+					variant={variant?.toLowerCase()}
+					icon={<IconComponent color='none' size='1.3em' name={icon} />}
 					aria-label={`${icon} button`}
+					isDisabled={disabled}
+					isReadonly={readonly}
+					colorScheme={color_scheme}
+					size={size}
 					{...props}
 				/>
 			</ActionWrap>
@@ -29,8 +47,21 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps }> = (
 	} else {
 		return (
 			<ActionWrap>
-				<Button m={1} variant={variant} onClick={action} size={size} {...props}>
-					{icon && <IconComponent color={color_scheme} name={icon} />}
+				<Button
+					m={1}
+					variant={variant?.toLowerCase()}
+					onClick={action}
+					size={size}
+					isDisabled={disabled}
+					isReadonly={readonly}
+					colorScheme={color_scheme}
+					{...props}
+				>
+					{icon && (
+						<Box mr={2}>
+							<IconComponent size='1.3em' color='none' name={icon} />
+						</Box>
+					)}
 					{text}
 				</Button>
 			</ActionWrap>

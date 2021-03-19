@@ -3,9 +3,14 @@ import { Box as BoxIcon, CheckCircle, Folder, IconProps, MessageSquare, Plus, Rs
 
 export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: number | string }> = ({
 	name,
-	color = "#5276f3",
+	color,
 	size = 23,
 }) => {
+	if (color !== "none") {
+		color = "#5276f3"
+	} else {
+		color = undefined
+	}
 	let commonProps: IconProps = { color, size }
 	switch (name) {
 		case "Folder":
