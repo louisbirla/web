@@ -17,7 +17,7 @@
 		"@sentry/react": "6.2.2",
 		"@urql/exchange-auth": "0.1.2",
 		"date-fns": "^2.19.0",
-		"display-api": "^0.2.8",
+		"display-api": "0.2.8",
 		"framer-motion": "3.10.3",
 		"graphql": "15.5.0",
 		"jotai": "0.15.3",
@@ -38,9 +38,9 @@
 	"devDependencies": {
 		"@testing-library/jest-dom": "5.11.9",
 		"@testing-library/react": "11.2.5",
-		"@types/jest": "26.0.20",
-		"@types/node": "14.14.33",
 		"@types/react-datepicker": "^3.1.7",
+		"@types/jest": "26.0.21",
+		"@types/node": "14.14.35",
 		"@types/react": "17.0.3",
 		"@types/react-dom": "17.0.2",
 		"@types/react-select": "^4.0.13",
@@ -49,7 +49,7 @@
 		"eslint-plugin-jsx-a11y": "6.4.1",
 		"eslint-plugin-react": "7.22.0",
 		"jest": "26.6.3",
-		"ts-jest": "26.5.3",
+		"ts-jest": "26.5.4",
 		"typescript": "4.2.3"
 	},
 	"license": "MIT"
