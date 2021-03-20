@@ -59,10 +59,10 @@ const SignupStep: React.FC<{ next: (username: string, sessionCode: string) => vo
 			<ModalCloseButton />
 			<ModalBody>
 				<Stack spacing={3}>
-					<Input placeholder='display name' name='displayName' ref={register({ required: true })} />
-					<Input placeholder='username' name='username' ref={register({ required: true })} />
-					<Input placeholder='password' type='password' name='password' ref={register({ required: true })} />
-					<Input placeholder='email' type='email' name='email' ref={register({ required: true })} />
+					<Input placeholder='display name' name='displayName' ref={register} />
+					<Input placeholder='username' name='username' ref={register} />
+					<Input placeholder='password' type='password' name='password' ref={register} />
+					<Input placeholder='email' type='email' name='email' ref={register} />
 				</Stack>
 				{error}
 			</ModalBody>
