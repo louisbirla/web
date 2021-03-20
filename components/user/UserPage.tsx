@@ -88,16 +88,20 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							</Heading>
 						)}
 						<Text>
-							<Button
+							{logged?.id === user.id ? <Button
 								variant='link'
+								fontSize='md'
+								fontWeight='normal'
+								color='#393939'
 								onClick={() => {
-									changeUsername().then((username) => {
-										location.href = `/u/${username}`
-									})
+									changeUsername()
+										.then((username) => {
+											location.href = `/u/${username}`
+										})
 								}}
 							>
 								@{user.username}{" "}
-							</Button>
+							</Button> : `@${user.username} `}
 							{user.featured ? (
 								<Tooltip label={user.featured.starred ? "Unstar User" : "Star User"} hasArrow>
 									<Button
@@ -126,9 +130,10 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								</Button>
 							)}
 						</Text>
-						<Button
+						{logged?.id === user.id && <Button
 							variant='link'
 							size='sm'
+							color='#393939'
 							onClick={() =>
 								changePassword().then((username) => {
 									toast({
@@ -144,6 +149,7 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 						>
 							Change Password
 						</Button>
+						}
 					</Box>
 				</Flex>
 				<Box mt={5} textAlign='center'>
