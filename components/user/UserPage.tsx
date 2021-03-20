@@ -88,20 +88,23 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							</Heading>
 						)}
 						<Text>
-							{logged?.id === user.id ? <Button
-								variant='link'
-								fontSize='md'
-								fontWeight='normal'
-								color='#393939'
-								onClick={() => {
-									changeUsername()
-										.then((username) => {
+							{logged?.id === user.id ? (
+								<Button
+									variant='link'
+									fontSize='md'
+									fontWeight='normal'
+									color='#393939'
+									onClick={() => {
+										changeUsername().then((username) => {
 											location.href = `/u/${username}`
 										})
-								}}
-							>
-								@{user.username}{" "}
-							</Button> : `@${user.username} `}
+									}}
+								>
+									@{user.username}{" "}
+								</Button>
+							) : (
+								`@${user.username} `
+							)}
 							{user.featured ? (
 								<Tooltip label={user.featured.starred ? "Unstar User" : "Star User"} hasArrow>
 									<Button
@@ -130,26 +133,27 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								</Button>
 							)}
 						</Text>
-						{logged?.id === user.id && <Button
-							variant='link'
-							size='sm'
-							color='#393939'
-							onClick={() =>
-								changePassword().then((username) => {
-									toast({
-										title: "Password Updated",
-										description: `Password successfully updated for ${username}`,
-										status: "success",
-										duration: 3000,
-										isClosable: true,
+						{logged?.id === user.id && (
+							<Button
+								variant='link'
+								size='sm'
+								color='#393939'
+								onClick={() =>
+									changePassword().then((username) => {
+										toast({
+											title: "Password Updated",
+											description: `Password successfully updated for ${username}`,
+											status: "success",
+											duration: 3000,
+											isClosable: true,
+										})
 									})
-								})
-							}
-							leftIcon={<Icon color='#ffca7a' as={Edit} />}
-						>
-							Change Password
-						</Button>
-						}
+								}
+								leftIcon={<Icon color='#ffca7a' as={Edit} />}
+							>
+								Change Password
+							</Button>
+						)}
 					</Box>
 				</Flex>
 				<Box mt={5} textAlign='center'>
