@@ -8,7 +8,6 @@ const WhoamiQuery = gql`
 			id
 			displayName
 			username
-			credits
 			root {
 				id
 			}
@@ -21,7 +20,6 @@ export type User = {
 	id: number
 	username: string
 	displayName?: string
-	credits?: number
 	root?: {
 		id: number
 	}
