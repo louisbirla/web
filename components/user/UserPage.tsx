@@ -1,12 +1,14 @@
 import { StarIcon } from "@chakra-ui/icons"
-import { Avatar, Box, Button, Flex, Heading, Icon, Spinner, Text, Tooltip } from "@chakra-ui/react"
-import { Star } from "react-feather"
+import { Avatar, Box, Button, Flex, Heading, Icon, Spinner, Text, Tooltip, useToast } from "@chakra-ui/react"
+import { Edit, Star } from "react-feather"
 import { gql, useQuery } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
 import { useStarButton } from "../display/components/menu/StarButton"
 import { useAtom } from "jotai"
 import { userAtom } from "./userAtom"
 import { EditableDisplayName } from "./DisplayName"
+import { useChangeUsername } from "./ChangeUsername"
+import { useChangePassword } from "./ChangePassword"
 
 const UserPageQuery = gql`
 	query($username: String!) {
@@ -49,6 +51,9 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 		res.data?.userByName?.featured?.starred ?? false,
 	)
 	const [logged] = useAtom(userAtom)
+	const changeUsername = useChangeUsername()
+	const changePassword = useChangePassword()
+	const toast = useToast()
 
 	if (res.data?.userByName) {
 		let user = res.data.userByName
@@ -66,7 +71,23 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							</Heading>
 						)}
 						<Text>
-							@{user.username}{" "}
+							{logged?.id === user.id ? (
+								<Button
+									variant='link'
+									fontSize='md'
+									fontWeight='normal'
+									color='#393939'
+									onClick={() => {
+										changeUsername().then((username) => {
+											location.href = `/u/${username}`
+										})
+									}}
+								>
+									@{user.username}{" "}
+								</Button>
+							) : (
+								`@${user.username} `
+							)}
 							{user.featured ? (
 								<Tooltip label={user.featured.starred ? "Unstar User" : "Star User"} hasArrow>
 									<Button
@@ -95,6 +116,27 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								</Button>
 							)}
 						</Text>
+						{logged?.id === user.id && (
+							<Button
+								variant='link'
+								size='sm'
+								color='#393939'
+								onClick={() =>
+									changePassword().then((username) => {
+										toast({
+											title: "Password Updated",
+											description: `Password successfully updated for ${username}`,
+											status: "success",
+											duration: 3000,
+											isClosable: true,
+										})
+									})
+								}
+								leftIcon={<Icon color='#ffca7a' as={Edit} />}
+							>
+								Change Password
+							</Button>
+						)}
 					</Box>
 				</Flex>
 				<Box mt={5} textAlign='center'>

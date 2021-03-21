@@ -15,6 +15,9 @@ import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
 import { api_url } from "../utils/endpoint"
 import { SubscriptionClient } from "subscriptions-transport-ws"
 import * as ws from "ws"
+import { ChangeUsernameModal } from "../components/user/ChangeUsername"
+import { useRouter } from "next/router"
+import { ChangePasswordModal } from "../components/user/ChangePassword"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -56,6 +59,8 @@ export const client = createClient({
 })
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+	const router = useRouter()
+	const username = router.query.username as string
 	return (
 		<UrqlProvider value={client}>
 			<JotaiProvider>
@@ -66,6 +71,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<SignupPanel />
 					<CreateBlockPanel />
 					<ChooseTypePanel />
+					<ChangeUsernameModal username={username} />
+					<ChangePasswordModal />
 				</ChakraProvider>
 			</JotaiProvider>
 		</UrqlProvider>
