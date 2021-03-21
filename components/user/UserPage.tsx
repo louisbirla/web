@@ -1,22 +1,5 @@
 import { StarIcon } from "@chakra-ui/icons"
-import {
-	Avatar,
-	Box,
-	Button,
-	Flex,
-	Heading,
-	Icon,
-	Input,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalOverlay,
-	Spinner,
-	Text,
-	Tooltip,
-	useToast,
-} from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Heading, Icon, Spinner, Text, Tooltip, useToast } from "@chakra-ui/react"
 import { Edit, Star } from "react-feather"
 import { gql, useQuery } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
