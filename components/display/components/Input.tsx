@@ -1,11 +1,12 @@
-import { Box, ButtonGroup, Input, IconButton, Icon, Text, Button, Textarea } from "@chakra-ui/react"
-import { InputArgs } from "display-api"
+import { Box, ButtonGroup, Input, IconButton, Icon, Text, Button, Textarea, HStack } from "@chakra-ui/react"
+import { DropdownArgs, DropdownOption, InputArgs } from "display-api"
 import { setMethodVar, blockMethod } from "../method"
 import { useState } from "react"
 import { Check, X } from "react-feather"
 import { TextComponent } from "./Text"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import { DropdownComponent } from "./Dropdown"
 
 export const InputComponent: React.FC<InputArgs> = ({
 	initial_value,
@@ -17,6 +18,7 @@ export const InputComponent: React.FC<InputArgs> = ({
 	size,
 }) => {
 	const [value, setValue] = useState(initial_value)
+	const [freqency, setFreqency] = useState<string | null>("Days")
 	const [error, setError] = useState<string>()
 	const [inputShown, setInputShown] = useState(mask == undefined ? true : false)
 	let buttons = <></>
@@ -151,6 +153,38 @@ export const InputComponent: React.FC<InputArgs> = ({
 					name={name}
 				/>
 			</Box>
+		)
+	} else if (type === "Frequency") {
+		const options: DropdownOption[] = [{ text: "Days" }, { text: "Weeks" }, { text: "Months" }, { text: "Years" }]
+		const dropdownArgs: DropdownArgs = {
+			default: 0,
+			name: "frequency",
+			options: options,
+		}
+
+		const onSelectFrequency = (frequency: string) => {
+			setFreqency(frequency)
+			dropdownArgs.name && setMethodVar(dropdownArgs.name, freqency)
+		}
+
+		input = () => (
+			<HStack display='inline-flex' justifyContent='space-between'>
+				<Input
+					onChange={(e) => {
+						const new_val = e.target.value
+						setValue(new_val)
+						name && setMethodVar(name, new_val)
+					}}
+					bg='white'
+					value={value}
+					name={name}
+					type='number'
+					placeholder={label}
+					width={75}
+					isInvalid={error != undefined}
+				/>
+				{DropdownComponent({ ...dropdownArgs }, { onSelect: onSelectFrequency })}
+			</HStack>
 		)
 	}
 	return (
