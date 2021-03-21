@@ -1,5 +1,20 @@
-import { Box, ButtonGroup, Input, IconButton, Icon, Text, Button, Textarea, HStack } from "@chakra-ui/react"
-import { DropdownArgs, DropdownOption, InputArgs } from "display-api"
+import {
+	Box,
+	ButtonGroup,
+	Input,
+	IconButton,
+	Icon,
+	Text,
+	Button,
+	Textarea,
+	NumberInput,
+	NumberInputField,
+	NumberInputStepper,
+	NumberIncrementStepper,
+	NumberDecrementStepper,
+	Flex,
+} from "@chakra-ui/react"
+import { DropdownOption, InputArgs } from "display-api"
 import { setMethodVar, blockMethod } from "../method"
 import { useState } from "react"
 import { Check, X } from "react-feather"
@@ -18,7 +33,7 @@ export const InputComponent: React.FC<InputArgs> = ({
 	size,
 }) => {
 	const [value, setValue] = useState(initial_value)
-	const [freqency, setFreqency] = useState<string | null>("Days")
+	const [frequency, setFrequency] = useState<string | null>("Days")
 	const [error, setError] = useState<string>()
 	const [inputShown, setInputShown] = useState(mask == undefined ? true : false)
 	let buttons = <></>
@@ -156,35 +171,45 @@ export const InputComponent: React.FC<InputArgs> = ({
 		)
 	} else if (type === "Frequency") {
 		const options: DropdownOption[] = [{ text: "Days" }, { text: "Weeks" }, { text: "Months" }, { text: "Years" }]
-		const dropdownArgs: DropdownArgs = {
-			default: 0,
-			name: "frequency",
-			options: options,
+
+		const updateNumber = (number: string) => {
+			setValue(number)
+			name && setMethodVar(name, `${number} ${frequency}`)
 		}
 
-		const onSelectFrequency = (frequency: string) => {
-			setFreqency(frequency)
-			dropdownArgs.name && setMethodVar(dropdownArgs.name, freqency)
+		const updateFrequency = (newFreq: string) => {
+			setFrequency(newFreq)
+			name && setMethodVar(name, `${value} ${newFreq}`)
 		}
 
 		input = () => (
-			<HStack display='inline-flex' justifyContent='space-between'>
-				<Input
-					onChange={(e) => {
-						const new_val = e.target.value
-						setValue(new_val)
-						name && setMethodVar(name, new_val)
-					}}
-					bg='white'
-					value={value}
+			<Flex alignItems='center'>
+				<Text mx={1}>every</Text>
+				<NumberInput
+					display='inline'
 					name={name}
-					type='number'
-					placeholder={label}
+					onChange={updateNumber}
 					width={75}
+					value={value}
 					isInvalid={error != undefined}
-				/>
-				{DropdownComponent({ ...dropdownArgs }, { onSelect: onSelectFrequency })}
-			</HStack>
+					mr={2}
+				>
+					<NumberInputField bg='white' />
+					<NumberInputStepper>
+						<NumberIncrementStepper />
+						<NumberDecrementStepper />
+					</NumberInputStepper>
+				</NumberInput>
+				<Box width={130}>
+					<DropdownComponent
+						options={options}
+						onSelect={(i) => {
+							if (i != undefined) updateFrequency(options[i].text)
+						}}
+						placeholder='days'
+					/>
+				</Box>
+			</Flex>
 		)
 	}
 	return (

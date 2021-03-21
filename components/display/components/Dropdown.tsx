@@ -6,10 +6,9 @@ import { setMethodVar } from "../method"
 import { HStack, Text } from "@chakra-ui/layout"
 import { IconComponent } from "./Icon"
 
-export const DropdownComponent: React.FC<DropdownArgs> = (
-	{ disabled, default: initial, name, on_change, options, readonly },
-	{ onSelect },
-) => {
+export const DropdownComponent: React.FC<
+	DropdownArgs & { onSelect?: (index?: number) => void; placeholder?: string }
+> = ({ disabled, default: initial, name, on_change, options, readonly, onSelect, placeholder }) => {
 	const [value, setValue] = useState(initial)
 	const [ActionWrap, action] = genActionObject(on_change)
 	if (options.length == 0) {
@@ -27,6 +26,8 @@ export const DropdownComponent: React.FC<DropdownArgs> = (
 	const onChange = (value?: number) => {
 		setValue(value)
 		name && setMethodVar(name, value)
+		// this method is used when the component is called manually e.g frequency
+		onSelect && onSelect(value)
 		action()
 	}
 	return (
@@ -34,17 +35,13 @@ export const DropdownComponent: React.FC<DropdownArgs> = (
 			<Select
 				value={value == undefined ? undefined : optionList[value]}
 				onChange={(option) => {
-					if (on_change) {
-						onChange(option?.value)
-					} else if (onSelect) {
-						// this method is used when the component is called manually e.g frequency
-						onSelect(option?.value ? options[option?.value].text : null)
-					}
+					onChange(option?.value)
 				}}
 				isDisabled={disabled}
 				isReadonly={readonly}
 				options={optionList}
 				isSearchable={false}
+				placeholder={placeholder}
 			/>
 		</ActionWrap>
 	)
