@@ -37,7 +37,7 @@ export const DropdownComponent: React.FC<DropdownArgs> = (
 					if (on_change) {
 						onChange(option?.value)
 					} else if (onSelect) {
-						// this method is called when the component is called manually e.g frequency
+						// this method is used when the component is called manually e.g frequency
 						onSelect(option?.value ? options[option?.value].text : null)
 					}
 				}}
