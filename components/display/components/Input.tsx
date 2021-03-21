@@ -1,11 +1,27 @@
-import { Box, ButtonGroup, Input, IconButton, Icon, Text, Button, Textarea } from "@chakra-ui/react"
-import { InputArgs } from "display-api"
+import {
+	Box,
+	ButtonGroup,
+	Input,
+	IconButton,
+	Icon,
+	Text,
+	Button,
+	Textarea,
+	NumberInput,
+	NumberInputField,
+	NumberInputStepper,
+	NumberIncrementStepper,
+	NumberDecrementStepper,
+	Flex,
+} from "@chakra-ui/react"
+import { DropdownOption, InputArgs } from "display-api"
 import { setMethodVar, blockMethod } from "../method"
 import { useState } from "react"
 import { Check, X } from "react-feather"
 import { TextComponent } from "./Text"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import { DropdownComponent } from "./Dropdown"
 
 export const InputComponent: React.FC<InputArgs> = ({
 	initial_value,
@@ -17,6 +33,7 @@ export const InputComponent: React.FC<InputArgs> = ({
 	size,
 }) => {
 	const [value, setValue] = useState(initial_value)
+	const [frequency, setFrequency] = useState<string | null>("Days")
 	const [error, setError] = useState<string>()
 	const [inputShown, setInputShown] = useState(mask == undefined ? true : false)
 	let buttons = <></>
@@ -151,6 +168,48 @@ export const InputComponent: React.FC<InputArgs> = ({
 					name={name}
 				/>
 			</Box>
+		)
+	} else if (type === "Frequency") {
+		const options: DropdownOption[] = [{ text: "Days" }, { text: "Weeks" }, { text: "Months" }, { text: "Years" }]
+
+		const updateNumber = (number: string) => {
+			setValue(number)
+			name && setMethodVar(name, `${number} ${frequency}`)
+		}
+
+		const updateFrequency = (newFreq: string) => {
+			setFrequency(newFreq)
+			name && setMethodVar(name, `${value} ${newFreq}`)
+		}
+
+		input = () => (
+			<Flex alignItems='center'>
+				<Text mx={1}>every</Text>
+				<NumberInput
+					display='inline'
+					name={name}
+					onChange={updateNumber}
+					width={75}
+					value={value}
+					isInvalid={error != undefined}
+					mr={2}
+				>
+					<NumberInputField bg='white' />
+					<NumberInputStepper>
+						<NumberIncrementStepper />
+						<NumberDecrementStepper />
+					</NumberInputStepper>
+				</NumberInput>
+				<Box width={130}>
+					<DropdownComponent
+						options={options}
+						onSelect={(i) => {
+							if (i != undefined) updateFrequency(options[i].text)
+						}}
+						placeholder='days'
+					/>
+				</Box>
+			</Flex>
 		)
 	}
 	return (
