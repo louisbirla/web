@@ -17,6 +17,7 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
 	return (
 		<>
+			{menu.custom && <CustomMenu customMenu={menu.custom} />}
 			<Menu closeOnSelect={false}>
 				<MenuButton
 					as={IconButton}
@@ -69,7 +70,6 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 					</MenuItem>
 				</MenuList>
 			</Menu>
-			{menu.custom && <CustomMenu customMenu={menu.custom} />}
 		</>
 	)
 }

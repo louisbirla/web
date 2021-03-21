@@ -1,24 +1,32 @@
 import { IconButton } from "@chakra-ui/button"
-import Icon from "@chakra-ui/icon"
+import { Tooltip } from "@chakra-ui/tooltip"
 import { CustomMenuItem } from "display-api"
 import { genActionObject } from "../../ActionObject"
+import { IconComponent } from "../Icon"
 
-export const CustomMenu: React.FC<{ customMenu: CustomMenuItem[] }> = ({ customMenu }) => {
+export const CustomMenu: React.FC<{ customMenu: CustomMenuItem[]; color?: string }> = ({
+	customMenu,
+	color = "#b3cddb",
+}) => {
 	return (
 		<>
 			{customMenu.map(({ icon, text, interact, disabled }: CustomMenuItem) => {
-				const [, action] = genActionObject(interact)
+				const [ActionWrap, action] = genActionObject(interact)
 				return (
-					<IconButton
-						onClick={action}
-						size='xs'
-						variant='nostyle'
-						color='#b3cddb'
-						disabled={disabled}
-						aria-label={text}
-						marginLeft='2'
-						icon={<Icon name={icon} size={20} />}
-					/>
+					<ActionWrap key={text}>
+						<Tooltip label={text} hasArrow>
+							<IconButton
+								onClick={action}
+								size='xs'
+								variant='nostyle'
+								color={color}
+								disabled={disabled}
+								aria-label={text}
+								mr={2}
+								icon={<IconComponent color='none' name={icon} size={20} />}
+							/>
+						</Tooltip>
+					</ActionWrap>
 				)
 			})}
 		</>
