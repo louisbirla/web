@@ -10,7 +10,7 @@
 		"test:dev": "yarn test --watch"
 	},
 	"dependencies": {
-		"@chakra-ui/icons": "^1.0.6",
+		"@chakra-ui/icons": "^1.0.7",
 		"@chakra-ui/react": "1.4.1",
 		"@emotion/react": "11.1.5",
 		"@emotion/styled": "11.1.5",
