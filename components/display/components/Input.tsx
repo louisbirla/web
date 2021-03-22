@@ -2,7 +2,6 @@ import {
 	Box,
 	ButtonGroup,
 	Input,
-	IconButton,
 	Icon,
 	Text,
 	Button,
@@ -16,9 +15,8 @@ import {
 } from "@chakra-ui/react"
 import { DropdownOption, InputArgs } from "display-api"
 import { setMethodVar, blockMethod } from "../method"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Check, X } from "react-feather"
-import { TextComponent } from "./Text"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { DropdownComponent } from "./Dropdown"
@@ -36,20 +34,27 @@ export const InputComponent: React.FC<InputArgs> = ({
 	const [frequency, setFrequency] = useState<string | null>("Days")
 	const [error, setError] = useState<string>()
 	const [inputShown, setInputShown] = useState(mask == undefined ? true : false)
+	useEffect(() => {
+		name && setMethodVar(name, initial_value)
+	}, [initial_value])
 	let buttons = <></>
 	if (confirm_cancel?.enabled) {
 		let cancelButton: JSX.Element | undefined = (
-			<IconButton
+			<Button
 				onClick={() => {
 					setValue(initial_value)
 					mask && setInputShown(false)
 				}}
-				aria-label='Cancel change'
-				icon={<Icon as={X} />}
-			/>
+				mx={1}
+				size='sm'
+				colorScheme='orange'
+			>
+				<Icon as={X} mr={1} />
+				Cancel
+			</Button>
 		)
 		let confirmButton: JSX.Element | undefined = (
-			<IconButton
+			<Button
 				onClick={async () => {
 					const res = await blockMethod(confirm_cancel.on_confirm.method)
 					if (res.error) {
@@ -58,9 +63,13 @@ export const InputComponent: React.FC<InputArgs> = ({
 						setInputShown(false)
 					}
 				}}
-				aria-label='Confirm change'
-				icon={<Icon as={Check} />}
-			/>
+				mx={1}
+				size='sm'
+				colorScheme='blue'
+			>
+				<Icon as={Check} mr={1} />
+				Confirm
+			</Button>
 		)
 		if (mask) {
 			if (!inputShown) {
@@ -74,7 +83,7 @@ export const InputComponent: React.FC<InputArgs> = ({
 			}
 		}
 		buttons = (
-			<ButtonGroup pl={3} size='sm' isAttached variant='outline'>
+			<ButtonGroup size='sm'>
 				{confirmButton}
 				{cancelButton}
 			</ButtonGroup>
@@ -215,8 +224,15 @@ export const InputComponent: React.FC<InputArgs> = ({
 	return (
 		<Box display='inline-block'>
 			{mask && !inputShown && (
-				<Button variant='ghost' fontWeight='normal' onClick={() => setInputShown(true)}>
-					<TextComponent {...mask.args} />
+				<Button
+					p={0}
+					_hover={{ bg: "lightgray" }}
+					variant='ghost'
+					fontWeight={mask.preset === "Heading" ? "bold" : "normal"}
+					onClick={() => setInputShown(true)}
+					fontSize={mask.preset === "Heading" ? 30 : undefined}
+				>
+					{mask.text || label || "Data"}
 				</Button>
 			)}
 			{inputShown && input()}
