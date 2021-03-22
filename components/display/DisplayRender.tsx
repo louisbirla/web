@@ -26,6 +26,13 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 					<Heading size='xl'>{display.meta.page.header}</Heading>
 				</>
 			)
+		} else if (display.meta.page.header_component) {
+			meta = (
+				<>
+					{meta}
+					<ComponentDelegate component={display.meta.page.header_component} />
+				</>
+			)
 		}
 		if (display.meta.page.menu) {
 			meta = (
