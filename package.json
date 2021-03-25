@@ -30,7 +30,7 @@
 		"react-ga": "3.3.0",
 		"react-hook-form": "6.15.5",
 		"react-select": "^4.3.0",
-		"scheduler": "0.20.1",
+		"scheduler": "0.20.2",
 		"subscriptions-transport-ws": "^0.9.18",
 		"urql": "2.0.1",
 		"ws": "^7.4.4"
