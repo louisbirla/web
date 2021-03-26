@@ -12,6 +12,7 @@ import { LinkComponent } from "./components/Link"
 import { ActionPopoverComponent } from "./components/ActionPopover"
 import { DropdownComponent } from "./components/Dropdown"
 import React from "react"
+import { RichTextComponent } from "./components/richtext/RichText"
 
 export type Environment = "create" | "page" | "cardheader" | "popover"
 
@@ -39,6 +40,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <ActionPopoverComponent {...component.args} />
 		case "dropdown":
 			return <DropdownComponent {...component.args} />
+		case "richtext":
+			return <RichTextComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
