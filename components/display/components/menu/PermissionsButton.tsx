@@ -69,16 +69,15 @@ export const SetUserPermissions = gql`
 `
 
 export type SetVisibilityArgsVars = { blockId: number; public: boolean }
-export type SetUserPerissionsVars = { full: Array<number>, edit: Array<number>, view: Array<number>, blockId: number }
+export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; view: Array<number>; blockId: number }
 export type GetUserPerissionsVars = { blockId: number }
-export type UserPermission = { full: UserArray, edit: UserArray, view: UserArray }
+export type UserPermission = { full: UserArray; edit: UserArray; view: UserArray }
 export type GetUserPermissionResult = { blockById: UserPermission }
 export enum PermissionType {
 	full = 0,
 	edit = 1,
-	view = 2
+	view = 2,
 }
-
 
 export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element, () => void, RefObject<any>] => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
@@ -129,14 +128,15 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 									}
 
 									const setDestination = index == 0 ? setFull : index == 1 ? setEdit : setView
-									const exists = destination.some(e => e.username === user.username)
+									const exists = destination.some((e) => e.username === user.username)
 									if (!exists) {
-										setView(oldValue => oldValue.filter(e => e.username !== user.username))
-										setEdit(oldValue => oldValue.filter(e => e.username !== user.username))
-										setFull(oldValue => oldValue.filter(e => e.username !== user.username))
-										setDestination(oldValue => [...oldValue, user])
+										setView((oldValue) => oldValue.filter((e) => e.username !== user.username))
+										setEdit((oldValue) => oldValue.filter((e) => e.username !== user.username))
+										setFull((oldValue) => oldValue.filter((e) => e.username !== user.username))
+										setDestination((oldValue) => [...oldValue, user])
 									}
-								}}>
+								}}
+							>
 								<option value={0}>Full</option>
 								<option value={1}>Edit</option>
 								<option value={2}>Read-Only</option>
@@ -147,15 +147,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 			)
 
 			return (
-				<Box
-					key={user.username}
-					cursor='pointer'
-					px={4}
-					py={1}
-					onClick={() => {
-
-					}}
-				>
+				<Box key={user.username} cursor='pointer' px={4} py={1} onClick={() => {}}>
 					{content}
 				</Box>
 			)
@@ -165,23 +157,34 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	}
 
 	const renderUserList = () => {
-		return <>
-			{full.length > 0 &&
-				<Stack maxH='80vh' overflow='scroll' spacing={0}>
-					<Heading size='sm' fontWeight='semibold' marginTop='10'>Full</Heading>
-					{renderUserItems(full, PermissionType.full)}
-				</Stack>}
-			{edit.length > 0 &&
-				<Stack maxH='80vh' overflow='scroll' spacing={0}>
-					<Heading size='sm' fontWeight='semibold' marginTop='10'>Edit</Heading>
-					{renderUserItems(edit, PermissionType.edit)}
-				</Stack>}
-			{view.length > 0 &&
-				<Stack maxH='80vh' overflow='scroll' spacing={0}>
-					<Heading size='sm' fontWeight='semibold' marginTop='10'>Read-Only</Heading>
-					{renderUserItems(view, PermissionType.view)}
-				</Stack>}
-		</>
+		return (
+			<>
+				{full.length > 0 && (
+					<Stack maxH='80vh' overflow='scroll' spacing={0}>
+						<Heading size='sm' fontWeight='semibold' marginTop='10'>
+							Full
+						</Heading>
+						{renderUserItems(full, PermissionType.full)}
+					</Stack>
+				)}
+				{edit.length > 0 && (
+					<Stack maxH='80vh' overflow='scroll' spacing={0}>
+						<Heading size='sm' fontWeight='semibold' marginTop='10'>
+							Edit
+						</Heading>
+						{renderUserItems(edit, PermissionType.edit)}
+					</Stack>
+				)}
+				{view.length > 0 && (
+					<Stack maxH='80vh' overflow='scroll' spacing={0}>
+						<Heading size='sm' fontWeight='semibold' marginTop='10'>
+							Read-Only
+						</Heading>
+						{renderUserItems(view, PermissionType.view)}
+					</Stack>
+				)}
+			</>
+		)
 	}
 
 	const drawer = (
@@ -218,20 +221,15 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 						<Text color='red'>{visRes.error?.message}</Text>
 
 						<HStack alignItems='flex-end' marginTop='10'>
-							<Heading width='100%' size=' md' fontWeight='semibold'>User Permissions</Heading>
-							<SearchComponentWrapper component={{ cid: 'search', type: 'User' }}>
-								<Button
-									justifyContent='flex-end'
-									colorScheme='orange'
-									variant='link'>
+							<Heading width='100%' size=' md' fontWeight='semibold'>
+								User Permissions
+							</Heading>
+							<SearchComponentWrapper component={{ cid: "search", type: "User" }}>
+								<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
 									Add
 								</Button>
 							</SearchComponentWrapper>
-							<Button
-								onClick={() => { }}
-								justifyContent='flex-end'
-								colorScheme='orange'
-								variant='link'>
+							<Button onClick={() => {}} justifyContent='flex-end' colorScheme='orange' variant='link'>
 								Save
 							</Button>
 						</HStack>
@@ -246,7 +244,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 					</DrawerFooter>
 				</DrawerContent>
 			</DrawerOverlay>
-		</Drawer >
+		</Drawer>
 	)
 	return [drawer, onOpen, btnRef]
 }
