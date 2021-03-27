@@ -15,14 +15,14 @@ import React from "react"
 import { RichTextComponent } from "./components/richtext/RichText"
 import { DisplaylistComponent } from "./components/Displaylist"
 
-export type Environment = "create" | "page" | "cardheader" | "popover"
+export type Environment = "create" | "page" | "cardheader" | "popover" | "displaylist"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
 	switch (component.cid) {
 		case "text":
 			return <TextComponent env={env} {...component.args} />
 		case "card":
-			return <CardComponent {...component.args} />
+			return <CardComponent env={env} {...component.args} />
 		case "input":
 			return <InputComponent {...component.args} />
 		case "stack":
