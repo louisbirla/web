@@ -54,7 +54,6 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 								{<Icon as={User} mr={2} size={17} />}
 								Permissions
 							</MenuItem>
-							{drawer}
 						</>
 					)}
 					{menu.delete && (
@@ -70,6 +69,7 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 					</MenuItem>
 				</MenuList>
 			</Menu>
+			{drawer}
 		</>
 	)
 }
