@@ -1,4 +1,4 @@
-import { Box, Icon, IconButton, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
+import { Box, HStack, Icon, IconButton, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react"
 import { Search, XCircle } from "react-feather"
 import { SearchResults } from "./SearchResults"
 import { atom, useAtom } from "jotai"
@@ -9,10 +9,10 @@ export const GlobalSearchComponent: React.FC = () => {
 	const [value, setValue] = useAtom(searchQueryAtom)
 	return (
 		<Box position='fixed' display='flex' width='100vw' justifyContent='center' flexDirection='row' top={1}>
-			<Box>
+			<HStack>
 				<SearchComponent value={value} setValue={setValue} global />
 				{value !== "" && <SearchResults query={value} />}
-			</Box>
+			</HStack>
 		</Box>
 	)
 }

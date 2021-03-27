@@ -13,6 +13,7 @@ import { ActionPopoverComponent } from "./components/ActionPopover"
 import { DropdownComponent } from "./components/Dropdown"
 import React from "react"
 import { RichTextComponent } from "./components/richtext/RichText"
+import { DisplaylistComponent } from "./components/Displaylist"
 
 export type Environment = "create" | "page" | "cardheader" | "popover"
 
@@ -42,6 +43,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <DropdownComponent {...component.args} />
 		case "richtext":
 			return <RichTextComponent {...component.args} />
+		case "displaylist":
+			return <DisplaylistComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
