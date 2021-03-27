@@ -221,7 +221,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 						<Text color='red'>{visRes.error?.message}</Text>
 
 						<HStack alignItems='flex-end' marginTop='10'>
-							<Heading width='100%' size=' md' fontWeight='semibold'>
+							<Heading width='100%' size='md' fontWeight='semibold'>
 								User Permissions
 							</Heading>
 							<SearchComponentWrapper component={{ cid: "search", type: "User" }}>
