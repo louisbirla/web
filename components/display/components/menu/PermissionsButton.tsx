@@ -266,9 +266,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								onChoose={(result) => {
 									let userObject = result as UserResult
 									console.log("onChoose: ", userObject)
-									const exists = view.some(e => e.id === userObject.id)
+									const exists = view.some((e) => e.id === userObject.id)
 									if (!exists) {
-										setView(oldView => [...oldView, userObject])
+										setView((oldView) => [...oldView, userObject])
 									}
 								}}
 							>
