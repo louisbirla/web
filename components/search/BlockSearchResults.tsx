@@ -25,13 +25,14 @@ const BlockQuery = gql`
 	}
 `
 
+export type OnChooseBlockResult = { id: number }
 type BlockQueryResults = { searchBlocks: Crumb[][] }
 type QueryVars = { query: string }
 
 export const BlockSearchResults: React.FC<{
 	query: string
 	setQuery: (query: string) => void
-	onChoose?: (id: number) => void
+	onChoose?: (result: OnChooseBlockResult) => void
 }> = ({ query, setQuery, onChoose }) => {
 	let [blockRes] = useQuery<BlockQueryResults, QueryVars>({
 		query: BlockQuery,
@@ -55,7 +56,7 @@ export const BlockResults: React.FC<{
 	loading?: boolean
 	global?: boolean
 	setQuery: (query: string) => void
-	onChoose?: (id: number) => void
+	onChoose?: (result: OnChooseBlockResult) => void
 }> = ({ breadcrumbs = [], loading, global, setQuery, onChoose }) => {
 	if (loading === true) {
 		return (
@@ -101,7 +102,7 @@ export const BlockResults: React.FC<{
 					pb={isLast && global ? 6 : 9.5}
 					onClick={() => {
 						setQuery("")
-						onChoose(blockId)
+						onChoose({ id: blockId })
 					}}
 				>
 					{content}

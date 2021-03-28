@@ -14,7 +14,7 @@ import { RefObject, useEffect, useRef, useState } from "react"
 import { gql, useMutation, useQuery } from "urql"
 import { Avatar, Icon, Select, Tooltip, Button, useToast } from "@chakra-ui/react"
 import { Info } from "react-feather"
-import { UserArray } from "../../../search/UserSearchResults"
+import { UserResult } from "../../../search/UserSearchResults"
 import { SearchComponentWrapper } from "../Search"
 import { User } from "../../../user/userAtom"
 
@@ -72,7 +72,7 @@ export const SetUserPermissions = gql`
 export type SetVisibilityArgsVars = { blockId: number; public: boolean }
 export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; view: Array<number>; blockId: number }
 export type GetUserPerissionsVars = { blockId: number }
-export type UserPermission = { full: UserArray; edit: UserArray; view: UserArray }
+export type UserPermission = { full: UserResult[]; edit: UserResult[]; view: UserResult[] }
 export type GetUserPermissionResult = { blockById: UserPermission }
 export type SetPermissionRequest = { blockId: number; full: Array<number>; edit: Array<number>; view: Array<number> }
 export enum PermissionType {
@@ -86,9 +86,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const btnRef: RefObject<any> = useRef()
 	const toast = useToast()
 	const [visLoading, setVisLoading] = useState(false)
-	const [full, setFull] = useState<UserArray>([])
-	const [edit, setEdit] = useState<UserArray>([])
-	const [view, setView] = useState<UserArray>([])
+	const [full, setFull] = useState<UserResult[]>([])
+	const [edit, setEdit] = useState<UserResult[]>([])
+	const [view, setView] = useState<UserResult[]>([])
 	const [loading, setLoading] = useState(false)
 
 	const [visRes, setVis] = useMutation<{}, SetVisibilityArgsVars>(SetVisibilityQuery)
@@ -143,7 +143,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		})
 	}
 
-	const renderUserItems = (users: UserArray, type: PermissionType) => {
+	const renderUserItems = (users: UserResult[], type: PermissionType) => {
 		const results = users.map((user) => {
 			const displayName = user.displayName || user.username
 			const content = (
@@ -263,8 +263,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							</Heading>
 							<SearchComponentWrapper
 								component={{ cid: "search", type: "User" }}
-								onChoose={(id) => {
-									console.log("onChoose: ", id)
+								onChoose={(result) => {
+									let userObject = result as UserResult
+									console.log("onChoose: ", userObject)
 								}}
 							>
 								<Button justifyContent='flex-end' colorScheme='orange' variant='link'>

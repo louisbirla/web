@@ -10,33 +10,32 @@ import {
 } from "@chakra-ui/popover"
 import { SearchComponent } from "../../search/SearchComponent"
 import React, { useState } from "react"
-import { UserSearchResults } from "../../search/UserSearchResults"
+import { UserResult, UserSearchResults } from "../../search/UserSearchResults"
 import { Box, Text } from "@chakra-ui/layout"
 import { genActionObject } from "../ActionObject"
 import { setMethodVar } from "../method"
-import { BlockSearchResults } from "../../search/BlockSearchResults"
+import { BlockSearchResults, OnChooseBlockResult } from "../../search/BlockSearchResults"
 import { Button } from "@chakra-ui/button"
 import { useCreateBlock } from "../../panels/CreateBlockPanel"
 import { useChooseType } from "../../panels/ChooseTypePanel"
 
-export const SearchComponentWrapper: React.FC<{ component: SearchArgs; onChoose?: (id: number) => void }> = ({
-	children,
-	component,
-	onChoose,
-}) => {
+export const SearchComponentWrapper: React.FC<{
+	component: SearchArgs
+	onChoose?: (result: UserResult | OnChooseBlockResult) => void
+}> = ({ children, component, onChoose }) => {
 	const [chosen, setChosen] = useState(false)
 	const [WrapThen, then] = genActionObject(component.then)
 
-	const onChooseAction = (id: number) => {
+	const onChooseAction = (result: UserResult | OnChooseBlockResult) => {
 		if (onChoose) {
 			// This method is used when this component is called
 			// manually(i-e add users) and onChose action is passed
-			onChoose(id)
+			onChoose(result)
 			return
 		}
 
 		setChosen(true)
-		setMethodVar(component.name || "_", id.toString())
+		setMethodVar(component.name || "_", result.id.toString())
 		then()
 	}
 	if (chosen) {
@@ -57,10 +56,10 @@ export const SearchComponentWrapper: React.FC<{ component: SearchArgs; onChoose?
 	)
 }
 
-export const SearchComponentBody: React.FC<{ component: SearchArgs; onChoose: (id: number) => void }> = ({
-	component,
-	onChoose,
-}) => {
+export const SearchComponentBody: React.FC<{
+	component: SearchArgs
+	onChoose: (result: UserResult | OnChooseBlockResult) => void
+}> = ({ component, onChoose }) => {
 	let [query, setQuery] = useState("")
 	const createBlock = useCreateBlock()
 	const chooseType = useChooseType()
@@ -84,7 +83,14 @@ export const SearchComponentBody: React.FC<{ component: SearchArgs; onChoose: (i
 					) : (
 						<>
 							<Text>or</Text>
-							<Button onClick={() => chooseType().then(createBlock).then(onChoose)} colorScheme='blue'>
+							<Button
+								onClick={() =>
+									chooseType()
+										.then(createBlock)
+										.then((id) => onChoose({ id }))
+								}
+								colorScheme='blue'
+							>
 								Create a Block
 							</Button>
 						</>
