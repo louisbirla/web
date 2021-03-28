@@ -12,10 +12,11 @@ import {
 import { Switch } from "@chakra-ui/switch"
 import { RefObject, useEffect, useRef, useState } from "react"
 import { gql, useMutation, useQuery } from "urql"
-import { Avatar, Icon, Select, Tooltip, Button } from "@chakra-ui/react"
+import { Avatar, Icon, Select, Tooltip, Button, useToast } from "@chakra-ui/react"
 import { Info } from "react-feather"
 import { UserArray } from "../../../search/UserSearchResults"
 import { SearchComponentWrapper } from "../Search"
+import { User } from "../../../user/userAtom"
 
 export const SetVisibilityQuery = gql`
 	mutation($blockId: Int!, $public: Boolean!) {
@@ -73,6 +74,7 @@ export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; 
 export type GetUserPerissionsVars = { blockId: number }
 export type UserPermission = { full: UserArray; edit: UserArray; view: UserArray }
 export type GetUserPermissionResult = { blockById: UserPermission }
+export type SetPermissionRequest = { blockId: number; full: Array<number>; edit: Array<number>; view: Array<number> }
 export enum PermissionType {
 	full = 0,
 	edit = 1,
@@ -82,16 +84,19 @@ export enum PermissionType {
 export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element, () => void, RefObject<any>] => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const btnRef: RefObject<any> = useRef()
+	const toast = useToast()
 	const [visLoading, setVisLoading] = useState(false)
 	const [full, setFull] = useState<UserArray>([])
 	const [edit, setEdit] = useState<UserArray>([])
 	const [view, setView] = useState<UserArray>([])
+	const [loading, setLoading] = useState(false)
 
 	const [visRes, setVis] = useMutation<{}, SetVisibilityArgsVars>(SetVisibilityQuery)
 	const [userPermissionResponse, getUserPermissions] = useQuery<GetUserPermissionResult, GetUserPerissionsVars>({
 		query: GetUserPermissions,
 		variables: { blockId: blockId },
 	})
+	const [, setPermissions] = useMutation<GetUserPermissionResult, SetPermissionRequest>(SetUserPermissions)
 
 	useEffect(() => {
 		getUserPermissions()
@@ -106,8 +111,40 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		}
 	}, [userPermissionResponse])
 
+	const onSaveUserPermissions = () => {
+		const fullIds = full.map(({ id }: User) => {
+			return id
+		})
+		const editIds = edit.map(({ id }: User) => {
+			return id
+		})
+		const viewIds = view.map(({ id }: User) => {
+			return id
+		})
+
+		const request: SetPermissionRequest = {
+			blockId,
+			full: fullIds,
+			edit: editIds,
+			view: viewIds,
+		}
+		setLoading(true)
+		setPermissions(request).then(async ({ data }) => {
+			setLoading(false)
+			if (data != undefined) {
+				toast({
+					title: "Success",
+					description: `User permissions updated successfully`,
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				})
+			}
+		})
+	}
+
 	const renderUserItems = (users: UserArray, type: PermissionType) => {
-		const results = users.map((user, i) => {
+		const results = users.map((user) => {
 			const displayName = user.displayName || user.username
 			const content = (
 				<Flex alignItems='center'>
@@ -147,7 +184,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 			)
 
 			return (
-				<Box key={user.username} cursor='pointer' px={4} py={1} onClick={() => {}}>
+				<Box key={user.username} cursor='pointer' px={4} py={1}>
 					{content}
 				</Box>
 			)
@@ -224,12 +261,23 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Heading width='100%' size='md' fontWeight='semibold'>
 								User Permissions
 							</Heading>
-							<SearchComponentWrapper component={{ cid: "search", type: "User" }}>
+							<SearchComponentWrapper
+								component={{ cid: "search", type: "User" }}
+								onChoose={(id) => {
+									console.log("onChoose: ", id)
+								}}
+							>
 								<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
 									Add
 								</Button>
 							</SearchComponentWrapper>
-							<Button onClick={() => {}} justifyContent='flex-end' colorScheme='orange' variant='link'>
+							<Button
+								isLoading={loading}
+								justifyContent='flex-end'
+								colorScheme='orange'
+								variant='link'
+								onClick={onSaveUserPermissions}
+							>
 								Save
 							</Button>
 						</HStack>

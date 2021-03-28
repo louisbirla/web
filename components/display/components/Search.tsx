@@ -19,10 +19,22 @@ import { Button } from "@chakra-ui/button"
 import { useCreateBlock } from "../../panels/CreateBlockPanel"
 import { useChooseType } from "../../panels/ChooseTypePanel"
 
-export const SearchComponentWrapper: React.FC<{ component: SearchArgs }> = ({ children, component }) => {
+export const SearchComponentWrapper: React.FC<{ component: SearchArgs; onChoose?: (id: number) => void }> = ({
+	children,
+	component,
+	onChoose,
+}) => {
 	const [chosen, setChosen] = useState(false)
 	const [WrapThen, then] = genActionObject(component.then)
-	const onChoose = (id: number) => {
+
+	const onChooseAction = (id: number) => {
+		if (onChoose) {
+			// This method is used when this component is called
+			// manually(i-e add users) and onChose action is passed
+			onChoose(id)
+			return
+		}
+
 		setChosen(true)
 		setMethodVar(component.name || "_", id.toString())
 		then()
@@ -39,7 +51,7 @@ export const SearchComponentWrapper: React.FC<{ component: SearchArgs }> = ({ ch
 				<PopoverHeader fontWeight='bold' textAlign='center'>
 					{component.action_text ?? (component.type === "User" ? "Choose a User" : "Choose a Block")}
 				</PopoverHeader>
-				<SearchComponentBody onChoose={onChoose} component={component} />
+				<SearchComponentBody onChoose={onChooseAction} component={component} />
 			</PopoverContent>
 		</Popover>
 	)
