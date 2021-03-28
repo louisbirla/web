@@ -90,6 +90,8 @@ export const SearchComponentBody: React.FC<{
 										.then((id) => onChoose({ id }))
 								}
 								colorScheme='blue'
+								size='sm'
+								mt={2}
 							>
 								Create a Block
 							</Button>

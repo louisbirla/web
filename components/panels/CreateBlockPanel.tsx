@@ -98,7 +98,7 @@ const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void }>
 						<ComponentDelegate env='create' component={creationObject.header_component} />
 					</Box>
 					<ComponentDelegate env='create' component={creationObject.main_component} />
-					{error && <Text colorScheme='red'>{error}</Text>}
+					{error && <Text color='red'>{error}</Text>}
 				</ModalBody>
 				<ModalFooter>
 					<Button mt={4} colorScheme='blue' color='white' onClick={() => createBlock(creationObject.input_template)}>
@@ -112,7 +112,7 @@ const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void }>
 	if (displayResult.error?.message) {
 		return (
 			<ModalBody>
-				<Text colorScheme='red'>{displayResult.error.message}</Text>
+				<Text color='red'>{displayResult.error.message}</Text>
 			</ModalBody>
 		)
 	}
