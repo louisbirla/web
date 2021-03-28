@@ -9,7 +9,7 @@ import { useNotificationsButton } from "./NotificationsButton"
 import { usePermissionButton } from "./PermissionsButton"
 import { CustomMenu } from "./CustomMenu"
 
-export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
+export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ menu, margin }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
@@ -17,7 +17,7 @@ export const CardMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
 	return (
 		<>
-			{menu.custom && <CustomMenu customMenu={menu.custom} />}
+			{menu.custom && <CustomMenu customMenu={menu.custom} margin={margin} />}
 			<Menu closeOnSelect={false}>
 				<MenuButton
 					as={IconButton}
