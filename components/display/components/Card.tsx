@@ -1,13 +1,14 @@
-import { Box, BoxProps, Heading, HStack } from "@chakra-ui/react"
+import { Box, BoxProps, Fade, Heading, HStack } from "@chakra-ui/react"
 import { CardArgs } from "display-api"
 import Link from "next/link"
-import React from "react"
+import React, { useState } from "react"
 import { ComponentDelegate, Environment } from "../ComponentDelegate"
 import { IconComponent } from "./Icon"
 import { CardMenu } from "./menu/CardMenu"
 
 export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ header, color, content, env }) => {
 	color = color || "#5D80FE"
+	const [isMouseover, setIsMouseover] = useState(false)
 	let cardHeader = <></>
 	if (header) {
 		let wrapLink = (wrapped: JSX.Element) => wrapped
@@ -34,7 +35,15 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ head
 		cardHeader = (
 			<Box pb={2} display='flex' justifyContent='space-between'>
 				{headerContent}
-				<Box ml={2}>{header.menu == null ? <></> : <CardMenu menu={header.menu} />}</Box>
+				<Box ml={2}>
+					{header.menu == null ? (
+						<></>
+					) : (
+						<Fade in={isMouseover}>
+							<CardMenu menu={header.menu} />
+						</Fade>
+					)}
+				</Box>
 			</Box>
 		)
 	}
@@ -48,7 +57,15 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ head
 			  }
 			: undefined
 	return (
-		<Card maxW={600} ml={0} pr={4} borderLeft={`3px solid ${color}`} {...shadowlessProps}>
+		<Card
+			onMouseEnter={() => setIsMouseover(true)}
+			onMouseLeave={() => setIsMouseover(false)}
+			maxW={600}
+			ml={0}
+			pr={4}
+			borderLeft={`3px solid ${color}`}
+			{...shadowlessProps}
+		>
 			{cardHeader}
 			<Box pl={2}>
 				<ComponentDelegate component={content} />

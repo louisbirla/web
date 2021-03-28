@@ -16,14 +16,14 @@ export const UserQuery = gql`
 	}
 `
 
-export type UserArray = Array<{ displayName?: string; username: string; id: number }>
-export type UserQueryResults = { searchUsers: UserArray }
+export type UserResult = { displayName?: string; username: string; id: number }
+export type UserQueryResults = { searchUsers: UserResult[] }
 export type QueryVars = { query: string }
 
 export const UserSearchResults: React.FC<{
 	query: string
 	setQuery: (query: string) => void
-	onChoose?: (id: number) => void
+	onChoose?: (result: UserResult) => void
 }> = ({ query, setQuery, onChoose }) => {
 	let [userRes] = useQuery<UserQueryResults, QueryVars>({
 		query: UserQuery,
@@ -43,11 +43,11 @@ export const UserSearchResults: React.FC<{
 }
 
 export const UserResults: React.FC<{
-	users?: UserArray
+	users?: UserResult[]
 	loading?: boolean
 	global?: boolean
 	setQuery: (query: string) => void
-	onChoose?: (id: number) => void
+	onChoose?: (result: UserResult) => void
 }> = ({ users = [], loading, global, setQuery, onChoose }) => {
 	const [self] = useAtom(userAtom)
 	if (loading === true) {
@@ -92,7 +92,7 @@ export const UserResults: React.FC<{
 					borderBottomRadius={global && isLast ? 20 : undefined}
 					pb={global && isLast ? 3 : 1}
 					onClick={() => {
-						onChoose(user.id)
+						onChoose(user)
 						setQuery("")
 					}}
 				>
