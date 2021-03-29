@@ -22,7 +22,7 @@
 		"framer-motion": "4.0.3",
 		"graphql": "15.5.0",
 		"is-hotkey": "^0.2.0",
-		"jotai": "0.15.3",
+		"jotai": "0.15.5",
 		"next": "10.0.8",
 		"next-seo": "4.23.0",
 		"react": "0.0.0-experimental-3310209d0",
