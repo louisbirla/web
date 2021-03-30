@@ -33,7 +33,7 @@
 		"react-hook-form": "6.15.5",
 		"react-select": "^4.3.0",
 		"scheduler": "0.20.2",
-		"slate": "^0.59.0",
+		"slate": "^0.61.0",
 		"slate-history": "^0.59.0",
 		"slate-react": "^0.59.0",
 		"subscriptions-transport-ws": "^0.9.18",
