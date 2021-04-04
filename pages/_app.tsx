@@ -18,6 +18,7 @@ import * as ws from "ws"
 import { ChangeUsernameModal } from "../components/user/ChangeUsername"
 import { useRouter } from "next/router"
 import { ChangePasswordModal } from "../components/user/ChangePassword"
+import { ChangeEmailModal } from "../components/user/changeEmail"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -61,6 +62,7 @@ export const client = createClient({
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter()
 	const username = router.query.username as string
+	const email = router.query.email as string
 	return (
 		<UrqlProvider value={client}>
 			<JotaiProvider>
@@ -73,6 +75,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<ChooseTypePanel />
 					<ChangeUsernameModal username={username} />
 					<ChangePasswordModal />
+					<ChangeEmailModal email={email} />
 				</ChakraProvider>
 			</JotaiProvider>
 		</UrqlProvider>
