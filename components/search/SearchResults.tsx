@@ -20,7 +20,7 @@ const BlockQuery = gql`
 type BlockQueryResults = { searchBlocks: Crumb[][] }
 type QueryVars = { query: string }
 
-export const SearchResults: React.FC<{ query: string, onClickFilter: Function }> = ({ query, onClickFilter }) => {
+export const SearchResults: React.FC<{ query: string; onClickFilter: Function }> = ({ query, onClickFilter }) => {
 	let [userRes] = useQuery<UserQueryResults, QueryVars>({
 		query: UserQuery,
 		variables: { query },

@@ -4,6 +4,7 @@ import { SearchResults } from "./SearchResults"
 import { atom, useAtom } from "jotai"
 import { SearchFilters } from "./SearchFilters"
 import { useState } from "react"
+import { SearchSubFilters } from "./SearchSubFilters"
 
 export const searchQueryAtom = atom("")
 
@@ -11,6 +12,11 @@ export enum ViewType {
 	SearchResults,
 	SearchFilters,
 	SearchSubFilters,
+}
+export enum FilterType {
+	SortBy = "Sort By",
+	Owner = "Owner",
+	BlockType = "Block Type",
 }
 
 export const GlobalSearchComponent: React.FC = () => {
@@ -23,10 +29,15 @@ export const GlobalSearchComponent: React.FC = () => {
 
 	return (
 		<Box position='fixed' display='flex' width='100vw' justifyContent='center' flexDirection='row' top={1}>
-			<HStack>
+			<HStack flexDirection='column'>
 				<SearchComponent value={value} setValue={setValue} global />
-				{value !== "" && !showFilters && <SearchResults query={value} onClickFilter={setView} />}
-				{value !== "" && showFilters && <SearchFilters setView={setView} />}
+				{value !== "" && currentView === ViewType.SearchResults && (
+					<SearchResults query={value} onClickFilter={setView} />
+				)}
+				{value !== "" && currentView === ViewType.SearchFilters && <SearchFilters setView={setView} />}
+				{value !== "" && currentView === ViewType.SearchSubFilters && (
+					<SearchSubFilters filterType={FilterType.Owner} setView={setView} />
+				)}
 			</HStack>
 		</Box>
 	)
