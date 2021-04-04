@@ -2,16 +2,31 @@ import { Box, HStack, Icon, IconButton, Input, InputGroup, InputLeftElement, Inp
 import { Search, XCircle } from "react-feather"
 import { SearchResults } from "./SearchResults"
 import { atom, useAtom } from "jotai"
+import { SearchFilters } from "./SearchFilters"
+import { useState } from "react"
 
 export const searchQueryAtom = atom("")
 
+export enum ViewType {
+	SearchResults,
+	SearchFilters,
+	SearchSubFilters,
+}
+
 export const GlobalSearchComponent: React.FC = () => {
 	const [value, setValue] = useAtom(searchQueryAtom)
+	const [currentView, setCurrentView] = useState<ViewType>(ViewType.SearchResults)
+
+	const setView = (view: ViewType) => {
+		setCurrentView(view)
+	}
+
 	return (
 		<Box position='fixed' display='flex' width='100vw' justifyContent='center' flexDirection='row' top={1}>
 			<HStack>
 				<SearchComponent value={value} setValue={setValue} global />
-				{value !== "" && <SearchResults query={value} />}
+				{value !== "" && !showFilters && <SearchResults query={value} onClickFilter={setView} />}
+				{value !== "" && showFilters && <SearchFilters setView={setView} />}
 			</HStack>
 		</Box>
 	)

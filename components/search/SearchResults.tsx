@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
+import { Box, Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import { gql, useQuery } from "urql"
 import { Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
@@ -6,7 +6,7 @@ import { Crumb } from "../nav/Breadcrumb"
 import { UserQuery, UserQueryResults, UserResults } from "./UserSearchResults"
 import { BlockResults } from "./BlockSearchResults"
 import { useAtom } from "jotai"
-import { searchQueryAtom } from "./SearchComponent"
+import { searchQueryAtom, ViewType } from "./SearchComponent"
 
 const BlockQuery = gql`
 	query($query: String!) {
@@ -20,7 +20,7 @@ const BlockQuery = gql`
 type BlockQueryResults = { searchBlocks: Crumb[][] }
 type QueryVars = { query: string }
 
-export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
+export const SearchResults: React.FC<{ query: string, onClickFilter: Function }> = ({ query, onClickFilter }) => {
 	let [userRes] = useQuery<UserQueryResults, QueryVars>({
 		query: UserQuery,
 		variables: { query },
@@ -41,6 +41,9 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 					<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
 						People ({userRes.data?.searchUsers.length ?? ".."})
 					</Tab>
+					<Button variant='link' colorScheme='blue' onClick={() => onClickFilter(ViewType.SearchFilters)}>
+						Filters
+					</Button>
 				</TabList>
 				<TabPanels>
 					<TabPanel padding={0}>
