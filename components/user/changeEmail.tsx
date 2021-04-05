@@ -35,17 +35,17 @@ export type Resolve = (email: string) => void
 export const ChangeEmailAtom = atom<{ resolve: Resolve; reject: Reject } | undefined>(undefined)
 
 const empty_reject = () => {}
-const empty_resolve = (_: string) => {}
+// const empty_resolve = (_: string) => {}
 
 export const ChangeEmailModal: React.FC<{ email: string }> = ({ email }) => {
 	let [params] = useAtom(ChangeEmailAtom)
 	let reject = params?.reject || empty_reject
-	let resolve = params?.resolve || empty_resolve
+	// let resolve = params?.resolve || empty_resolve
 	let enabled = params != undefined
 
-	const [updateEmailResult, updateEmail] = useMutation<UpdateEmailResult, UpdateEmailVars>(UpdateEmailMutation)
-	const { register, handleSubmit, watch, errors } = useForm()
-	const [isLoading, setIsLoading] = useState(false)
+	const [updateEmailResult /*updateEmail*/] = useMutation<UpdateEmailResult, UpdateEmailVars>(UpdateEmailMutation)
+	const { register, handleSubmit, /*watch,*/ errors } = useForm()
+	const [isLoading /*setIsLoading*/] = useState(false)
 	const [emailValue, setEmailValue] = useState(email)
 	const [showVerificationCode, setShowVerificationCode] = useState(false)
 	const [disabledEmailField, setDisabledEmailField] = useState(false)
