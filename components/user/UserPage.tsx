@@ -9,6 +9,7 @@ import { userAtom } from "./userAtom"
 import { EditableDisplayName } from "./DisplayName"
 import { useChangeUsername } from "./ChangeUsername"
 import { useChangePassword } from "./ChangePassword"
+import { useChangeEmail } from "./changeEmail"
 
 const UserPageQuery = gql`
 	query($username: String!) {
@@ -31,6 +32,7 @@ type UserPageQueryResult = {
 		id: number
 		username: string
 		displayName?: string
+		email?: string
 		featured?: {
 			id: number
 			embedDisplay: string
@@ -52,7 +54,9 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 	)
 	const [logged] = useAtom(userAtom)
 	const changeUsername = useChangeUsername()
+	const changeEmail = useChangeEmail()
 	const changePassword = useChangePassword()
+
 	const toast = useToast()
 
 	if (res.data?.userByName) {
@@ -116,6 +120,32 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								</Button>
 							)}
 						</Text>
+						<Text>
+							{logged?.id === user.id ? (
+								<Button
+									variant='link'
+									fontSize='md'
+									fontWeight='normal'
+									color='#393939'
+									onClick={() => {
+										changeEmail().then((email) => {
+											toast({
+												title: "Email Updated",
+												description: `Email successfully updated for ${email}`,
+												status: "success",
+												duration: 3000,
+												isClosable: true,
+											})
+										})
+									}}
+								>
+									{user.email ?? "Add Email"}
+								</Button>
+							) : (
+								`@${user?.email}`
+							)}
+						</Text>
+
 						{logged?.id === user.id && (
 							<Button
 								variant='link'
