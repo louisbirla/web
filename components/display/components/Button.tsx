@@ -3,7 +3,7 @@ import { ButtonArgs } from "display-api"
 import { IconComponent } from "./Icon"
 import { genActionObject } from "../ActionObject"
 
-export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { onChange?: Function }> = ({
+export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { onClick?: Function }> = ({
 	interact,
 	icon,
 	text,
@@ -13,7 +13,7 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 	props,
 	disabled,
 	readonly,
-	onChange,
+	onClick,
 }) => {
 	let size: string | undefined = jsonSize
 	switch (size) {
@@ -35,7 +35,7 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 					m={1}
 					onClick={() => {
 						action()
-						onChange && onChange()
+						onClick && onClick()
 					}}
 					variant={variant?.toLowerCase()}
 					icon={<IconComponent color='none' size='1.3em' name={icon} />}
@@ -56,7 +56,7 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 					variant={variant?.toLowerCase()}
 					onClick={() => {
 						action()
-						onChange && onChange()
+						onClick && onClick()
 					}}
 					size={size}
 					isDisabled={disabled}
