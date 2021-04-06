@@ -29,7 +29,7 @@ export const StickyToggleButtonComponent: React.FC<StickyToggleButtonArgs> = ({
 				color_scheme={isEnabled ? button.color_scheme : "gray"}
 				disabled={button.disabled}
 				readonly={true}
-				onChange={onChange}
+				onClick={onChange}
 			/>
 		</ActionWrap>
 	)
