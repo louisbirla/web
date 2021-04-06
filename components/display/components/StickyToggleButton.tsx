@@ -23,7 +23,7 @@ export const StickyToggleButtonComponent: React.FC<StickyToggleButtonArgs> = ({
 		<ActionWrap>
 			<ButtonComponent
 				text={button.text}
-				variant={button.variant}
+				variant={isEnabled ? button.variant : "Outline"}
 				icon={button.icon}
 				size={button.size}
 				color_scheme={isEnabled ? button.color_scheme : "gray"}
