@@ -4251,10 +4251,10 @@ jest@26.6.3:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jotai@0.15.5:
-  version "0.15.5"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-0.15.5.tgz#f9e2f56ebdafa2cffb6d942db0ad57aa57d8b252"
-  integrity sha512-Q9YCdIcqNUlZG2K5UA2qc1utDuWM9P6dlkJqZykCNUik783fipHprJzvIU2nk36NAPnbZnrAK2owX3WXkKKjpQ==
+jotai@0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-0.16.0.tgz#f31faea08c03eb6fffd3839c2b4e1b5ba3a14bc6"
+  integrity sha512-1DjHUnTWIZD9Qh/cM+snmgJbI13AYccqfcDu0Vs8+sXHfzUi6zNyJUKfmJAjTH6vM4y81ljooTj8jSLyQauQuw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
