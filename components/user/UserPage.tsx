@@ -17,6 +17,7 @@ const UserPageQuery = gql`
 			id
 			displayName
 			username
+			email
 			featured {
 				id
 				embedDisplay
@@ -121,7 +122,7 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							)}
 						</Text>
 						<Text>
-							{logged?.id === user.id ? (
+							{logged?.id === user.id && (
 								<Button
 									variant='link'
 									fontSize='md'
@@ -141,8 +142,6 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								>
 									{user.email ?? "Add Email"}
 								</Button>
-							) : (
-								`@${user?.email}`
 							)}
 						</Text>
 
