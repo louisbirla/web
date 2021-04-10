@@ -19,6 +19,7 @@ import { ChangeUsernameModal } from "../components/user/ChangeUsername"
 import { useRouter } from "next/router"
 import { ChangePasswordModal } from "../components/user/ChangePassword"
 import { ChangeEmailModal } from "../components/user/changeEmail"
+import { ForgotPasswordPanel } from "../components/user/auth/ForgotPasswordPanel"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -71,6 +72,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<Component {...pageProps} />
 					<LoginPanel />
 					<SignupPanel />
+					<ForgotPasswordPanel />
 					<CreateBlockPanel />
 					<ChooseTypePanel />
 					<ChangeUsernameModal username={username} />
