@@ -8,51 +8,76 @@ import { BlockResults } from "./BlockSearchResults"
 import { useAtom } from "jotai"
 import { searchQueryAtom } from "./SearchComponent"
 import { SearchFilters } from "./SearchFilters"
-import { SearchSubFilters } from "./SearchSubFilters"
+import { SearchSubFilters, BlockSortType } from "./SearchSubFilters"
+import { User } from "../user/userAtom"
 
 const BlockQuery = gql`
-	query($query: String!) {
-		searchBlocks(query: $query) {
-			blockId
-			name
+	query($query: String!, $filters: BlockSearchFilters, $sortBy: BlockSortType) {
+		searchBlocks(query: $query, filters: $filters, sortBy: $sortBy) {
+			id
+			color
+			icon
+			crumbs {
+				blockId
+				name
+			}
 		}
 	}
 `
 
-type BlockQueryResults = { searchBlocks: Crumb[][] }
-type QueryVars = { query: string }
+type BlockSearchFilters = { starred?: boolean; blockType?: string; ownerId?: number }
+type BlockResults = { id: number; color: string; icon: string; crumbs: Crumb[] }
+
+type BlockQueryResults = { searchBlocks: Array<BlockResults> }
+type QueryVars = { query: string; filters?: BlockSearchFilters; sortBy?: BlockSortType }
 
 export enum ViewType {
 	SearchResults,
 	SearchFilters,
 	SearchSubFilters,
 }
-export enum FilterType {
+export enum FilterViewType {
 	SortBy = "Sort By",
 	Owner = "Owner",
 	BlockType = "Block Type",
 }
 
+type FilterType = { sortBy?: { key: BlockSortType; name: string }; blockType?: string; owner?: User; starred?: boolean }
+
 export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
-	const [filterObject, setFilterObject] = useState({})
+	const [filterObject, setFilterObject] = useState<FilterType>({
+		sortBy: undefined,
+		blockType: undefined,
+		owner: undefined,
+		starred: undefined,
+	})
+	const [currentView, setCurrentView] = useState<ViewType>(ViewType.SearchResults)
+	const [selectedFilter, setSelectedFilter] = useState<FilterViewType>(FilterViewType.SortBy)
+	const [tabIndex, setTabIndex] = useState(0)
+	const [, setQuery] = useAtom(searchQueryAtom)
 
 	let [userRes] = useQuery<UserQueryResults, QueryVars>({
 		query: UserQuery,
 		variables: { query },
 	})
+
 	let [blockRes] = useQuery<BlockQueryResults, QueryVars>({
 		query: BlockQuery,
-		variables: { query },
+		variables: {
+			query,
+			filters: {
+				blockType: filterObject?.blockType,
+				starred: filterObject?.starred,
+				ownerId: filterObject?.owner?.id,
+			},
+			sortBy: filterObject?.sortBy?.key,
+		},
 	})
-	const [, setQuery] = useAtom(searchQueryAtom)
-
-	const [currentView, setCurrentView] = useState<ViewType>(ViewType.SearchResults)
-	const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.SortBy)
 
 	return (
 		<Box shadow='lg' width={400} bg='white' borderTopRadius={40} borderBottomRadius={20} pt={1} display='block'>
 			{currentView === ViewType.SearchResults && (
-				<Tabs align='center'>
+				<Tabs align='center' onChange={(index) => setTabIndex(index)}>
 					<TabList fontWeight='bold'>
 						<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
 							Blocks ({blockRes.data?.searchBlocks.length ?? ".."})
@@ -60,7 +85,12 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 						<Tab mx={5} _selected={{ fontWeight: 500, borderBottom: "4px solid #7C99FF" }}>
 							People ({userRes.data?.searchUsers.length ?? ".."})
 						</Tab>
-						<Button variant='link' colorScheme='blue' onClick={() => setCurrentView(ViewType.SearchFilters)}>
+						<Button
+							disabled={tabIndex == 1}
+							variant='link'
+							colorScheme='blue'
+							onClick={() => setCurrentView(ViewType.SearchFilters)}
+						>
 							Filters
 						</Button>
 					</TabList>
@@ -71,7 +101,7 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 									global
 									setQuery={setQuery}
 									loading={blockRes.fetching}
-									breadcrumbs={blockRes.data?.searchBlocks}
+									blockResults={blockRes.data?.searchBlocks}
 								/>
 							</Suspense>
 						</TabPanel>
@@ -93,7 +123,7 @@ export const SearchResults: React.FC<{ query: string }> = ({ query }) => {
 			)}
 			{currentView === ViewType.SearchSubFilters && (
 				<SearchSubFilters
-					filterType={selectedFilter}
+					filterViewType={selectedFilter}
 					setView={setCurrentView}
 					filterObject={filterObject}
 					setFilterObject={setFilterObject}

@@ -4,7 +4,7 @@ import { Box, Divider, Flex, Heading, HStack, Spacer, Stack, StackDivider, Text 
 import { Check, ChevronLeft } from "react-feather"
 import { IconComponent } from "../display/components/Icon"
 import { IconName } from "display-api"
-import { FilterType, ViewType } from "./SearchResults"
+import { FilterViewType, ViewType } from "./SearchResults"
 import { useState } from "react"
 import { SearchComponent } from "./SearchComponent"
 import { gql, useQuery } from "urql"
@@ -19,15 +19,23 @@ const TypesQuery = gql`
 		}
 	}
 `
+
+export enum BlockSortType {
+	DEFAULT = "DEFAULT",
+	STAR_COUNT = "STAR_COUNT",
+	UPDATED = "UPDATED",
+	CREATED = "CREATED",
+}
+
 type BlockType = { desc: string; name: string; icon: IconName }
 type TypesQueryResult = { blockTypes: BlockType[] }
 
 export const SearchSubFilters: React.FC<{
-	filterType?: FilterType
+	filterViewType?: FilterViewType
 	setView?: Function
 	filterObject?: any
 	setFilterObject?: Function
-}> = ({ filterType, setView, filterObject, setFilterObject }) => {
+}> = ({ filterViewType, setView, filterObject, setFilterObject }) => {
 	let [typeRes] = useQuery<TypesQueryResult>({
 		query: TypesQuery,
 	})
@@ -36,9 +44,14 @@ export const SearchSubFilters: React.FC<{
 
 	const [value, setValue] = useState("")
 
-	const sortingOptions = ["Star count", "Last updated", "Creation date"]
+	const sortingOptions = [
+		{ key: BlockSortType.DEFAULT, name: "Default" },
+		{ key: BlockSortType.STAR_COUNT, name: "Star count" },
+		{ key: BlockSortType.UPDATED, name: "Last updated" },
+		{ key: BlockSortType.CREATED, name: "Creation date" },
+	]
 
-	const renderItem = (text: string, key: string, isSelected: boolean = false, iconName?: IconName) => {
+	const renderSortingItem = (item: any) => {
 		return (
 			<Box
 				cursor='pointer'
@@ -46,31 +59,51 @@ export const SearchSubFilters: React.FC<{
 				pt={7.5}
 				pb={9.5}
 				onClick={() => {
-					filterObject[key] = text
+					filterObject.sortBy = item
 					setFilterObject && setFilterObject(filterObject)
 					setView && setView(ViewType.SearchFilters)
 				}}
 			>
 				<Flex alignItems='center'>
-					{iconName && <IconComponent name={iconName} />}
-					<Text ml='2'>{text}</Text>
+					<Text ml='2'>{item.name}</Text>
 					<Spacer />
-					{isSelected && <Icon ml='2' color='#111111' as={Check} />}
+					{item.key === filterObject?.sortBy && <Icon ml='2' color='#111111' as={Check} />}
+				</Flex>
+			</Box>
+		)
+	}
+
+	const renderBlockItem = (block: BlockType) => {
+		return (
+			<Box
+				cursor='pointer'
+				px={4}
+				pt={7.5}
+				pb={9.5}
+				onClick={() => {
+					filterObject.blockType = block.name
+					setFilterObject && setFilterObject(filterObject)
+					setView && setView(ViewType.SearchFilters)
+				}}
+			>
+				<Flex alignItems='center'>
+					{block.icon && <IconComponent name={block.icon} />}
+					<Text ml='2'>{block.name}</Text>
+					<Spacer />
+					{block.name === filterObject?.blockType && <Icon ml='2' color='#111111' as={Check} />}
 				</Flex>
 			</Box>
 		)
 	}
 
 	const renderfilterType = () => {
-		if (filterType === FilterType.SortBy) {
+		if (filterViewType === FilterViewType.SortBy) {
 			return (
 				<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
-					{sortingOptions.map((option) => {
-						return renderItem(option, "sortBy", option === filterObject?.sortBy)
-					})}
+					{sortingOptions.map(renderSortingItem)}
 				</Stack>
 			)
-		} else if (filterType === FilterType.Owner) {
+		} else if (filterViewType === FilterViewType.Owner) {
 			return (
 				<HStack flexDirection='column'>
 					<SearchComponent value={value} setValue={setValue} />
@@ -79,8 +112,7 @@ export const SearchSubFilters: React.FC<{
 							setQuery={setValue}
 							query={value}
 							onChoose={(item) => {
-								const name = item.displayName ?? item.username
-								filterObject.owner = name
+								filterObject.owner = item
 								setFilterObject && setFilterObject(filterObject)
 								setView && setView(ViewType.SearchFilters)
 							}}
@@ -88,12 +120,10 @@ export const SearchSubFilters: React.FC<{
 					)}
 				</HStack>
 			)
-		} else if (filterType === FilterType.BlockType) {
+		} else if (filterViewType === FilterViewType.BlockType) {
 			return (
 				<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
-					{types?.map((block: BlockType) =>
-						renderItem(block.name, "blockType", block.name === filterObject?.blockType, block.icon),
-					)}
+					{types?.map(renderBlockItem)}
 				</Stack>
 			)
 		}
@@ -109,7 +139,7 @@ export const SearchSubFilters: React.FC<{
 						icon={<Icon as={ChevronLeft} onClick={() => setView && setView(ViewType.SearchFilters)} />}
 					/>
 					<Spacer />
-					<Heading size='sm'>{filterType}</Heading>
+					<Heading size='sm'>{filterViewType}</Heading>
 					<Spacer />
 				</Flex>
 			</Box>

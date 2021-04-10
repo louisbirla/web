@@ -2,7 +2,7 @@ import { Button, IconButton, Switch } from "@chakra-ui/react"
 import Icon from "@chakra-ui/icon"
 import { Box, Divider, Flex, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/layout"
 import { ChevronLeft, ChevronRight } from "react-feather"
-import { FilterType, ViewType } from "./SearchResults"
+import { FilterViewType, ViewType } from "./SearchResults"
 import { useState } from "react"
 
 export const SearchFilters: React.FC<{
@@ -12,7 +12,7 @@ export const SearchFilters: React.FC<{
 	setFilterObject: Function
 }> = ({ setView, setSelectedFilter, filterObject, setFilterObject }) => {
 	const [starred, setStarred] = useState<boolean>(false)
-	const renderItem = (text: string, value: string, filterType: FilterType) => {
+	const renderItem = (text: string, value: string, filterViewType: FilterViewType) => {
 		return (
 			<Box
 				cursor='pointer'
@@ -21,7 +21,7 @@ export const SearchFilters: React.FC<{
 				pb={9.5}
 				onClick={() => {
 					setView(ViewType.SearchSubFilters)
-					setSelectedFilter(filterType)
+					setSelectedFilter(filterViewType)
 				}}
 			>
 				<Flex alignItems='center'>
@@ -54,7 +54,7 @@ export const SearchFilters: React.FC<{
 					<Spacer />
 					<Switch
 						size='md'
-						isChecked={starred}
+						isChecked={filterObject.starred}
 						onChange={() => {
 							setStarred(!starred)
 							filterObject.starred = !filterObject.starred
@@ -91,9 +91,9 @@ export const SearchFilters: React.FC<{
 			</Box>
 			<Divider borderColor='gray.500' />
 			<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
-				{renderItem("Sort By", filterObject?.sortBy, FilterType.SortBy)}
-				{renderItem("Owner", filterObject?.owner, FilterType.Owner)}
-				{renderItem("Block Type", filterObject?.blockType, FilterType.BlockType)}
+				{renderItem(FilterViewType.SortBy, filterObject?.sortBy?.name, FilterViewType.SortBy)}
+				{renderItem(FilterViewType.Owner, filterObject?.owner?.displayName ?? filterObject?.owner?.username, FilterViewType.Owner)}
+				{renderItem(FilterViewType.BlockType, filterObject?.blockType, FilterViewType.BlockType)}
 				{renderStarToggle("Only Starred", true)}
 			</Stack>
 		</>
