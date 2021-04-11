@@ -92,7 +92,11 @@ export const SearchFilters: React.FC<{
 			<Divider borderColor='gray.500' />
 			<Stack maxH='80vh' overflow='scroll' spacing={0} divider={<StackDivider borderColor='gray.200' />}>
 				{renderItem(FilterViewType.SortBy, filterObject?.sortBy?.name, FilterViewType.SortBy)}
-				{renderItem(FilterViewType.Owner, filterObject?.owner?.displayName ?? filterObject?.owner?.username, FilterViewType.Owner)}
+				{renderItem(
+					FilterViewType.Owner,
+					filterObject?.owner?.displayName ?? filterObject?.owner?.username,
+					FilterViewType.Owner,
+				)}
 				{renderItem(FilterViewType.BlockType, filterObject?.blockType, FilterViewType.BlockType)}
 				{renderStarToggle("Only Starred", true)}
 			</Stack>
