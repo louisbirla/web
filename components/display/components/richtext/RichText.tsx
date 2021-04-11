@@ -1,6 +1,6 @@
 import { RichTextArgs } from "display-api"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { createEditor, Text } from "slate"
+import { createEditor, Node, Text } from "slate"
 import { Editable, RenderLeafProps, Slate, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import isHotkey from "is-hotkey"
@@ -26,7 +26,7 @@ const HOTKEYS: {
 export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = false, name, save, on_enter }) => {
 	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 	const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, [])
-	const [value, doSetValue] = useState<Text[]>(content.map(componentToSlateText))
+	let [value, doSetValue] = useState<Text[]>(content.map(componentToSlateText))
 
 	// After the user doesn't do anything for 1000 seconds, save
 	useEffect(() => {
@@ -48,8 +48,17 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 		[name],
 	)
 
+	if (value.length === 0) {
+		value = [
+			{
+				text: "",
+			},
+		]
+	}
+
 	return (
 		<Slate
+			placeholder='Start typing...'
 			editor={editor}
 			value={[{ type: "paragraph", children: value }]}
 			onChange={(val) => setValue(val[0].children as Text[])}
