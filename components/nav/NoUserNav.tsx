@@ -1,19 +1,17 @@
 import { Button, ButtonGroup, Flex } from "@chakra-ui/react"
 import { useAtom } from "jotai"
-import { loginPanelOpen } from "../user/auth/LoginPanel"
-import { signupPanelOpen } from "../user/auth/SignupPanel"
+import { AuthAtom } from "../user/auth/TempAuthScreen"
 
 export const NoUserNav: React.FC = () => {
-	const [, setLoginPanelShown] = useAtom(loginPanelOpen)
-	const [, setSignupPanelShown] = useAtom(signupPanelOpen)
+	const [, setAuthAtom] = useAtom(AuthAtom)
 
 	return (
 		<Flex>
 			<ButtonGroup size='sm' isAttached>
-				<Button colorScheme='blue' variant='solid' onClick={() => setLoginPanelShown(true)}>
+				<Button colorScheme='blue' variant='solid' onClick={() => setAuthAtom("login")}>
 					Log in
 				</Button>
-				<Button colorScheme='yellow' variant='solid' onClick={() => setSignupPanelShown(true)}>
+				<Button colorScheme='yellow' variant='solid' onClick={() => setAuthAtom("signup")}>
 					Sign up
 				</Button>
 			</ButtonGroup>
