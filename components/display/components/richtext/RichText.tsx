@@ -1,6 +1,6 @@
 import { RichTextArgs } from "display-api"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { createEditor, Node, Text } from "slate"
+import { createEditor, Text } from "slate"
 import { Editable, RenderLeafProps, Slate, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import isHotkey from "is-hotkey"
