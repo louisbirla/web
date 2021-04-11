@@ -8,6 +8,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	Spacer,
 	Stack,
 	Text,
 } from "@chakra-ui/react"
@@ -15,6 +16,7 @@ import { atom, useAtom } from "jotai"
 import { gql, useMutation } from "urql"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
+import { forgotPasswordPanelOpen } from "./ForgotPasswordPanel"
 
 export const loginPanelOpen = atom(false)
 
@@ -35,6 +37,8 @@ export const LoginPanel: React.FC = () => {
 	const [loginResult, loginMut] = useMutation<LoginMutationResult, LoginMutationVars>(LoginMutation)
 	const { register, handleSubmit } = useForm<LoginMutationVars>()
 	const [isLoading, setIsLoading] = useState(false)
+	const [, setForgotPasswordPanelShown] = useAtom(forgotPasswordPanelOpen)
+	const [, setLoginPanelShown] = useAtom(loginPanelOpen)
 
 	const closePanel = () => {
 		setShown(false)
@@ -70,6 +74,19 @@ export const LoginPanel: React.FC = () => {
 						{error}
 					</ModalBody>
 					<ModalFooter>
+						<Button
+							size='sm'
+							isLoading={isLoading}
+							colorScheme='blue'
+							variant='link'
+							onClick={() => {
+								setLoginPanelShown(false)
+								setForgotPasswordPanelShown(true)
+							}}
+						>
+							Forgot Password?
+						</Button>
+						<Spacer />
 						<Button type='submit' isLoading={isLoading} colorScheme='blue' variant='outline'>
 							Log In
 						</Button>
