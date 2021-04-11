@@ -19,6 +19,7 @@ type WhoamiResult = { whoami: User }
 export type User = {
 	id: number
 	username: string
+	email: string
 	displayName?: string
 	root?: {
 		id: number
