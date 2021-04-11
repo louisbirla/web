@@ -7,6 +7,7 @@ export const searchQueryAtom = atom("")
 
 export const GlobalSearchComponent: React.FC = () => {
 	const [value, setValue] = useAtom(searchQueryAtom)
+
 	return (
 		<Box position='fixed' display='flex' width='100vw' justifyContent='center' flexDirection='row' top={1}>
 			<HStack flexDirection='column'>

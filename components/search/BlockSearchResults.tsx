@@ -15,19 +15,27 @@ import { Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
 import { Crumb } from "../nav/Breadcrumb"
 import { IconComponent } from "../display/components/Icon"
+import { BlockSortType } from "./SearchSubFilters"
 
 const BlockQuery = gql`
-	query($query: String!) {
-		searchBlocks(query: $query) {
-			blockId
-			name
+	query($query: String!, $filters: BlockSearchFilters, $sortBy: BlockSortType) {
+		searchBlocks(query: $query, filters: $filters, sortBy: $sortBy) {
+			id
+			color
+			icon
+			crumbs {
+				blockId
+				name
+			}
 		}
 	}
 `
 
 export type OnChooseBlockResult = { id: number }
-type BlockQueryResults = { searchBlocks: Crumb[][] }
-type QueryVars = { query: string }
+type BlockSearchFilters = { starred?: boolean; blockType?: string }
+type BlockResults = { id: number; color: string; icon: string; crumbs: Crumb[] }
+type BlockQueryResults = { searchBlocks: Array<BlockResults> }
+type QueryVars = { query: string; filters?: BlockSearchFilters; sortBy?: BlockSortType }
 
 export const BlockSearchResults: React.FC<{
 	query: string
@@ -45,19 +53,19 @@ export const BlockSearchResults: React.FC<{
 				onChoose={onChoose}
 				setQuery={setQuery}
 				loading={blockRes.fetching}
-				breadcrumbs={blockRes.data?.searchBlocks}
+				blockResults={blockRes.data?.searchBlocks}
 			/>
 		</Suspense>
 	)
 }
 
 export const BlockResults: React.FC<{
-	breadcrumbs?: Crumb[][]
+	blockResults?: BlockResults[]
 	loading?: boolean
 	global?: boolean
 	setQuery: (query: string) => void
 	onChoose?: (result: OnChooseBlockResult) => void
-}> = ({ breadcrumbs = [], loading, global, setQuery, onChoose }) => {
+}> = ({ blockResults = [], loading, global, setQuery, onChoose }) => {
 	if (loading === true) {
 		return (
 			<Box display='block' py={4}>
@@ -66,15 +74,16 @@ export const BlockResults: React.FC<{
 			</Box>
 		)
 	}
-	if (breadcrumbs.length === 0) {
+	if (blockResults.length === 0) {
 		return (
 			<Box display='block' py={4}>
 				<Text>No results.</Text>
 			</Box>
 		)
 	}
-	const results = breadcrumbs.map((crumbs, i) => {
-		const isLast = breadcrumbs.length === i + 1
+	const results = blockResults.map((blockResult, i) => {
+		const isLast = blockResults.length === i + 1
+		const crumbs = blockResult.crumbs
 		const lastCrumbIndex = crumbs.length - 1
 		const blockId = crumbs[lastCrumbIndex].blockId
 		const content = (
