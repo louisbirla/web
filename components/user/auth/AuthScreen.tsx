@@ -14,7 +14,7 @@ export const AuthScreen = () => {
 	const [authState, setAuth] = useAtom(AuthAtom)
 
 	return (
-		<Stack minH='100vh' bg={"#3B4CA5"}>
+		<Stack minH='100vh' bgImage={"url(/login-background.svg)"} backgroundSize='cover' bgRepeat='no-repeat'>
 			<Center mt='10'>
 				<VStack>
 					<HStack w='full'>
