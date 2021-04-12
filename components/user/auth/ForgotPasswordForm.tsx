@@ -1,23 +1,12 @@
-import {
-	Button,
-	Input,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
-	Spacer,
-	Stack,
-	Text,
-} from "@chakra-ui/react"
-import { atom, useAtom } from "jotai"
+import { Button, IconButton } from "@chakra-ui/button"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { Heading, Spacer, Stack, Text } from "@chakra-ui/layout"
+import { useAtom } from "jotai"
 import { gql, useMutation } from "urql"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
-
-export const forgotPasswordPanelOpen = atom(false)
+import { ArrowLeft, Eye, EyeOff } from "react-feather"
+import { AuthAtom } from "./AuthScreen"
 
 export const ForgotPassword = gql`
 	mutation($username: String!) {
@@ -52,12 +41,13 @@ type ConfirmForgotPasswordVars = {
 	newPassword: string
 }
 
-export const ForgotPasswordPanel: React.FC = () => {
-	const [isShown, setShown] = useAtom(forgotPasswordPanelOpen)
+export const ForgotPasswordForm = () => {
+	const [, setAuth] = useAtom(AuthAtom)
 	const { register, handleSubmit, errors } = useForm()
 	const [isLoading, setIsLoading] = useState(false)
-	const [showVerificationCode, setShowVerificationCode] = useState(false)
+	const [showPassword, setShowPassword] = useState(false)
 	const [sessionCode, setSessionCode] = useState("")
+	const [showVerificationCode, setShowVerificationCode] = useState(false)
 	const [readOnlyUserNameField, setReadOnlyUserNameField] = useState(false)
 
 	const [forgotPasswordResult, forgotPassword] = useMutation<ForgotPasswordResult, ForgotPasswordVars>(ForgotPassword)
@@ -66,15 +56,11 @@ export const ForgotPasswordPanel: React.FC = () => {
 		ConfirmForgotPasswordVars
 	>(ConfirmForgotPassword)
 
-	let gqlError = forgotPasswordResult.error ? (
+	let error = forgotPasswordResult.error ? (
 		<Text color='red.500'>{forgotPasswordResult.error.message.replace(/\[\w+\]/g, "")}</Text>
 	) : confirmForgotPasswordResult.error ? (
 		<Text color='red.500'>{confirmForgotPasswordResult.error.message.replace(/\[\w+\]/g, "")}</Text>
 	) : null
-
-	const closePanel = () => {
-		setShown(false)
-	}
 
 	const onSubmit = (formData: any) => {
 		setIsLoading(true)
@@ -101,7 +87,6 @@ export const ForgotPasswordPanel: React.FC = () => {
 				if (data != undefined) {
 					const token = data.confirmForgotPassword.token
 					localStorage.setItem("token", token)
-					closePanel()
 					location.reload()
 				}
 			})
@@ -109,49 +94,68 @@ export const ForgotPasswordPanel: React.FC = () => {
 	}
 
 	return (
-		<Modal isOpen={isShown} onClose={closePanel}>
-			<ModalOverlay />
-			<ModalContent m='auto'>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<ModalHeader>Forgot Password</ModalHeader>
-					<ModalCloseButton />
-					<ModalBody>
-						<Stack spacing={3}>
-							<Input
-								placeholder='username'
-								name='username'
-								readOnly={readOnlyUserNameField}
-								ref={register({ required: true })}
-							/>
-							{errors.password && <Text color='red.500'>This is required</Text>}
-							{showVerificationCode && (
-								<>
-									<Input
-										name='newPassword'
-										type='password'
-										placeholder='New Password'
-										ref={register({ required: true })}
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<IconButton
+				aria-label='back to signup'
+				icon={<ArrowLeft size={20} />}
+				size='xs'
+				onClick={() => {
+					setAuth("login")
+				}}
+			/>
+			<Heading textAlign='center' size='lg' pb={4}>
+				Forgot Password
+			</Heading>
+			<Heading textAlign='center' size='xs' pb='8' color='#778593'>
+				Enter your username to reset password
+			</Heading>
+			<Stack spacing='6'>
+				<Stack>
+					<Text color='#778593' fontSize='xs'>
+						Username
+					</Text>
+					<Input size='lg' name='username' readOnly={readOnlyUserNameField} ref={register({ required: true })} />
+					{errors.username && <Text color='red.500'>This is required</Text>}
+				</Stack>
+				{showVerificationCode && (
+					<>
+						<Stack>
+							<Text color='#778593' fontSize='xs'>
+								New Password
+							</Text>
+							<InputGroup size='lg'>
+								<Input
+									size='lg'
+									type={showPassword ? "text" : "password"}
+									name='newPassword'
+									ref={register({ required: true })}
+								/>
+								<InputRightElement>
+									<IconButton
+										backgroundColor='transparent'
+										aria-label='Show/Hide Password'
+										icon={showPassword ? <Eye /> : <EyeOff />}
+										onClick={() => setShowPassword(!showPassword)}
 									/>
-									<Input
-										name='verificationCode'
-										type='text'
-										placeholder='Verification code'
-										ref={register({ required: true })}
-									/>
-								</>
-							)}
-							{errors.verificationCode && <Text color='red.500'>This is required</Text>}
-							{gqlError}
+								</InputRightElement>
+							</InputGroup>
+							{errors.newPassword && <Text color='red.500'>This is required</Text>}
 						</Stack>
-					</ModalBody>
-					<ModalFooter>
-						<Spacer />
-						<Button type='submit' isLoading={isLoading} colorScheme='blue'>
-							{showVerificationCode ? "Verify" : "Save"}
-						</Button>
-					</ModalFooter>
-				</form>
-			</ModalContent>
-		</Modal>
+						<Stack>
+							<Text color='#778593' fontSize='xs'>
+								Verification Code
+							</Text>
+							<Input size='lg' name='verificationCode' type='text' ref={register({ required: true })} />
+							{errors.verificationCode && <Text color='red.500'>This is required</Text>}
+						</Stack>
+					</>
+				)}
+				{error}
+				<Spacer />
+				<Button size='lg' type='submit' isLoading={isLoading} colorScheme='blue' variant='solid'>
+					{showVerificationCode ? "Verify" : "Continue"}
+				</Button>
+			</Stack>
+		</form>
 	)
 }

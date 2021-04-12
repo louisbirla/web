@@ -282,7 +282,6 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 
 						{userPermissionResponse && renderUserList()}
 					</DrawerBody>
-
 					<DrawerFooter>
 						<Button onClick={onClose} colorScheme='orange'>
 							Done

@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Flex } from "@chakra-ui/react"
 import { useAtom } from "jotai"
-import { AuthAtom } from "../user/auth/TempAuthScreen"
+import { AuthAtom } from "../user/auth/AuthScreen"
 
 export const NoUserNav: React.FC = () => {
 	const [, setAuthAtom] = useAtom(AuthAtom)

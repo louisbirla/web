@@ -17,7 +17,7 @@ import { ChangeUsernameModal } from "../components/user/ChangeUsername"
 import { useRouter } from "next/router"
 import { ChangePasswordModal } from "../components/user/ChangePassword"
 import { ChangeEmailModal } from "../components/user/changeEmail"
-import { TempAuthScreen, AuthAtom } from "../components/user/auth/TempAuthScreen"
+import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -84,7 +84,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 const WithAuth: React.FC = ({ children }) => {
 	const [authShown] = useAtom(AuthAtom)
 	if (authShown) {
-		return <TempAuthScreen />
+		return <AuthScreen />
 	} else {
 		return <>{children}</>
 	}
