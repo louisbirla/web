@@ -11,6 +11,7 @@ import { useChangeUsername } from "./ChangeUsername"
 import { useChangePassword } from "./ChangePassword"
 import { useChangeEmail } from "./changeEmail"
 import { StickyToggleButtonComponent } from "../display/components/StickyToggleButton"
+import { ButtonArgs } from "display-api"
 
 const UserPageQuery = gql`
 	query($username: String!) {
