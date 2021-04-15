@@ -5,7 +5,6 @@ import { useAtom } from "jotai"
 import { gql, useMutation } from "urql"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
-import { forgotPasswordPanelOpen } from "./ForgotPasswordPanel"
 import { Eye, EyeOff } from "react-feather"
 import { AuthAtom } from "./AuthScreen"
 
