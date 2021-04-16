@@ -10,6 +10,8 @@ import { EditableDisplayName } from "./DisplayName"
 import { useChangeUsername } from "./ChangeUsername"
 import { useChangePassword } from "./ChangePassword"
 import { useChangeEmail } from "./changeEmail"
+import { StickyToggleButtonComponent } from "../display/components/StickyToggleButton"
+import { ButtonArgs } from "display-api"
 
 const UserPageQuery = gql`
 	query($username: String!) {
@@ -17,6 +19,7 @@ const UserPageQuery = gql`
 			id
 			displayName
 			username
+			email
 			featured {
 				id
 				embedDisplay
@@ -58,6 +61,12 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 	const changePassword = useChangePassword()
 
 	const toast = useToast()
+
+	const buttonArgs: ButtonArgs = {
+		text: "Test",
+		variant: "Solid",
+		color_scheme: "orange",
+	}
 
 	if (res.data?.userByName) {
 		let user = res.data.userByName
@@ -121,7 +130,7 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							)}
 						</Text>
 						<Text>
-							{logged?.id === user.id ? (
+							{logged?.id === user.id && (
 								<Button
 									variant='link'
 									fontSize='md'
@@ -141,11 +150,9 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 								>
 									{user.email ?? "Add Email"}
 								</Button>
-							) : (
-								`@${user?.email}`
 							)}
 						</Text>
-
+						<StickyToggleButtonComponent button={buttonArgs} />
 						{logged?.id === user.id && (
 							<Button
 								variant='link'

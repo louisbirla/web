@@ -16,7 +16,6 @@ import { Avatar, Icon, Select, Tooltip, Button, useToast } from "@chakra-ui/reac
 import { Info } from "react-feather"
 import { UserResult } from "../../../search/UserSearchResults"
 import { SearchComponentWrapper } from "../Search"
-import { User } from "../../../user/userAtom"
 
 export const SetVisibilityQuery = gql`
 	mutation($blockId: Int!, $public: Boolean!) {
@@ -112,15 +111,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	}, [userPermissionResponse])
 
 	const onSaveUserPermissions = () => {
-		const fullIds = full.map(({ id }: User) => {
-			return id
-		})
-		const editIds = edit.map(({ id }: User) => {
-			return id
-		})
-		const viewIds = view.map(({ id }: User) => {
-			return id
-		})
+		const fullIds = full.map(({ id }: UserResult) => id)
+		const editIds = edit.map(({ id }: UserResult) => id)
+		const viewIds = view.map(({ id }: UserResult) => id)
 
 		const request: SetPermissionRequest = {
 			blockId,
@@ -289,7 +282,6 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 
 						{userPermissionResponse && renderUserList()}
 					</DrawerBody>
-
 					<DrawerFooter>
 						<Button onClick={onClose} colorScheme='orange'>
 							Done

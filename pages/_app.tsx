@@ -3,13 +3,11 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider as UrqlProvider } from "urql"
-import { Provider as JotaiProvider } from "jotai"
+import { Provider as JotaiProvider, useAtom } from "jotai"
 import { authExchange } from "@urql/exchange-auth"
 import { errorExchange, subscriptionExchange } from "@urql/core"
 import { AuthState, getAuth, addAuthToOperation } from "../utils/auth"
 import { CreateBlockPanel } from "../components/panels/CreateBlockPanel"
-import { LoginPanel } from "../components/user/auth/LoginPanel"
-import { SignupPanel } from "../components/user/auth/SignupPanel"
 import { theme } from "../utils/theme/theme"
 import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
 import { api_url } from "../utils/endpoint"
@@ -19,6 +17,7 @@ import { ChangeUsernameModal } from "../components/user/ChangeUsername"
 import { useRouter } from "next/router"
 import { ChangePasswordModal } from "../components/user/ChangePassword"
 import { ChangeEmailModal } from "../components/user/changeEmail"
+import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -68,9 +67,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			<JotaiProvider>
 				<ChakraProvider resetCSS theme={theme}>
 					<Metadata ga={prod} />
-					<Component {...pageProps} />
-					<LoginPanel />
-					<SignupPanel />
+					<WithAuth>
+						<Component {...pageProps} />
+					</WithAuth>
 					<CreateBlockPanel />
 					<ChooseTypePanel />
 					<ChangeUsernameModal username={username} />
@@ -80,6 +79,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			</JotaiProvider>
 		</UrqlProvider>
 	)
+}
+
+const WithAuth: React.FC = ({ children }) => {
+	const [authShown] = useAtom(AuthAtom)
+	if (authShown) {
+		return <AuthScreen />
+	} else {
+		return <>{children}</>
+	}
 }
 
 export default MyApp
