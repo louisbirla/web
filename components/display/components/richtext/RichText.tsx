@@ -86,6 +86,9 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 						}
 					}
 				}}
+				style={{
+					minWidth: "95%",
+				}}
 			/>
 		</Slate>
 	)
