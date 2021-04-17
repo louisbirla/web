@@ -2,22 +2,16 @@ import { AppProps } from "next/dist/next-server/lib/router/router"
 import { ChakraProvider } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
-import { cacheExchange, createClient, dedupExchange, fetchExchange, Provider as UrqlProvider } from "urql"
 import { Provider as JotaiProvider, useAtom } from "jotai"
-import { authExchange } from "@urql/exchange-auth"
-import { errorExchange, subscriptionExchange } from "@urql/core"
-import { AuthState, getAuth, addAuthToOperation } from "../utils/auth"
 import { CreateBlockPanel } from "../components/panels/CreateBlockPanel"
 import { theme } from "../utils/theme/theme"
 import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
-import { api_url } from "../utils/endpoint"
-import { SubscriptionClient } from "subscriptions-transport-ws"
-import * as ws from "ws"
 import { ChangeUsernameModal } from "../components/user/ChangeUsername"
 import { useRouter } from "next/router"
 import { ChangePasswordModal } from "../components/user/ChangePassword"
 import { ChangeEmailModal } from "../components/user/changeEmail"
 import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
+import { WithUrql } from "../utils/urql"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -27,43 +21,12 @@ if (prod) {
 	})
 }
 
-const impl = process.browser ? undefined : ws
-
-const subscriptionClient = new SubscriptionClient("wss://api.loop.page", { reconnect: true }, impl)
-
-export const client = createClient({
-	url: api_url,
-	exchanges: [
-		dedupExchange,
-		cacheExchange,
-		errorExchange({
-			onError: (error) => {
-				const isAuthError = error.graphQLErrors.some((e) => e.message.includes("[uar]"))
-
-				if (isAuthError && process.browser) {
-					localStorage.removeItem("token")
-				}
-			},
-		}),
-		authExchange<AuthState>({
-			addAuthToOperation,
-			getAuth,
-		}),
-		fetchExchange,
-		subscriptionExchange({
-			forwardSubscription(operation) {
-				return subscriptionClient.request(operation)
-			},
-		}),
-	],
-})
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
 	const router = useRouter()
 	const username = router.query.username as string
 	const email = router.query.email as string
 	return (
-		<UrqlProvider value={client}>
+		<WithUrql>
 			<JotaiProvider>
 				<ChakraProvider resetCSS theme={theme}>
 					<Metadata ga={prod} />
@@ -77,7 +40,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<ChangeEmailModal email={email} />
 				</ChakraProvider>
 			</JotaiProvider>
-		</UrqlProvider>
+		</WithUrql>
 	)
 }
 
