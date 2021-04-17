@@ -32,7 +32,7 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 	useEffect(() => {
 		const saveTimeout = setTimeout(() => {
 			let cval = value.map(slateTextToComponent)
-			if (save && cval !== content) {
+			if (save && cval != content) {
 				save && blockMethod(save)
 			}
 		}, 1000)
@@ -47,6 +47,10 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 		},
 		[name],
 	)
+
+	useEffect(() => {
+		setValue(value)
+	}, [])
 
 	if (value.length === 0) {
 		value = [
