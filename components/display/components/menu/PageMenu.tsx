@@ -1,18 +1,20 @@
 import { Icon, IconButton, HStack, Button, Text, Tooltip } from "@chakra-ui/react"
 import { MenuComponent } from "display-api"
-import { Bell, BellOff, Share, Star, User } from "react-feather"
+import { Bell, BellOff, MessageSquare, Share, Star, User } from "react-feather"
 import { StarIcon } from "@chakra-ui/icons"
 import { useShareButton } from "./ShareButton"
 import { useStarButton } from "./StarButton"
 import { useNotificationsButton } from "./NotificationsButton"
 import { usePermissionButton } from "./PermissionsButton"
 import { CustomMenu } from "./CustomMenu"
+import { useCommentsButton } from "./CommentsButton"
 
 export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
 	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
+	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(menu.block_id)
 	const props = {
 		variant: "ghost",
 		color: "#7182a5",
@@ -58,6 +60,14 @@ export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 						{drawer}
 					</>
 				)}
+				<>
+					<Tooltip hasArrow label='Comments'>
+						<Button onClick={openCommentDrawer} ref={btnCommentRef} aria-label='Block Comments' {...props}>
+							<Icon as={MessageSquare} size={17} mr={1} />
+						</Button>
+					</Tooltip>
+					{commentDrawer}
+				</>
 				<Tooltip hasArrow label='Share'>
 					<IconButton
 						{...props}

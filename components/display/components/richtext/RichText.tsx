@@ -24,8 +24,6 @@ const HOTKEYS: {
 }
 
 export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = false, name, save, on_enter }) => {
-	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-	const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, [])
 	let [value, doSetValue] = useState<Text[]>(content.map(componentToSlateText))
 
 	// After the user doesn't do anything for 1000 seconds, save
@@ -56,6 +54,22 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 		]
 	}
 
+	const onEnter = () => {
+		on_enter && blockMethod(on_enter)
+	}
+
+	return <RichTextEditor value={value} setValue={setValue} editable={editable} onEnter={onEnter} />
+}
+
+export const RichTextEditor: React.FC<{
+	value: Text[]
+	setValue: (newVal: Text[]) => void
+	editable?: boolean
+	onEnter?: Function
+}> = ({ value, setValue, editable, onEnter }) => {
+	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+	const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, [])
+
 	return (
 		<Slate
 			placeholder='Start typing...'
@@ -68,10 +82,11 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 				readOnly={!editable}
 				renderLeaf={renderLeaf}
 				placeholder='Start typing...'
+				style={{ width: "100%" }}
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
 						event.preventDefault()
-						on_enter && blockMethod(on_enter)
+						onEnter && onEnter()
 						return
 					}
 					for (const hotkey in HOTKEYS) {
