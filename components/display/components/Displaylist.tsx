@@ -11,7 +11,7 @@ export const DisplaylistComponent: React.FC<DisplayListArgs> = ({ items, color }
 		<DisplaylistItem key={`${i}${component.cid}`} component={component} menu={menu} />
 	))
 	return (
-		<Card display='block' mx='auto' width={1000} maxW='95vw' p={4} pl={9} borderLeft={`5px solid ${color}`}>
+		<Card display='block' mx='auto' width='100%' maxW='95vw' p={4} pl={9} borderLeft={`5px solid ${color}`}>
 			<Stack>{content}</Stack>
 		</Card>
 	)
