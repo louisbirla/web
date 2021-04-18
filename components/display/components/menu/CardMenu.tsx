@@ -37,13 +37,10 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 						</MenuItem>
 					)}
 					<>
-						<MenuItem
-							onClick={openCommentDrawer}
-							ref={btnCommentRef}
-							command={`${menu.comment_count}`}>
+						<MenuItem onClick={openCommentDrawer} ref={btnCommentRef} command={`${menu.comment_count}`}>
 							{<Icon as={MessageSquare} mr={2} size={17} />}
-								Comments
-							</MenuItem>
+							Comments
+						</MenuItem>
 					</>
 					{menu.notifications_enabled != undefined && (
 						<MenuItem onClick={notificationButton}>

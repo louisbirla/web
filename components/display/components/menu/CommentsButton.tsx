@@ -156,12 +156,12 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 			<DrawerOverlay>
 				<DrawerContent>
 					<DrawerCloseButton />
-					<DrawerHeader>{title ? title : 'Comments'}</DrawerHeader>
+					<DrawerHeader>{title ? title : "Comments"}</DrawerHeader>
 					<DrawerBody>
 						{comments?.length === 0 ? (
 							<Text>No comments found!</Text>
 						) : (
-							<List>{comments && comments.map((comment: Comment) => <RenderCommentItem comment={comment}/>)}</List>
+							<List>{comments && comments.map((comment: Comment) => <RenderCommentItem comment={comment} />)}</List>
 						)}
 					</DrawerBody>
 					<DrawerFooter borderTop='1px' borderColor='#DCDCDC'>
@@ -192,9 +192,9 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 	return [drawer, onOpen, btnRef]
 }
 
-export const RenderCommentItem: React.FC<{ comment: Comment; }> = ({ comment }) => {
+export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) => {
 	const [, setStarred] = useMutation<SetStarredResult, SetStarredVars>(SetStarredQuery)
-	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, 'Threads')
+	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, "Threads")
 
 	const displayName = comment.author.displayName || comment.author.username
 	let timing = ""
@@ -277,7 +277,11 @@ export const RenderCommentItem: React.FC<{ comment: Comment; }> = ({ comment }) 
 				<Flex ml='12' mb={2} fontSize='xs'>
 					{renderCommentContent(comment)}
 				</Flex>
-				{comment.block.commentsCount > 0 && <Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${comment.block.commentsCount} ${comment.block.commentsCount === 1 ? 'reply' : 'replies'}`}</Button>}
+				{comment.block.commentsCount > 0 && (
+					<Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${
+						comment.block.commentsCount
+					} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}</Button>
+				)}
 			</ListItem>
 			<Divider />
 			{commentDrawer}
