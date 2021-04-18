@@ -82,6 +82,7 @@ export const Card: React.FC<BoxProps> = (props) => (
 		pb={3}
 		pl={2}
 		pr={3}
+		width='100%'
 		borderRadius={4}
 		display='inline-block'
 		m={2}

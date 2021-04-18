@@ -274,7 +274,7 @@ export const RenderCommentItem: React.FC<{ comment: Comment; }> = ({ comment }) 
 						</Menu>
 					</HStack>
 				</Flex>
-				<Flex width='100%' ml='12' mb={2} fontSize='xs'>
+				<Flex ml='12' mb={2} fontSize='xs'>
 					{renderCommentContent(comment)}
 				</Flex>
 				{comment.block.commentsCount > 0 && <Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${comment.block.commentsCount} ${comment.block.commentsCount === 1 ? 'reply' : 'replies'}`}</Button>}
