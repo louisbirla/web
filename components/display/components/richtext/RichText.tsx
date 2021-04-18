@@ -86,7 +86,7 @@ export const RichTextEditor: React.FC<{
 				readOnly={!editable}
 				renderLeaf={renderLeaf}
 				placeholder='Start typing...'
-				style={{ width: "100%" }}
+				style={{ minWidth: "95%" }}
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
 						event.preventDefault()
@@ -100,9 +100,6 @@ export const RichTextEditor: React.FC<{
 							toggleMark(editor, mark)
 						}
 					}
-				}}
-				style={{
-					minWidth: "95%",
 				}}
 			/>
 		</Slate>
