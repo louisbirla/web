@@ -21,6 +21,7 @@ import { RichTextEditor } from "../richtext/RichText"
 import { Text as SlateText } from "slate"
 import { slateTextToComponent } from "../richtext/slateDisplayConversion"
 import { getFormattedTime } from "../../../../utils/helper"
+import { useStarButton } from "./StarButton"
 
 export const GET_BLOCK_COMMENTS = gql`
 	query($id: Int!) {
@@ -38,19 +39,12 @@ export const GET_BLOCK_COMMENTS = gql`
 					id
 					type
 					starred
+					starCount
 					pageDisplay
 					embedDisplay
 					commentsCount
 				}
 			}
-		}
-	}
-`
-
-export const SetStarredQuery = gql`
-	mutation($blockId: Int!, $starred: Boolean!) {
-		setStarred(blockId: $blockId, starred: $starred) {
-			id
 		}
 	}
 `
@@ -76,9 +70,6 @@ const CreateCommentQuery = gql`
 		}
 	}
 `
-
-export type SetStarredResult = { setStarred: { id: number } }
-export type SetStarredVars = { blockId: number; starred: boolean }
 
 export type Block = {
 	id: number
@@ -193,8 +184,8 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 }
 
 export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) => {
-	const [, setStarred] = useMutation<SetStarredResult, SetStarredVars>(SetStarredQuery)
 	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, "Threads")
+	const [starButton] = useStarButton(comment.block.id, comment.block.starred)
 
 	const displayName = comment.author.displayName || comment.author.username
 	let timing = ""
@@ -232,23 +223,14 @@ export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) =
 						</HStack>
 					</Flex>
 					<HStack>
-						{comment.block.starred ? (
-							<StarIcon
-								onClick={() => setStarred({ starred: !comment.block.starred, blockId: comment.block.id })}
-								size='16'
-								color='#FFCA7A'
-							/>
-						) : (
-							<Icon
-								as={Star}
-								onClick={() => setStarred({ starred: !comment.block.starred, blockId: comment.block.id })}
-								size='16'
-								color='#FFCA7A'
-							/>
-						)}
-						<Text color='#7C7C7C' fontSize='xs'>
-							{comment.starredCount > 0 && `${comment.starredCount} stars`}
-						</Text>
+						<Button variant='unstyled' onClick={starButton} aria-label='Toggle star status'>
+							<HStack>
+								{comment.block.starred ? <StarIcon color='#FFCA7A' /> : <Icon color='#FFCA7A' as={Star} size={17} />}
+								<Text color='#A0A0A0' fontSize='11'>
+									{`${comment.block.starCount} stars`}
+								</Text>
+							</HStack>
+						</Button>
 						<Menu closeOnSelect={false} size='xs'>
 							<MenuButton
 								as={IconButton}
@@ -262,14 +244,6 @@ export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) =
 								<MenuItem ref={btnCommentRef} onClick={openCommentDrawer}>
 									<Text fontSize='15'>Reply</Text>
 								</MenuItem>
-								{/* <MenuDivider ml='3' mr='3' />
-								<MenuItem>
-									<Text fontSize='15'>Pin</Text>
-								</MenuItem>
-								<MenuDivider ml='3' mr='3' />
-								<MenuItem>
-									<Text fontSize='15'>Delete</Text>
-								</MenuItem> */}
 							</MenuList>
 						</Menu>
 					</HStack>
@@ -278,9 +252,8 @@ export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) =
 					{renderCommentContent(comment)}
 				</Flex>
 				{comment.block.commentsCount > 0 && (
-					<Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${
-						comment.block.commentsCount
-					} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}</Button>
+					<Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${comment.block.commentsCount
+						} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}</Button>
 				)}
 			</ListItem>
 			<Divider />
