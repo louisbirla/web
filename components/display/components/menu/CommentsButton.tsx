@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/modal"
 import { RefObject, useRef, useState } from "react"
 import { gql, useMutation, useQuery } from "urql"
-import { Avatar, Button, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
+import { Avatar, Button, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList, Box } from "@chakra-ui/react"
 import { MoreHorizontal, Send, Star } from "react-feather"
 import { User } from "../../../user/userAtom"
 import { StarIcon } from "@chakra-ui/icons"
@@ -99,7 +99,7 @@ export type CreateBlockArgs = { type: string; input: string }
 export type CreateCommentResult = { createComment: Comment }
 export type CreateCommentArgs = { blockId: number; contentId: number }
 
-export const useCommentsButton = (blockId: number, title?: string): [JSX.Element, () => void, RefObject<any>] => {
+export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Element, () => void, RefObject<any>] => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const btnRef: RefObject<any> = useRef()
 
@@ -147,12 +147,26 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 			<DrawerOverlay>
 				<DrawerContent>
 					<DrawerCloseButton />
-					<DrawerHeader>{title ? title : "Comments"}</DrawerHeader>
+					<DrawerHeader>{comment ? 'Thread' : 'Comments'}</DrawerHeader>
+					{comment &&
+						<Box p='4' boxShadow='xl' pt='6' pb='4' bgColor='#F5F5F5'>
+							<RenderCommentItem comment={comment} isPreview={true} />
+						</Box>
+					}
 					<DrawerBody>
 						{comments?.length === 0 ? (
 							<Text>No comments found!</Text>
 						) : (
-							<List>{comments && comments.map((comment: Comment) => <RenderCommentItem comment={comment} />)}</List>
+							<List>
+								{comments && comments.map((comment: Comment) => {
+									return <>
+										<ListItem pt='6' pb='4'>
+											<RenderCommentItem comment={comment} />
+										</ListItem>
+										<Divider />
+									</>
+								})}
+							</List>
 						)}
 					</DrawerBody>
 					<DrawerFooter borderTop='1px' borderColor='#DCDCDC'>
@@ -183,8 +197,8 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 	return [drawer, onOpen, btnRef]
 }
 
-export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) => {
-	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, "Threads")
+export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean }> = ({ comment, isPreview }) => {
+	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, comment)
 	const [starButton] = useStarButton(comment.block.id, comment.block.starred)
 
 	const displayName = comment.author.displayName || comment.author.username
@@ -209,55 +223,53 @@ export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) =
 
 	return (
 		<>
-			<ListItem pt='4' pb='4'>
-				<Flex width='100%' justifyContent='space-between' align='flex-start'>
-					<Flex alignItems='center'>
-						<HStack spacing={4} align='flex-start'>
-							<Avatar size='sm' name={displayName} />
-							<Text color='#333333' fontSize='xs' fontWeight='bold'>
-								{displayName}
-							</Text>
-							<Text color='#7C7C7C' fontSize='xs'>
-								{timing}
-							</Text>
-						</HStack>
-					</Flex>
-					<HStack>
-						<Button variant='unstyled' onClick={starButton} aria-label='Toggle star status'>
-							<HStack>
-								{comment.block.starred ? <StarIcon color='#FFCA7A' /> : <Icon color='#FFCA7A' as={Star} size={17} />}
-								<Text color='#A0A0A0' fontSize='11'>
-									{`${comment.block.starCount} stars`}
-								</Text>
-							</HStack>
-						</Button>
-						<Menu closeOnSelect={false} size='xs'>
-							<MenuButton
-								as={IconButton}
-								size='xs'
-								aria-label='Menu'
-								icon={<MoreHorizontal size='16' />}
-								color='#b3cddb'
-								variant='nostyle'
-							/>
-							<MenuList>
-								<MenuItem ref={btnCommentRef} onClick={openCommentDrawer}>
-									<Text fontSize='15'>Reply</Text>
-								</MenuItem>
-							</MenuList>
-						</Menu>
+			<Flex width='100%' justifyContent='space-between' align='flex-start'>
+				<Flex alignItems='center'>
+					<HStack spacing={4} align='flex-start'>
+						<Avatar size='sm' name={displayName} />
+						<Text color='#333333' fontSize='xs' fontWeight='bold'>
+							{displayName}
+						</Text>
+						<Text color='#7C7C7C' fontSize='xs'>
+							{timing}
+						</Text>
 					</HStack>
 				</Flex>
-				<Flex ml='12' mb={2} fontSize='xs'>
-					{renderCommentContent(comment)}
-				</Flex>
-				{comment.block.commentsCount > 0 && (
-					<Button ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>{`${comment.block.commentsCount
-						} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}</Button>
-				)}
-			</ListItem>
-			<Divider />
-			{commentDrawer}
+				<HStack>
+					<Button variant='link' onClick={starButton} aria-label='Toggle star status'>
+						<HStack>
+							{comment.block.starred ? <StarIcon color='#FFCA7A' /> : <Icon color='#FFCA7A' as={Star} size={17} />}
+							<Text color='#A0A0A0' fontSize='11'>
+								{`${comment.block.starCount} stars`}
+							</Text>
+						</HStack>
+					</Button>
+					<Menu closeOnSelect={false} size='xs'>
+						<MenuButton
+							as={IconButton}
+							size='xs'
+							aria-label='Menu'
+							icon={<MoreHorizontal size='16' />}
+							color='#b3cddb'
+							variant='nostyle'
+						/>
+						<MenuList>
+							<MenuItem ref={btnCommentRef} onClick={openCommentDrawer}>
+								<Text fontSize='15'>Reply</Text>
+							</MenuItem>
+						</MenuList>
+					</Menu>
+				</HStack>
+			</Flex>
+			<Flex ml='12' mb={2} fontSize='xs'>
+				{renderCommentContent(comment)}
+			</Flex>
+			{comment.block.commentsCount > 0 && (
+				<Button disabled={isPreview} ref={btnCommentRef} onClick={openCommentDrawer} ml='12' size='xs' variant='link'>
+					{`${comment.block.commentsCount} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}
+				</Button>
+			)}
+			{ commentDrawer}
 		</>
 	)
 }
