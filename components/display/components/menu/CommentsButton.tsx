@@ -21,7 +21,6 @@ import { RichTextEditor } from "../richtext/RichText"
 import { Text as SlateText } from "slate"
 import { slateTextToComponent } from "../richtext/slateDisplayConversion"
 import { getFormattedTime } from "../../../../utils/helper"
-import { useStarButton } from "./StarButton"
 
 export const GET_BLOCK_COMMENTS = gql`
 	query($id: Int!) {
@@ -71,6 +70,16 @@ const CreateCommentQuery = gql`
 	}
 `
 
+const SetCommentStarred = gql`
+	mutation($commentId: Int!, $starred: Boolean!) {
+		setCommentStarred(commentId: $commentId, starred: $starred) {
+			id
+			starCount
+			starred
+		}
+	}
+`
+
 export type Block = {
 	id: number
 	pageDisplay: string
@@ -85,7 +94,7 @@ export type Comment = {
 	id: number
 	author: User
 	starred: boolean
-	starredCount: number
+	starCount: number
 	block: Block
 	createdAt: string
 }
@@ -99,13 +108,16 @@ export type CreateBlockArgs = { type: string; input: string }
 export type CreateCommentResult = { createComment: Comment }
 export type CreateCommentArgs = { blockId: number; contentId: number }
 
+export type CommentStarredResult = { setCommentStarred: { id: number; starCount: number; starred: boolean } }
+export type CommentStarredArgs = { commentId: number; starred: boolean }
+
 export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Element, () => void, RefObject<any>] => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const btnRef: RefObject<any> = useRef()
 
 	const [commentsResponse] = useQuery<BlockResult, BlockRequest>({
 		query: GET_BLOCK_COMMENTS,
-		variables: { id: blockId },
+		variables: { id: blockId }
 	})
 	const comments = commentsResponse.data?.blockById.comments
 
@@ -199,12 +211,17 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 
 export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean }> = ({ comment, isPreview }) => {
 	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, comment)
-	const [starButton] = useStarButton(comment.block.id, comment.block.starred)
+	const [, setCommentStarred] = useMutation<CommentStarredResult, CommentStarredArgs>(SetCommentStarred)
 
 	const displayName = comment.author.displayName || comment.author.username
 	let timing = ""
 	if (comment.createdAt) {
 		timing = getFormattedTime(comment.createdAt)
+	}
+
+	const handleStarring = () => {
+		const request: CommentStarredArgs = { commentId: comment.id, starred: !comment.starred }
+		setCommentStarred(request)
 	}
 
 	const renderCommentContent = (comment: Comment) => {
@@ -236,11 +253,11 @@ export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean
 					</HStack>
 				</Flex>
 				<HStack>
-					<Button variant='link' onClick={starButton} aria-label='Toggle star status'>
+					<Button variant='link' onClick={handleStarring} aria-label='Toggle star status'>
 						<HStack>
-							{comment.block.starred ? <StarIcon color='#FFCA7A' /> : <Icon color='#FFCA7A' as={Star} size={17} />}
+							{comment.starred ? <StarIcon color='#FFCA7A' /> : <Icon color='#FFCA7A' as={Star} size={17} />}
 							<Text color='#A0A0A0' fontSize='11'>
-								{`${comment.block.starCount} stars`}
+								{`${comment.starCount} stars`}
 							</Text>
 						</HStack>
 					</Button>
