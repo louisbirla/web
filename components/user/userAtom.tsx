@@ -1,6 +1,6 @@
 import { gql } from "urql"
 import { atom } from "jotai"
-import { client } from "../../pages/_app"
+import { client } from "../../utils/urql"
 
 const WhoamiQuery = gql`
 	query {

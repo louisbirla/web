@@ -1,6 +1,6 @@
 import { MethodObject } from "display-api"
 import { gql } from "urql"
-import { client } from "../../pages/_app"
+import { client } from "../../utils/urql"
 
 declare global {
 	interface Window {
