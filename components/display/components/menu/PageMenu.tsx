@@ -39,6 +39,15 @@ export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 						</Button>
 					</Tooltip>
 				)}
+				<>
+					<Tooltip hasArrow label='Comments'>
+						<Button onClick={openCommentDrawer} ref={btnCommentRef} aria-label='Block Comments' {...props}>
+							<Icon as={MessageSquare} size={17} mr={1} />
+							{menu.comment_count}
+						</Button>
+					</Tooltip>
+					{commentDrawer}
+				</>
 				{menu.notifications_enabled != undefined && (
 					<Tooltip hasArrow label={menu.notifications_enabled ? "Disable Notifications" : "Enable Notifications"}>
 						<IconButton
@@ -60,14 +69,6 @@ export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 						{drawer}
 					</>
 				)}
-				<>
-					<Tooltip hasArrow label='Comments'>
-						<Button onClick={openCommentDrawer} ref={btnCommentRef} aria-label='Block Comments' {...props}>
-							<Icon as={MessageSquare} size={17} mr={1} />
-						</Button>
-					</Tooltip>
-					{commentDrawer}
-				</>
 				<Tooltip hasArrow label='Share'>
 					<IconButton
 						{...props}
