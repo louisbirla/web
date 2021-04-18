@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/modal"
 import { RefObject, useRef, useState } from "react"
 import { gql, useMutation, useQuery } from "urql"
-import { Avatar, Button, Icon, IconButton, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/react"
+import { Avatar, Button, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { MoreHorizontal, Send, Star } from "react-feather"
 import { User } from "../../../user/userAtom"
 import { StarIcon } from "@chakra-ui/icons"
@@ -143,8 +143,8 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 			if (contentId) {
 				createCommentMut({ blockId, contentId }).then((res) => {
 					if (res.data?.createComment?.id) {
-						//TODO: this is not working
-						//doSetValue(initialValue)
+						//TODO: this is broken when used with enter key
+						doSetValue(initialValue)
 					}
 				})
 			}
@@ -170,7 +170,7 @@ export const useCommentsButton = (blockId: number, title?: string): [JSX.Element
 							setValue={doSetValue}
 							editable={true}
 							onEnter={() => {
-								onEnter()
+								// onEnter()
 							}}
 						/>
 						<Spacer />
@@ -262,14 +262,14 @@ export const RenderCommentItem: React.FC<{ comment: Comment }> = ({ comment }) =
 								<MenuItem ref={btnCommentRef} onClick={openCommentDrawer}>
 									<Text fontSize='15'>Reply</Text>
 								</MenuItem>
-								<MenuDivider ml='3' mr='3' />
+								{/* <MenuDivider ml='3' mr='3' />
 								<MenuItem>
 									<Text fontSize='15'>Pin</Text>
 								</MenuItem>
 								<MenuDivider ml='3' mr='3' />
 								<MenuItem>
 									<Text fontSize='15'>Delete</Text>
-								</MenuItem>
+								</MenuItem> */}
 							</MenuList>
 						</Menu>
 					</HStack>

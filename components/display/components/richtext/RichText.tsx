@@ -50,14 +50,6 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 		setValue(value)
 	}, [])
 
-	if (value.length === 0) {
-		value = [
-			{
-				text: "",
-			},
-		]
-	}
-
 	const onEnter = () => {
 		on_enter && blockMethod(on_enter)
 	}
@@ -73,6 +65,14 @@ export const RichTextEditor: React.FC<{
 }> = ({ value, setValue, editable, onEnter }) => {
 	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 	const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, [])
+
+	if (value.length === 0) {
+		value = [
+			{
+				text: "",
+			},
+		]
+	}
 
 	return (
 		<Slate
