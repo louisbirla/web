@@ -36,7 +36,7 @@
 		"scheduler": "0.20.2",
 		"slate": "^0.59.0",
 		"slate-history": "^0.62.0",
-		"slate-react": "^0.59.0",
+		"slate-react": "^0.62.0",
 		"subscriptions-transport-ws": "^0.9.18",
 		"urql": "2.0.2",
 		"ws": "^7.4.4"
