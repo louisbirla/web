@@ -117,7 +117,7 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 
 	const [commentsResponse] = useQuery<BlockResult, BlockRequest>({
 		query: GET_BLOCK_COMMENTS,
-		variables: { id: blockId }
+		variables: { id: blockId },
 	})
 	const comments = commentsResponse.data?.blockById.comments
 
@@ -159,25 +159,28 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 			<DrawerOverlay>
 				<DrawerContent>
 					<DrawerCloseButton />
-					<DrawerHeader>{comment ? 'Thread' : 'Comments'}</DrawerHeader>
-					{comment &&
+					<DrawerHeader>{comment ? "Thread" : "Comments"}</DrawerHeader>
+					{comment && (
 						<Box p='4' boxShadow='xl' pt='6' pb='4' bgColor='#F5F5F5'>
 							<RenderCommentItem comment={comment} isPreview={true} />
 						</Box>
-					}
+					)}
 					<DrawerBody>
 						{comments?.length === 0 ? (
 							<Text>No comments found!</Text>
 						) : (
 							<List>
-								{comments && comments.map((comment: Comment) => {
-									return <>
-										<ListItem pt='6' pb='4'>
-											<RenderCommentItem comment={comment} />
-										</ListItem>
-										<Divider />
-									</>
-								})}
+								{comments &&
+									comments.map((comment: Comment) => {
+										return (
+											<>
+												<ListItem pt='6' pb='4'>
+													<RenderCommentItem comment={comment} />
+												</ListItem>
+												<Divider />
+											</>
+										)
+									})}
 							</List>
 						)}
 					</DrawerBody>
@@ -209,7 +212,7 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 	return [drawer, onOpen, btnRef]
 }
 
-export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean }> = ({ comment, isPreview }) => {
+export const RenderCommentItem: React.FC<{ comment: Comment; isPreview?: boolean }> = ({ comment, isPreview }) => {
 	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(comment.block.id, comment)
 	const [, setCommentStarred] = useMutation<CommentStarredResult, CommentStarredArgs>(SetCommentStarred)
 
@@ -231,6 +234,9 @@ export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean
 			display = displayObject.display
 			if (display.cid === "richtext") {
 				display.args.editable = false
+				if (display.args.content?.length == 0) {
+					return <Text>Empty comment</Text>
+				}
 			}
 		} else {
 			display = comment.block?.embedDisplay && JSON.parse(comment.block.embedDisplay)
@@ -286,7 +292,7 @@ export const RenderCommentItem: React.FC<{ comment: Comment, isPreview?: boolean
 					{`${comment.block.commentsCount} ${comment.block.commentsCount === 1 ? "reply" : "replies"}`}
 				</Button>
 			)}
-			{ commentDrawer}
+			{commentDrawer}
 		</>
 	)
 }
