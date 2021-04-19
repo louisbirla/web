@@ -1,6 +1,6 @@
 import { Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { MenuComponent } from "display-api"
-import { Bell, BellOff, MoreHorizontal, Share, Star, Trash, User } from "react-feather"
+import { Bell, BellOff, MessageSquare, MoreHorizontal, Share, Star, Trash, User } from "react-feather"
 import { StarIcon } from "@chakra-ui/icons"
 import { useShareButton } from "./ShareButton"
 import { useDeleteBlockButton } from "./DeleteBlockButton"
@@ -8,12 +8,14 @@ import { useStarButton } from "./StarButton"
 import { useNotificationsButton } from "./NotificationsButton"
 import { usePermissionButton } from "./PermissionsButton"
 import { CustomMenu } from "./CustomMenu"
+import { useCommentsButton } from "./CommentsButton"
 
 export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ menu, margin }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
 	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
+	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(menu.block_id)
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
 	return (
 		<>
@@ -34,6 +36,12 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 							{menu.star_button.starred ? "Unstar" : "Star"}
 						</MenuItem>
 					)}
+					<>
+						<MenuItem onClick={openCommentDrawer} ref={btnCommentRef} command={`${menu.comment_count}`}>
+							{<Icon as={MessageSquare} mr={2} size={17} />}
+							Comments
+						</MenuItem>
+					</>
 					{menu.notifications_enabled != undefined && (
 						<MenuItem onClick={notificationButton}>
 							{menu.notifications_enabled ? (
@@ -70,6 +78,7 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 				</MenuList>
 			</Menu>
 			{drawer}
+			{commentDrawer}
 		</>
 	)
 }
