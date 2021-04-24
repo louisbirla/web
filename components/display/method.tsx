@@ -32,8 +32,8 @@ export const populate_template = (template: string) => {
 	if (vars) {
 		vars.forEach((wrappedName: string) => {
 			const name = wrappedName.replace(/[\$\[\]]/g, "")
-			const value = getMethodVar(name) || ""
-			if (value) {
+			const value = getMethodVar(name) ?? ""
+			if (value != undefined) {
 				input = input.replace(wrappedName, JSON.stringify(value))
 			}
 		})
