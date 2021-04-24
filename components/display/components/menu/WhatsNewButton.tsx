@@ -9,8 +9,8 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 } from "@chakra-ui/modal"
-import { RefObject, useRef } from "react"
-import { gql, useQuery } from "urql"
+import { RefObject, useRef, useState } from "react"
+import { gql, useMutation, useQuery } from "urql"
 import { ComponentObject } from "display-api"
 import { ComponentDelegate } from "../../ComponentDelegate"
 import { BadgeComponent } from "../Badge"
@@ -28,6 +28,15 @@ const allUpdates = gql`
 	}
 `
 
+const SET_LATEST_SEEN = gql`
+	mutation($latestUpdateId: Int!) {
+		setLatestSeen(latestUpdateId: $latestUpdateId) {
+			id
+		}
+	}
+`
+
+
 type Update = {
 	id: number
 	display: string
@@ -36,18 +45,34 @@ type Update = {
 }
 type UpdatesResult = { allUpdates: Array<Update> }
 
+type SetLatestSeenResult = { setLatestSeen: { id: number } }
+type SetLatestSeenRequest = { latestUpdateId: number }
+
+
 export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] => {
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const [confirmOpen, setConfirmOpen] = useState(false)
 	const btnRef: RefObject<any> = useRef()
 
 	const [updatesResponse] = useQuery<UpdatesResult>({
 		query: allUpdates,
 	})
 
+	const onClose = () => setConfirmOpen(false)
+
+	const onClick = () => setConfirmOpen(true)
+
+	const [, setLatestSeen] = useMutation<SetLatestSeenResult, SetLatestSeenRequest>(SET_LATEST_SEEN)
+
 	const updates = updatesResponse.data?.allUpdates
 
+	const onCloseDrawer = () =>  {
+		const latestUpdateId = updates && updates.length > 0 ? updates[0].id : null
+		latestUpdateId && setLatestSeen({ latestUpdateId })
+		onClose()
+	}
+
 	const drawer = (
-		<Drawer size='md' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
+		<Drawer size='md' isOpen={confirmOpen} placement='right' onClose={onCloseDrawer} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
 					<DrawerCloseButton />
@@ -72,7 +97,7 @@ export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] =>
 						)}
 					</DrawerBody>
 					<DrawerFooter borderTop='1px' borderColor='#DCDCDC'>
-						<Button onClick={onClose} colorScheme='orange'>
+						<Button onClick={onCloseDrawer} colorScheme='orange'>
 							Done
 						</Button>
 					</DrawerFooter>
@@ -80,7 +105,7 @@ export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] =>
 			</DrawerOverlay>
 		</Drawer>
 	)
-	return [drawer, onOpen, btnRef]
+	return [drawer, onClick, btnRef]
 }
 
 export const RenderUpdateItem: React.FC<{ update: Update }> = ({ update }) => {
