@@ -36,7 +36,6 @@ const SET_LATEST_SEEN = gql`
 	}
 `
 
-
 type Update = {
 	id: number
 	display: string
@@ -47,7 +46,6 @@ type UpdatesResult = { allUpdates: Array<Update> }
 
 type SetLatestSeenResult = { setLatestSeen: { id: number } }
 type SetLatestSeenRequest = { latestUpdateId: number }
-
 
 export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] => {
 	const [confirmOpen, setConfirmOpen] = useState(false)
@@ -65,7 +63,7 @@ export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] =>
 
 	const updates = updatesResponse.data?.allUpdates
 
-	const onCloseDrawer = () =>  {
+	const onCloseDrawer = () => {
 		const latestUpdateId = updates && updates.length > 0 ? updates[0].id : null
 		latestUpdateId && setLatestSeen({ latestUpdateId })
 		onClose()
@@ -110,8 +108,8 @@ export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] =>
 
 export const RenderUpdateItem: React.FC<{ update: Update }> = ({ update }) => {
 	const display: ComponentObject = JSON.parse(update.display)
-	const date = new Date(update.createdAt) 
-	const dateStr = format(date, 'MM/dd/yyyy')
+	const date = new Date(update.createdAt)
+	const dateStr = format(date, "MM/dd/yyyy")
 	return (
 		<>
 			<Flex mb={4} width='100%' justifyContent='space-between' align='center'>

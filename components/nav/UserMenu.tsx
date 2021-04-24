@@ -27,7 +27,7 @@ export const UserMenu: React.FC<{ user: User }> = ({ user }) => {
 						<Link href={`/u/${user.username}`}>
 							<MenuItem>
 								<Icon as={UserIcon} mr={2} />
-							Profile
+								Profile
 							</MenuItem>
 						</Link>
 						<MenuItem ref={btnRef} onClick={openDrawer}>
