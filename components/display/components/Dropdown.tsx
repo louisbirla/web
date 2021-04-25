@@ -3,7 +3,7 @@ import { genActionObject } from "../ActionObject"
 import Select from "react-select"
 import { useState } from "react"
 import { setMethodVar } from "../method"
-import { HStack, Text } from "@chakra-ui/layout"
+import { Box, HStack, Text } from "@chakra-ui/layout"
 import { IconComponent } from "./Icon"
 
 export const DropdownComponent: React.FC<
@@ -32,17 +32,19 @@ export const DropdownComponent: React.FC<
 	}
 	return (
 		<ActionWrap>
-			<Select
-				value={value == undefined ? undefined : optionList[value]}
-				onChange={(option) => {
-					onChange(option?.value)
-				}}
-				isDisabled={disabled}
-				isReadonly={readonly}
-				options={optionList}
-				isSearchable={false}
-				placeholder={placeholder}
-			/>
+			<Box minW='10em'>
+				<Select
+					value={value == undefined ? undefined : optionList[value]}
+					onChange={(option) => {
+						onChange(option?.value)
+					}}
+					isDisabled={disabled}
+					isReadonly={readonly}
+					options={optionList}
+					isSearchable={false}
+					placeholder={placeholder}
+				/>
+			</Box>
 		</ActionWrap>
 	)
 }
