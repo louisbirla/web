@@ -19,7 +19,7 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 			return <HStack alignItems={flexLang(align_y)}>{content}</HStack>
 		case "Fit":
 			return (
-				<Flex flexWrap='wrap' justifyItems='flex-start'>
+				<Flex alignItems={flexLang(align_y)} flexWrap='wrap' justifyItems='flex-start'>
 					{content}
 				</Flex>
 			)
