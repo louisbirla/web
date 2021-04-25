@@ -15,6 +15,7 @@ import React from "react"
 import { RichTextComponent } from "./components/richtext/RichText"
 import { DisplaylistComponent } from "./components/Displaylist"
 import { StickyToggleButtonComponent } from "./components/StickyToggleButton"
+import { IconComponent } from "./components/Icon"
 
 export type Environment = "create" | "page" | "cardheader" | "popover" | "displaylist"
 
@@ -48,6 +49,8 @@ export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Env
 			return <DisplaylistComponent {...component.args} />
 		case "stickytogglebutton":
 			return <StickyToggleButtonComponent {...component.args} />
+		case "icon":
+			return <IconComponent {...component.args} />
 		default:
 			return <Text color='red'>Error When Rendering Component.</Text>
 	}
