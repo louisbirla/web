@@ -95,8 +95,8 @@ export const useUpdatesButton = (): [JSX.Element, () => void, RefObject<any>] =>
 						)}
 					</DrawerBody>
 					<DrawerFooter borderTop='1px' borderColor='#DCDCDC'>
-						<Button onClick={onCloseDrawer} colorScheme='orange'>
-							Done
+						<Button onClick={onCloseDrawer} colorScheme='blue'>
+							Close
 						</Button>
 					</DrawerFooter>
 				</DrawerContent>
