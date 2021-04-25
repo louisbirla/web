@@ -1,4 +1,3 @@
-import { useDisclosure } from "@chakra-ui/hooks"
 import { Divider, Flex, List, ListItem, Text } from "@chakra-ui/layout"
 import {
 	Drawer,
