@@ -32,7 +32,6 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 		return (
 			<ActionWrap>
 				<IconButton
-					m={1}
 					onClick={() => {
 						action()
 						onClick && onClick()
@@ -52,7 +51,6 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 		return (
 			<ActionWrap>
 				<Button
-					m={1}
 					variant={variant?.toLowerCase()}
 					onClick={() => {
 						action()

@@ -9,6 +9,7 @@ import { toggleMark } from "./marking"
 import { Leaf } from "./leaf"
 import { HoveringToolbar } from "./toolbar"
 import { blockMethod, setMethodVar } from "../../method"
+import { Box } from "@chakra-ui/layout"
 
 // Largely pulled from https://github.com/ianstormtaylor/slate/blob/master/site/examples
 
@@ -23,7 +24,14 @@ const HOTKEYS: {
 	"mod+shift+s": "strikethrough",
 }
 
-export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = false, name, save, on_enter }) => {
+export const RichTextComponent: React.FC<RichTextArgs> = ({
+	content,
+	editable = false,
+	name,
+	save,
+	on_enter,
+	bordered,
+}) => {
 	let [value, doSetValue] = useState<Text[]>(content.map(componentToSlateText))
 
 	// After the user doesn't do anything for 1000 seconds, save
@@ -54,7 +62,16 @@ export const RichTextComponent: React.FC<RichTextArgs> = ({ content, editable = 
 		on_enter && blockMethod(on_enter)
 	}
 
-	return <RichTextEditor value={value} setValue={setValue} editable={editable} onEnter={onEnter} />
+	return (
+		<Box
+			rounded='lg'
+			p={bordered ? 2 : undefined}
+			minW='95%'
+			border={bordered ? "1px solid rgb(226, 232, 240)" : undefined}
+		>
+			<RichTextEditor value={value} setValue={setValue} editable={editable} onEnter={onEnter} />
+		</Box>
+	)
 }
 
 export const RichTextEditor: React.FC<{
@@ -76,7 +93,6 @@ export const RichTextEditor: React.FC<{
 
 	return (
 		<Slate
-			placeholder='Start typing...'
 			editor={editor}
 			value={[{ type: "paragraph", children: value }]}
 			onChange={(val) => setValue(val[0].children as Text[])}
@@ -86,7 +102,7 @@ export const RichTextEditor: React.FC<{
 				readOnly={!editable}
 				renderLeaf={renderLeaf}
 				placeholder='Start typing...'
-				style={{ minWidth: "95%" }}
+				style={{ minWidth: "15em" }}
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
 						event.preventDefault()
