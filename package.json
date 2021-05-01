@@ -19,8 +19,8 @@
 		"@urql/devtools": "^2.0.3",
 		"@urql/exchange-auth": "0.1.2",
 		"date-fns": "^2.21.1",
-		"display-api": "^0.3.7",
-		"framer-motion": "4.1.5",
+		"display-api": "^0.3.11",
+		"framer-motion": "4.1.11",
 		"graphql": "15.5.0",
 		"is-hotkey": "^0.2.0",
 		"jotai": "0.16.2",
@@ -39,10 +39,10 @@
 		"slate-react": "^0.59.0",
 		"subscriptions-transport-ws": "^0.9.18",
 		"urql": "2.0.2",
-		"ws": "^7.4.4"
+		"ws": "^7.4.5"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "5.11.10",
+		"@testing-library/jest-dom": "5.12.0",
 		"@testing-library/react": "11.2.6",
 		"@types/jest": "26.0.22",
 		"@types/node": "14.14.41",
@@ -53,10 +53,10 @@
 		"@types/ws": "^7.4.1",
 		"babel-jest": "26.6.3",
 		"eslint-plugin-jsx-a11y": "6.4.1",
-		"eslint-plugin-react": "7.23.1",
+		"eslint-plugin-react": "7.23.2",
 		"jest": "26.6.3",
 		"ts-jest": "26.5.5",
-		"typescript": "4.2.3"
+		"typescript": "4.2.4"
 	},
 	"license": "MIT"
 }

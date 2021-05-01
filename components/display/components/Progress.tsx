@@ -17,9 +17,9 @@ export const ProgressComponent: React.FC<ProgressArgs & { env?: Environment }> =
 		<CircularProgress
 			size={inHeader ? 10 : 20}
 			value={value}
-			max={max}
-			thickness={thickness}
-			color={color && (color.includes("#") ? color : `${color}.500`)}
+			max={max ?? 100}
+			thickness={thickness ?? 4}
+			color={color ? (color.includes("#") ? color : `${color}.500`) : "blue.500"}
 		>
 			<CircularProgressLabel>
 				{inHeader || <Text fontSize={shrink ? 10 : 15}>{inner_label}</Text>}

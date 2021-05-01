@@ -8,6 +8,7 @@ import { useState } from "react"
 import { ArrowLeft, Eye, EyeOff } from "react-feather"
 import { AuthAtom } from "./AuthScreen"
 import { PinInput, PinInputField } from "@chakra-ui/pin-input"
+import { isThisAnAuthPage } from "../../../utils/isAuthPage"
 
 const SignupMutation = gql`
 	mutation($username: String!, $password: String!, $email: String!, $displayName: String) {
@@ -149,7 +150,11 @@ export const VerificationStep: React.FC<{ username: string; sessionCode: string;
 			if (data != undefined) {
 				const token = data.confirmEmail.token
 				localStorage.setItem("token", token)
-				location.reload()
+				if (isThisAnAuthPage()) {
+					location.href = "/"
+				} else {
+					location.reload()
+				}
 			}
 		})
 	}

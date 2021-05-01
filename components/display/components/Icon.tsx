@@ -1,18 +1,30 @@
 import { IconName } from "display-api"
-import { Box as BoxIcon, CheckCircle, Folder, IconProps, MessageSquare, Plus, Rss, Type } from "react-feather"
+import {
+	Box as BoxIcon,
+	CheckCircle,
+	Folder,
+	IconProps,
+	MessageSquare,
+	Plus,
+	Rss,
+	ThumbsDown,
+	ThumbsUp,
+	Type,
+} from "react-feather"
 
-export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: number | string }> = ({
+export const IconComponent: React.FC<{ name?: IconName; icon?: IconName; color?: string; size?: number | string }> = ({
 	name,
 	color,
 	size = 23,
+	icon,
 }) => {
 	if (color !== "none") {
 		color = "#5276f3"
 	} else {
 		color = undefined
 	}
-	let commonProps: IconProps = { color, size }
-	switch (name) {
+	let commonProps: IconProps = { color, size: size ?? 23 }
+	switch (name ?? icon) {
 		case "Folder":
 			return <Folder {...commonProps} />
 		case "TaskComplete":
@@ -27,6 +39,10 @@ export const IconComponent: React.FC<{ name?: IconName; color?: string; size?: n
 			return <Rss {...commonProps} />
 		case "Plus":
 			return <Plus {...commonProps} />
+		case "ThumbsUp":
+			return <ThumbsUp {...commonProps} />
+		case "ThumbsDown":
+			return <ThumbsDown {...commonProps} />
 		default:
 			return <BoxIcon {...commonProps} />
 	}
