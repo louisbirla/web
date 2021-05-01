@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { Eye, EyeOff } from "react-feather"
 import { AuthAtom } from "./AuthScreen"
+import { isThisAnAuthPage } from "../../../utils/isAuthPage"
 
 const LoginMutation = gql`
 	mutation($username: String!, $password: String!) {
@@ -35,7 +36,11 @@ export const LoginForm = () => {
 			if (data != undefined) {
 				const token = data.login.token
 				localStorage.setItem("token", token)
-				location.reload()
+				if (isThisAnAuthPage()) {
+					location.href = "/"
+				} else {
+					location.reload()
+				}
 			}
 		})
 	}
