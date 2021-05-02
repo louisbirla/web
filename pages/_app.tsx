@@ -3,7 +3,6 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { Provider as JotaiProvider, useAtom } from "jotai"
-import { CreateBlockPanel } from "../components/panels/CreateBlockPanel"
 import { theme } from "../utils/theme/theme"
 import { ChooseTypePanel } from "../components/panels/ChooseTypePanel"
 import { ChangeUsernameModal } from "../components/user/ChangeUsername"
@@ -33,7 +32,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<WithAuth>
 						<Component {...pageProps} />
 					</WithAuth>
-					<CreateBlockPanel />
 					<ChooseTypePanel />
 					<ChangeUsernameModal username={username} />
 					<ChangePasswordModal />

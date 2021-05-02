@@ -1,6 +1,7 @@
 import Head from "next/head"
 import { Box, BoxProps, Text } from "@chakra-ui/react"
 import { Nav } from "./nav/Nav"
+import { WithCreateBlock } from "./panels/CreateBlockPanel"
 
 export const Layout: React.FC<{ title?: string; contain?: BoxProps }> = ({ children, title = "Loop", contain }) => {
 	return (
@@ -10,7 +11,7 @@ export const Layout: React.FC<{ title?: string; contain?: BoxProps }> = ({ child
 			</Head>
 			<Nav />
 			<Box minH='100vh' mt={20} mx={20} {...contain}>
-				{children}
+				<WithCreateBlock>{children}</WithCreateBlock>
 			</Box>
 			<Box width='100%' textAlign='center'>
 				<Text opacity={0.8}>&#169; Loop Revolution</Text>
