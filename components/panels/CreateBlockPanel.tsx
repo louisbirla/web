@@ -1,14 +1,4 @@
-import {
-	Box,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalOverlay,
-	Spinner,
-	Text,
-} from "@chakra-ui/react"
+import { Box, Flex, Spinner, Stack, Text } from "@chakra-ui/react"
 import { CreationObject } from "display-api"
 import { gql, useQuery, useMutation } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
@@ -16,6 +6,8 @@ import { Button } from "@chakra-ui/react"
 import { populate_template } from "../display/method"
 import { atom, useAtom } from "jotai"
 import { useState } from "react"
+import { Card } from "../display/components/Card"
+import { blue } from "../../utils/theme/colors"
 
 export type CreateReject = () => void
 export type CreateResolve = (id: number) => void
@@ -47,25 +39,25 @@ const empty_reject = () => {}
 const def_resolve = (id: number) => {
 	location.href = `/b/${id}`
 }
-export const CreateBlockPanel: React.FC = () => {
+export const WithCreateBlock: React.FC = ({ children }) => {
 	const [params] = useAtom(CreateBlockAtom)
 	let reject = params?.reject || empty_reject
 	let resolve = params?.resolve || def_resolve
 	let type = params?.type || ""
 	let enabled = params != undefined
 
-	return (
-		<Modal isOpen={enabled} onClose={reject}>
-			<ModalOverlay />
-			<ModalContent>
-				<ModalCloseButton />
-				{enabled && <CreateBlockContent done={resolve} type={type} />}
-			</ModalContent>
-		</Modal>
-	)
+	if (enabled) {
+		return <CreateBlockContent done={resolve} type={type} cancel={reject} />
+	}
+
+	return <>{children}</>
 }
 
-const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void }> = ({ type, done }) => {
+const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void; cancel: () => void }> = ({
+	type,
+	done,
+	cancel,
+}) => {
 	let [error, setError] = useState<string>()
 	let [, createBlockMut] = useMutation<CreateBlockResult, CreateBlockArgs>(CreateBlockQuery)
 	let [displayResult] = useQuery<CreationDisplayResult, CreationDisplayArgs>({
@@ -93,34 +85,35 @@ const CreateBlockContent: React.FC<{ type: string; done: (id: number) => void }>
 		let creationObject: CreationObject = JSON.parse(displayResult.data.blockCreationDisplay)
 		return (
 			<>
-				<ModalBody>
-					<Box mb={5}>
-						<ComponentDelegate env='create' component={creationObject.header_component} />
-					</Box>
-					<ComponentDelegate env='create' component={creationObject.main_component} />
+				<Box mt='4rem' mb={4} display='block'>
+					<Flex width='100%' justifyContent='space-between'>
+						<Box>
+							<ComponentDelegate env='create' component={creationObject.header_component} />
+						</Box>
+						<Stack direction='row' spacing={4} align='center'>
+							<Button variant='outline' colorScheme='blue' onClick={cancel}>
+								Cancel
+							</Button>
+							<Button mt={4} colorScheme='blue' onClick={() => createBlock(creationObject.input_template)}>
+								Create
+							</Button>
+						</Stack>
+					</Flex>
+				</Box>
+				<Box>
 					{error && <Text color='red'>{error}</Text>}
-				</ModalBody>
-				<ModalFooter>
-					<Button mt={4} colorScheme='blue' color='white' onClick={() => createBlock(creationObject.input_template)}>
-						Create
-					</Button>
-				</ModalFooter>
+					<Card maxW='60em' py={6} borderLeft={`3px solid ${blue[500]}`}>
+						<ComponentDelegate env='create' component={creationObject.main_component} />
+					</Card>
+				</Box>
 			</>
 		)
 	}
 
 	if (displayResult.error?.message) {
-		return (
-			<ModalBody>
-				<Text color='red'>{displayResult.error.message}</Text>
-			</ModalBody>
-		)
+		return <Text color='red'>{displayResult.error.message}</Text>
 	}
-	return (
-		<ModalBody>
-			<Spinner />
-		</ModalBody>
-	)
+	return <Spinner />
 }
 
 export const useCreateBlock = () => {
