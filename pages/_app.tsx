@@ -11,6 +11,7 @@ import { ChangePasswordModal } from "../components/user/ChangePassword"
 import { ChangeEmailModal } from "../components/user/changeEmail"
 import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
 import { WithUrql } from "../utils/urql"
+import "../utils/theme/masonry.css"
 
 const prod = process.env.NODE_ENV === "production"
 
