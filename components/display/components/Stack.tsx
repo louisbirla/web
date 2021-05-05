@@ -1,6 +1,7 @@
 import { Box, Flex, HStack, Stack } from "@chakra-ui/react"
 import { StackArgs } from "display-api"
 import { ComponentDelegate, Environment } from "../ComponentDelegate"
+import Masonry from "react-masonry-css"
 
 export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 	direction = "Fit",
@@ -17,6 +18,12 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 	switch (direction ?? "Fit") {
 		case "Horizontal":
 			return <HStack alignItems={flexLang(align_y)}>{content}</HStack>
+		case "Masonry":
+			return (
+				<Masonry breakpointCols={2} className='my-masonry-grid' columnClassName='my-masonry-grid_column'>
+					{content}
+				</Masonry>
+			)
 		case "Fit":
 			return (
 				<Flex alignItems={flexLang(align_y)} flexWrap='wrap' justifyItems='flex-start'>
