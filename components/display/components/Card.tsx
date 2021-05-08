@@ -6,7 +6,13 @@ import { ComponentDelegate, Environment } from "../ComponentDelegate"
 import { IconComponent } from "./Icon"
 import { CardMenu } from "./menu/CardMenu"
 
-export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ header, color, content, env }) => {
+export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({
+	header,
+	color,
+	content,
+	env,
+	detached_menu,
+}) => {
 	color = color || "#5D80FE"
 	const [isMouseover, setIsMouseover] = useState(false)
 	let cardHeader = <></>
@@ -56,6 +62,16 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ head
 					borderBottom: "1px solid #CFD7E1",
 			  }
 			: undefined
+	let addon_menu = <></>
+	if (detached_menu) {
+		addon_menu = (
+			<Box position='relative' left='92%' top={0}>
+				<Fade in={isMouseover}>
+					<CardMenu menu={detached_menu.menu} />
+				</Fade>
+			</Box>
+		)
+	}
 	return (
 		<Card
 			onMouseEnter={() => setIsMouseover(true)}
@@ -70,6 +86,7 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({ head
 			<Box pl={2}>
 				<ComponentDelegate component={content} />
 			</Box>
+			{addon_menu}
 		</Card>
 	)
 }
