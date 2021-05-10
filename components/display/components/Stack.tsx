@@ -9,7 +9,14 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 	env,
 	align_x,
 	align_y,
+	spacing,
 }) => {
+	let justifyContent = "normal"
+	if (spacing === "Around") {
+		justifyContent = "space-around"
+	} else if (spacing === "Between") {
+		justifyContent = "space-between"
+	}
 	const content = items.map(({ component }, i) => (
 		<Box m={1} key={`${i}${component.cid}`} display='inline-block'>
 			<ComponentDelegate env={env} component={component} />
@@ -17,7 +24,11 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 	))
 	switch (direction ?? "Fit") {
 		case "Horizontal":
-			return <HStack alignItems={flexLang(align_y)}>{content}</HStack>
+			return (
+				<HStack width='100%' justifyContent={justifyContent} alignItems={flexLang(align_y)}>
+					{content}
+				</HStack>
+			)
 		case "Masonry":
 			return (
 				<Masonry breakpointCols={2} className='my-masonry-grid' columnClassName='my-masonry-grid_column'>
@@ -26,12 +37,22 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 			)
 		case "Fit":
 			return (
-				<Flex alignItems={flexLang(align_y)} flexWrap='wrap' justifyItems='flex-start'>
+				<Flex
+					width='100%'
+					justifyContent={justifyContent}
+					alignItems={flexLang(align_y)}
+					flexWrap='wrap'
+					justifyItems='flex-start'
+				>
 					{content}
 				</Flex>
 			)
 		default:
-			return <Stack alignItems={flexLang(align_x)}>{content}</Stack>
+			return (
+				<Stack width='100%' justifyContent={justifyContent} alignItems={flexLang(align_x)}>
+					{content}
+				</Stack>
+			)
 	}
 }
 
