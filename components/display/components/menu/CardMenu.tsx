@@ -1,4 +1,4 @@
-import { Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
+import { Box, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { MenuComponent } from "display-api"
 import { Bell, BellOff, MessageSquare, MoreHorizontal, Share, Star, Trash, User } from "react-feather"
 import { StarIcon } from "@chakra-ui/icons"
@@ -9,6 +9,8 @@ import { useNotificationsButton } from "./NotificationsButton"
 import { usePermissionButton } from "./PermissionsButton"
 import { CustomMenu } from "./CustomMenu"
 import { useCommentsButton } from "./CommentsButton"
+import { genActionObject } from "../../ActionObject"
+import { IconComponent } from "../Icon"
 
 export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ menu, margin }) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
@@ -17,9 +19,11 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
 	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(menu.block_id)
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
+	let customListed = menu.custom?.filter(({ listed }) => listed)
+	let customNotListed = menu.custom?.filter(({ listed }) => !listed)
 	return (
 		<>
-			{menu.custom && <CustomMenu customMenu={menu.custom} margin={margin} />}
+			{customNotListed && <CustomMenu customMenu={customNotListed} margin={margin} />}
 			<Menu closeOnSelect={false}>
 				<MenuButton
 					as={IconButton}
@@ -30,6 +34,20 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 					variant='nostyle'
 				/>
 				<MenuList>
+					{customListed &&
+						customListed.map((item) => {
+							const [ActionWrap, action] = genActionObject(item.interact)
+							return (
+								<ActionWrap>
+									<MenuItem key={item.text} onClick={action}>
+										<Box mr={2}>
+											<IconComponent color='none' size={17} name={item.icon} />
+										</Box>
+										{item.text}
+									</MenuItem>
+								</ActionWrap>
+							)
+						})}
 					{menu.star_button && (
 						<MenuItem onClick={starButton} command={`${menu.star_button.count}`}>
 							{menu.star_button.starred ? <StarIcon mr={2} /> : <Icon as={Star} mr={2} size={17} />}
