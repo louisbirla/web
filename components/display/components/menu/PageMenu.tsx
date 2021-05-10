@@ -1,4 +1,4 @@
-import { Icon, IconButton, HStack, Button, Text, Tooltip } from "@chakra-ui/react"
+import { Icon, IconButton, HStack, Button, Tooltip } from "@chakra-ui/react"
 import { MenuComponent } from "display-api"
 import { Bell, BellOff, MessageSquare, Share, Star, User } from "react-feather"
 import { StarIcon } from "@chakra-ui/icons"
@@ -27,7 +27,6 @@ export const PageMenu: React.FC<{ menu: MenuComponent }> = ({ menu }) => {
 					<HStack spacing={0}>
 						<CustomMenu customMenu={menu.custom} color={props.color} />
 					</HStack>
-					<Text color='#b3cddb'>|</Text>
 				</>
 			)}
 			<HStack spacing={0}>

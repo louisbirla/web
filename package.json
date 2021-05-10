@@ -19,7 +19,7 @@
 		"@urql/devtools": "^2.0.3",
 		"@urql/exchange-auth": "0.1.2",
 		"date-fns": "^2.21.1",
-		"display-api": "^0.4.1",
+		"display-api": "^0.4.4",
 		"framer-motion": "4.1.11",
 		"graphql": "15.5.0",
 		"is-hotkey": "^0.2.0",

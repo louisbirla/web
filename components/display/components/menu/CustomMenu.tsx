@@ -15,9 +15,9 @@ export const CustomMenu: React.FC<{ customMenu: CustomMenuItem[]; color?: string
 			{customMenu.map(({ icon, text, interact, disabled }: CustomMenuItem) => {
 				const [ActionWrap, action] = genActionObject(interact)
 				return (
-					<Tooltip label={text} hasArrow>
+					<Tooltip key={text} label={text} hasArrow>
 						<Box display='inline-block'>
-							<ActionWrap key={text}>
+							<ActionWrap>
 								<IconButton
 									onClick={action}
 									size='xs'
