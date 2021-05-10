@@ -2782,10 +2782,10 @@ direction@^1.0.3:
   resolved "https://registry.yarnpkg.com/direction/-/direction-1.0.4.tgz#2b86fb686967e987088caf8b89059370d4837442"
   integrity sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==
 
-display-api@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/display-api/-/display-api-0.4.1.tgz#b39db712dac3257c4e5a70952f9db46c7f1b5266"
-  integrity sha512-rfSahTdrVjqYdDdFn8DNGPRnTIR7xGUsjnvgXsvnGfdpjjpk67tm/yirla6hY8Ywf7H5l38fr89lWpCQ/N7DjQ==
+display-api@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/display-api/-/display-api-0.4.4.tgz#15f90a0764d2827415bc8d45ffa217fb94a2cd4f"
+  integrity sha512-X/BLSHaiynydJQNdzroSDyRJBlRecmHS3YfFIS0tLAglc1mVktxqoQ0dLIpb6nBSecXApuOhB637vVq/we8S0A==
 
 doctrine@^2.1.0:
   version "2.1.0"
