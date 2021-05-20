@@ -1,7 +1,7 @@
 import { StarIcon } from "@chakra-ui/icons"
-import { Avatar, Box, Button, Flex, Heading, Icon, Spinner, Text, Tooltip, useToast } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex, Heading, Icon, Spinner, Text, Tooltip, useToast, VStack } from "@chakra-ui/react"
 import { Edit, Star } from "react-feather"
-import { gql, useQuery } from "urql"
+import { gql, useMutation, useQuery } from "urql"
 import { ComponentDelegate } from "../display/ComponentDelegate"
 import { useStarButton } from "../display/components/menu/StarButton"
 import { useAtom } from "jotai"
@@ -10,9 +10,11 @@ import { EditableDisplayName } from "./DisplayName"
 import { useChangeUsername } from "./ChangeUsername"
 import { useChangePassword } from "./ChangePassword"
 import { useChangeEmail } from "./changeEmail"
+import { SearchComponentWrapper } from "../display/components/Search"
+import { BlockResult } from "../display/components/menu/CommentsButton"
 
 const UserPageQuery = gql`
-	query($username: String!) {
+	query ($username: String!) {
 		userByName(username: $username) {
 			id
 			displayName
@@ -44,11 +46,34 @@ type UserPageQueryResult = {
 }
 type UserPageQueryVars = { username: string }
 
+const SET_SPECIAL_BLOCK = gql`
+	mutation ($blockId: Int!, $type: String!) {
+		setSpecialBlock(blockId: $blockId, type: $type) {
+			id
+		}
+	}
+`
+type SetSpecialBlockResult = { setSpecialBlock: { id: number } }
+type SetSpecialBlockRequest = { blockId: number; type: string }
+
+const REMOVE_SPECIAL_BLOCK = gql`
+	mutation ($type: String!) {
+		removeSpecialBlock(type: $type) {
+			id
+		}
+	}
+`
+type RemoveSpecialBlockResult = { removeSpecialBlock: { id: number } }
+type RemoveSpecialBlockRequest = { type: string }
+
 export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 	const [res, refetch] = useQuery<UserPageQueryResult | undefined, UserPageQueryVars>({
 		query: UserPageQuery,
 		variables: { username },
 	})
+	const [, setSpecialBlock] = useMutation<SetSpecialBlockResult, SetSpecialBlockRequest>(SET_SPECIAL_BLOCK)
+	const [, removeSpecialBlock] = useMutation<RemoveSpecialBlockResult, RemoveSpecialBlockRequest>(REMOVE_SPECIAL_BLOCK)
+
 	const [star] = useStarButton(
 		res.data?.userByName?.featured?.id ?? 0,
 		res.data?.userByName?.featured?.starred ?? false,
@@ -59,6 +84,11 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 	const changePassword = useChangePassword()
 
 	const toast = useToast()
+
+	const handleRemoveFeatureBlock = () => {
+		const request: RemoveSpecialBlockRequest = { type: "FEATURED" }
+		removeSpecialBlock(request)
+	}
 
 	if (res.data?.userByName) {
 		let user = res.data.userByName
@@ -173,13 +203,35 @@ export const UserPage: React.FC<{ username: string }> = ({ username }) => {
 							<Text fontWeight='bold' fontSize='2xl'>
 								Featured block
 							</Text>
-							<ComponentDelegate component={JSON.parse(user.featured.embedDisplay)} />
+							<VStack>
+								<ComponentDelegate component={JSON.parse(user.featured.embedDisplay)} />
+								<Button
+									justifyContent='flex-end'
+									colorScheme='blue'
+									variant='solid'
+									onClick={() => handleRemoveFeatureBlock()}
+								>
+									Remove
+								</Button>
+							</VStack>
 						</>
 					) : (
-						<Text fontWeight='bold' fontSize='2xl'>
-							{displayName} has no featured block
-						</Text>
-						// TODO: Add ability to add a featured block for yourself
+						<>
+							<Text fontWeight='bold' fontSize='2xl'>
+								{displayName} has no featured block
+							</Text>
+							<SearchComponentWrapper
+								component={{ cid: "search", type: "Block" }}
+								onChoose={(result) => {
+									const request: SetSpecialBlockRequest = { blockId: result.id, type: "FEATURED" }
+									setSpecialBlock(request)
+								}}
+							>
+								<Button justifyContent='flex-end' colorScheme='blue' variant='solid'>
+									Add
+								</Button>
+							</SearchComponentWrapper>
+						</>
 					)}
 				</Box>
 			</Box>
