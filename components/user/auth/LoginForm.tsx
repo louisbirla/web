@@ -10,7 +10,7 @@ import { AuthAtom } from "./AuthScreen"
 import { isThisAnAuthPage } from "../../../utils/isAuthPage"
 
 const LoginMutation = gql`
-	mutation($username: String!, $password: String!) {
+	mutation ($username: String!, $password: String!) {
 		login(username: $username, password: $password) {
 			token
 		}

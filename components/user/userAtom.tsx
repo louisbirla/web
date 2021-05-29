@@ -26,12 +26,10 @@ export type User = {
 	}
 }
 
-export const userAtom = atom(
-	async (): Promise<User | null> => {
-		let result = await client.query<WhoamiResult>(WhoamiQuery).toPromise()
-		if (result.data?.whoami?.username) {
-			return result.data?.whoami
-		}
-		return null
-	},
-)
+export const userAtom = atom(async (): Promise<User | null> => {
+	let result = await client.query<WhoamiResult>(WhoamiQuery).toPromise()
+	if (result.data?.whoami?.username) {
+		return result.data?.whoami
+	}
+	return null
+})

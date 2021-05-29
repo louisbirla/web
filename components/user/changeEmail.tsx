@@ -18,7 +18,7 @@ import { User } from "./userAtom"
 import { gql, useMutation } from "urql"
 
 export const UpdateEmailMutation = gql`
-	mutation($newEmail: String!) {
+	mutation ($newEmail: String!) {
 		updateEmail(newEmail: $newEmail) {
 			sessionCode
 		}
@@ -26,7 +26,7 @@ export const UpdateEmailMutation = gql`
 `
 
 export const ConfirmUpdateEmail = gql`
-	mutation($sessionCode: String!, $verificationCode: String!) {
+	mutation ($sessionCode: String!, $verificationCode: String!) {
 		confirmUpdateEmail(sessionCode: $sessionCode, verificationCode: $verificationCode) {
 			id
 			email
@@ -54,9 +54,8 @@ export const ChangeEmailModal: React.FC<{ email: string }> = ({ email }) => {
 	let enabled = params != undefined
 
 	const [updateEmailResult, updateEmail] = useMutation<UpdateEmailResult, UpdateEmailVars>(UpdateEmailMutation)
-	const [confirmUpdateEmailResult, confirmUpdateEmail] = useMutation<ConfirmUpdateEmailResult, ConfirmUpdateEmailVars>(
-		ConfirmUpdateEmail,
-	)
+	const [confirmUpdateEmailResult, confirmUpdateEmail] =
+		useMutation<ConfirmUpdateEmailResult, ConfirmUpdateEmailVars>(ConfirmUpdateEmail)
 	const { register, handleSubmit, errors } = useForm()
 	const [isLoading, setIsLoading] = useState(false)
 	const [emailValue, setEmailValue] = useState(email)

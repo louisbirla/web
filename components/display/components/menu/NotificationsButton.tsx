@@ -1,7 +1,7 @@
 import { gql, useMutation, UseMutationState } from "urql"
 
 export const SetNotificationsQuery = gql`
-	mutation($blockId: Int!, $enabled: Boolean!) {
+	mutation ($blockId: Int!, $enabled: Boolean!) {
 		setNotifs(blockId: $blockId, enabled: $enabled) {
 			id
 		}

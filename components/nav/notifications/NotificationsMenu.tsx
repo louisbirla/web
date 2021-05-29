@@ -34,7 +34,7 @@ const NotificationsQuery = gql`
 	}
 `
 const NewNotifications = gql`
-	subscription($token: String) {
+	subscription ($token: String) {
 		notifications(token: $token) {
 			name
 			description
@@ -118,7 +118,7 @@ export const NotificationsMenu: React.FC = () => {
 }
 
 const ClearOneNotifQuery = gql`
-	mutation($id: Int) {
+	mutation ($id: Int) {
 		clearOneNotif(id: $id)
 	}
 `

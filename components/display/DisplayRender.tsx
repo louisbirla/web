@@ -1,8 +1,9 @@
-import { Box, Flex, Heading } from "@chakra-ui/react"
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Flex, Heading } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
 import { PageMenu } from "./components/menu/PageMenu"
+import { isMobile } from "react-device-detect"
 
 export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display }) => {
 	const component = display.display
@@ -37,6 +38,17 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 		if (display.meta.page.menu) {
 			meta = (
 				<>
+					{isMobile && (
+						<Alert status='warning' mb='5'>
+							<Box flex='1'>
+								<AlertTitle>Notice!</AlertTitle>
+								<AlertDescription>
+									Email your mobile device information at team@loop.page to receive instructions on how to install the
+									mobile app on your phone.
+								</AlertDescription>
+							</Box>
+						</Alert>
+					)}
 					<Flex justifyContent='space-between'>
 						<Box>{meta}</Box>
 						<Box>

@@ -12,7 +12,7 @@ import { useChangePassword } from "./ChangePassword"
 import { useChangeEmail } from "./changeEmail"
 
 const UserPageQuery = gql`
-	query($username: String!) {
+	query ($username: String!) {
 		userByName(username: $username) {
 			id
 			displayName
