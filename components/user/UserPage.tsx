@@ -11,7 +11,6 @@ import { useChangeUsername } from "./ChangeUsername"
 import { useChangePassword } from "./ChangePassword"
 import { useChangeEmail } from "./changeEmail"
 import { SearchComponentWrapper } from "../display/components/Search"
-import { BlockResult } from "../display/components/menu/CommentsButton"
 
 const UserPageQuery = gql`
 	query ($username: String!) {
