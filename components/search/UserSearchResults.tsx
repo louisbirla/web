@@ -7,7 +7,7 @@ import { HStack, Spinner } from "@chakra-ui/react"
 import { Suspense } from "react"
 
 export const UserQuery = gql`
-	query ($query: String!) {
+	query($query: String!) {
 		searchUsers(query: $query) {
 			displayName
 			username

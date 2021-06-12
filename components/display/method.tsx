@@ -42,7 +42,7 @@ export const populate_template = (template: string) => {
 }
 
 const BlockMethodMutation = gql`
-	mutation ($type: String!, $blockId: Int!, $methodName: String!, $args: String!) {
+	mutation($type: String!, $blockId: Int!, $methodName: String!, $args: String!) {
 		blockMethod(type: $type, blockId: $blockId, methodName: $methodName, args: $args) {
 			id
 		}

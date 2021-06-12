@@ -1,7 +1,7 @@
 import { gql, useMutation, UseMutationState } from "urql"
 
 export const SetStarredQuery = gql`
-	mutation ($blockId: Int!, $starred: Boolean!) {
+	mutation($blockId: Int!, $starred: Boolean!) {
 		setStarred(blockId: $blockId, starred: $starred) {
 			id
 		}

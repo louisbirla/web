@@ -19,7 +19,7 @@ import { User } from "./userAtom"
 import { useMutation } from "urql"
 
 export const UpdatePasswordMutation = gql`
-	mutation ($newPassword: String!, $password: String!) {
+	mutation($newPassword: String!, $password: String!) {
 		updatePassword(newPassword: $newPassword, password: $password) {
 			id
 			username
@@ -42,8 +42,9 @@ export const ChangePasswordModal: React.FC = () => {
 	let resolve = params?.resolve || empty_resolve
 	let enabled = params != undefined
 
-	const [updatePasswordResult, updatePassword] =
-		useMutation<UpdatePasswordResult, UpdatePasswordVars>(UpdatePasswordMutation)
+	const [updatePasswordResult, updatePassword] = useMutation<UpdatePasswordResult, UpdatePasswordVars>(
+		UpdatePasswordMutation,
+	)
 	const { register, handleSubmit, watch, errors } = useForm()
 	const [isLoading, setIsLoading] = useState(false)
 

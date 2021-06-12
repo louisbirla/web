@@ -5,7 +5,7 @@ import { DisplayRender } from "./DisplayRender"
 import { Breadcrumb, Crumb } from "../nav/Breadcrumb"
 
 const BlockQuery = gql`
-	query ($id: Int!) {
+	query($id: Int!) {
 		blockById(id: $id) {
 			pageDisplay
 			breadcrumb {
