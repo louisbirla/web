@@ -1,14 +1,6 @@
 import { useDisclosure } from "@chakra-ui/hooks"
 import { Box, Flex, Heading, HStack, Stack, Text } from "@chakra-ui/layout"
-import {
-	Drawer,
-	DrawerBody,
-	DrawerCloseButton,
-	DrawerContent,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerOverlay,
-} from "@chakra-ui/modal"
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from "@chakra-ui/modal"
 import { Switch } from "@chakra-ui/switch"
 import { RefObject, useEffect, useRef, useState } from "react"
 import { gql, useMutation, useQuery } from "urql"
@@ -239,7 +231,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							</Flex>
 							<Switch
 								isDisabled={visLoading}
-								onClick={() => {
+								onChange={() => {
 									setVisLoading(true)
 									setVis({ public: !pub, blockId })
 										.then(() => setVisLoading(false))
@@ -282,11 +274,6 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 
 						{userPermissionResponse && renderUserList()}
 					</DrawerBody>
-					<DrawerFooter>
-						<Button onClick={onClose} colorScheme='orange'>
-							Done
-						</Button>
-					</DrawerFooter>
 				</DrawerContent>
 			</DrawerOverlay>
 		</Drawer>

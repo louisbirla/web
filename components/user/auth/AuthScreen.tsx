@@ -23,6 +23,10 @@ export const AuthScreen = () => {
 							icon={<ArrowLeft size={20} />}
 							size='xs'
 							onClick={() => {
+								const pathname = location.pathname
+								if (pathname === "/signup" || pathname === "/login") {
+									location.href = "https://loop.page"
+								}
 								setAuth(false)
 							}}
 						/>
