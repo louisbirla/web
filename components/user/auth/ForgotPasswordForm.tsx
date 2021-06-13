@@ -51,8 +51,10 @@ export const ForgotPasswordForm = () => {
 	const [readOnlyUserNameField, setReadOnlyUserNameField] = useState(false)
 
 	const [forgotPasswordResult, forgotPassword] = useMutation<ForgotPasswordResult, ForgotPasswordVars>(ForgotPassword)
-	const [confirmForgotPasswordResult, confirmForgotPassword] =
-		useMutation<ConfirmForgotPasswordResult, ConfirmForgotPasswordVars>(ConfirmForgotPassword)
+	const [confirmForgotPasswordResult, confirmForgotPassword] = useMutation<
+		ConfirmForgotPasswordResult,
+		ConfirmForgotPasswordVars
+	>(ConfirmForgotPassword)
 
 	let error = forgotPasswordResult.error ? (
 		<Text color='red.500'>{forgotPasswordResult.error.message.replace(/\[\w+\]/g, "")}</Text>

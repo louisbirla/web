@@ -38,17 +38,6 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 		if (display.meta.page.menu) {
 			meta = (
 				<>
-					{isMobile && (
-						<Alert status='warning' mb='5'>
-							<Box flex='1'>
-								<AlertTitle>Notice!</AlertTitle>
-								<AlertDescription>
-									Email your mobile device information at team@loop.page to receive instructions on how to install the
-									mobile app on your phone.
-								</AlertDescription>
-							</Box>
-						</Alert>
-					)}
 					<Flex justifyContent='space-between'>
 						<Box>{meta}</Box>
 						<Box>

@@ -2,6 +2,7 @@ import { Box, Breadcrumb as ChakraBreadcrumb, BreadcrumbItem, BreadcrumbLink, Fl
 import Link from "next/link"
 import { ChevronRight } from "react-feather"
 import { bg } from "../../utils/theme/colors"
+import { isMobile } from "react-device-detect"
 
 export type Crumb = { name: string; blockId: number }
 export const Breadcrumb: React.FC<{ crumbs: Crumb[]; pageStyling?: boolean }> = ({ crumbs }) => {
@@ -11,6 +12,7 @@ export const Breadcrumb: React.FC<{ crumbs: Crumb[]; pageStyling?: boolean }> = 
 				position='absolute'
 				left={0}
 				height={8}
+				top={isMobile ? "4%" : "0"}
 				alignItems='center'
 				pl={6}
 				fontWeight='medium'

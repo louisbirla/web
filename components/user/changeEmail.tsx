@@ -54,8 +54,9 @@ export const ChangeEmailModal: React.FC<{ email: string }> = ({ email }) => {
 	let enabled = params != undefined
 
 	const [updateEmailResult, updateEmail] = useMutation<UpdateEmailResult, UpdateEmailVars>(UpdateEmailMutation)
-	const [confirmUpdateEmailResult, confirmUpdateEmail] =
-		useMutation<ConfirmUpdateEmailResult, ConfirmUpdateEmailVars>(ConfirmUpdateEmail)
+	const [confirmUpdateEmailResult, confirmUpdateEmail] = useMutation<ConfirmUpdateEmailResult, ConfirmUpdateEmailVars>(
+		ConfirmUpdateEmail,
+	)
 	const { register, handleSubmit, errors } = useForm()
 	const [isLoading, setIsLoading] = useState(false)
 	const [emailValue, setEmailValue] = useState(email)

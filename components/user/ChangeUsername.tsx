@@ -43,8 +43,9 @@ export const ChangeUsernameModal: React.FC<{ username: string }> = ({ username }
 	let resolve = params?.resolve || empty_resolve
 	let enabled = params != undefined
 
-	const [updateUsernameResult, updateUsername] =
-		useMutation<UpdateUsernameMutationResult, UpdateUsernameMutationVars>(UpdateUsernameMutation)
+	const [updateUsernameResult, updateUsername] = useMutation<UpdateUsernameMutationResult, UpdateUsernameMutationVars>(
+		UpdateUsernameMutation,
+	)
 	const { register, handleSubmit, errors } = useForm<UpdateUsernameMutationVars>()
 	const [isLoading, setIsLoading] = useState(false)
 	const [usernameValue, setUsernameValue] = useState(username)

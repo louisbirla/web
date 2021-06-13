@@ -129,8 +129,9 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 	let [value, doSetValue] = useState<SlateText[]>(initialValue)
 
 	const [createBlockResponse, createBlockMut] = useMutation<CreateBlockResult, CreateBlockArgs>(CreateBlockQuery)
-	const [createCommentResponse, createCommentMut] =
-		useMutation<CreateCommentResult, CreateCommentArgs>(CreateCommentQuery)
+	const [createCommentResponse, createCommentMut] = useMutation<CreateCommentResult, CreateCommentArgs>(
+		CreateCommentQuery,
+	)
 
 	const onEnter = async () => {
 		let cval = value.map(slateTextToComponent)

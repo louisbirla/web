@@ -11,8 +11,9 @@ import { blue } from "../../utils/theme/colors"
 
 export type CreateReject = () => void
 export type CreateResolve = (id: number) => void
-export const CreateBlockAtom =
-	atom<{ resolve: CreateResolve; reject: CreateReject; type: string } | undefined>(undefined)
+export const CreateBlockAtom = atom<{ resolve: CreateResolve; reject: CreateReject; type: string } | undefined>(
+	undefined,
+)
 
 const CreateBlockQuery = gql`
 	mutation ($type: String!, $input: String!) {
