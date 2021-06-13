@@ -239,7 +239,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							</Flex>
 							<Switch
 								isDisabled={visLoading}
-								onClick={() => {
+								onChange={() => {
 									setVisLoading(true)
 									setVis({ public: !pub, blockId })
 										.then(() => setVisLoading(false))
