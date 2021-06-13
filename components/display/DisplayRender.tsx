@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Flex, Heading } from "@chakra-ui/react"
+import { Alert, AlertDescription, AlertTitle, Box, Flex, Heading } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
