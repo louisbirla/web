@@ -1,9 +1,8 @@
-import { Alert, AlertDescription, AlertTitle, Box, Flex, Heading } from "@chakra-ui/react"
+import { Box, Flex, Heading } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
 import { PageMenu } from "./components/menu/PageMenu"
-import { isMobile } from "react-device-detect"
 
 export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display }) => {
 	const component = display.display
