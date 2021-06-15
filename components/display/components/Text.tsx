@@ -15,10 +15,13 @@ export const TextComponent: React.FC<TextArgs & { env?: Environment }> = ({
 }) => {
 	if (preset === "Heading") {
 		return (
-			<Heading size={env === "create" ? "lg" : undefined} color={color}>
+			<Heading mx={2} size={env === "create" ? "lg" : undefined} color={color}>
 				{text}
 			</Heading>
 		)
+	}
+	if (preset === "Info") {
+		color = "gray.500"
 	}
 	let component = <Text color={color}>{text}</Text>
 

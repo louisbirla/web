@@ -43,6 +43,7 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 					isReadonly={readonly}
 					colorScheme={color_scheme}
 					size={size}
+					m={1}
 					{...props}
 				/>
 			</ActionWrap>
@@ -60,6 +61,7 @@ export const ButtonComponent: React.FC<ButtonArgs & { props?: ButtonProps } & { 
 					isDisabled={disabled}
 					isReadonly={readonly}
 					colorScheme={color_scheme}
+					m={1}
 					{...props}
 				>
 					{icon && (

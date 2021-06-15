@@ -231,6 +231,7 @@ export const InputComponent: React.FC<InputArgs> = ({
 					fontWeight={mask.preset === "Heading" ? "bold" : "normal"}
 					onClick={() => setInputShown(true)}
 					fontSize={mask.preset === "Heading" ? 30 : undefined}
+					mx={mask.preset === "Heading" ? 2 : undefined}
 				>
 					{mask.text || label || "Data"}
 				</Button>

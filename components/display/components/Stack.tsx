@@ -18,7 +18,7 @@ export const StackComponent: React.FC<StackArgs & { env?: Environment }> = ({
 		justifyContent = "space-between"
 	}
 	const content = items.map(({ component }, i) => (
-		<Box m={1} key={`${i}${component.cid}`} display='inline-block'>
+		<Box key={`${i}${component.cid}`} display='inline-block'>
 			<ComponentDelegate env={env} component={component} />
 		</Box>
 	))
