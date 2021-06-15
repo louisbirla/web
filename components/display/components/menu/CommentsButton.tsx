@@ -190,7 +190,7 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 							setValue={doSetValue}
 							editable={true}
 							onEnter={() => {
-								// onEnter()
+								onEnter()
 							}}
 						/>
 						<Spacer />

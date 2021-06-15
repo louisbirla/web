@@ -76,7 +76,8 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({
 		<Card
 			onMouseEnter={() => setIsMouseover(true)}
 			onMouseLeave={() => setIsMouseover(false)}
-			maxW={600}
+			maxW='100vw'
+			flex={1}
 			ml={0}
 			pr={4}
 			borderLeft={`3px solid ${color}`}
