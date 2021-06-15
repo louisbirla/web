@@ -106,6 +106,13 @@ export const RichTextEditor: React.FC<{
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
 						event.preventDefault()
+
+						// move the cursor to the beginning of the input before setting the empty state
+						const point = { path: [0, 0], offset: 0 }
+						editor.selection = { anchor: point, focus: point }
+
+						// For good measure, you can reset the history as well
+						editor.history = { redos: [], undos: [] }
 						onEnter && onEnter()
 						return
 					}
