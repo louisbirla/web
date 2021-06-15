@@ -1,4 +1,4 @@
-import { Heading, Text } from "@chakra-ui/react"
+import { Box, Heading, Text } from "@chakra-ui/react"
 import { TextArgs } from "display-api"
 import { Environment } from "../ComponentDelegate"
 

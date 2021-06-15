@@ -5,7 +5,7 @@ import { gql, useQuery } from "urql"
 import { ComponentDelegate } from "./ComponentDelegate"
 
 const BlockQuery = gql`
-	query($id: Int!) {
+	query ($id: Int!) {
 		blockById(id: $id) {
 			embedDisplay
 		}

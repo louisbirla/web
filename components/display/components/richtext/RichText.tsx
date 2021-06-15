@@ -102,7 +102,7 @@ export const RichTextEditor: React.FC<{
 				readOnly={!editable}
 				renderLeaf={renderLeaf}
 				placeholder='Start typing...'
-				style={{ minWidth: "15em" }}
+				style={{ minWidth: "15em", maxWidth: "38vw" }}
 				onKeyDown={(event) => {
 					if (event.key === "Enter") {
 						event.preventDefault()
