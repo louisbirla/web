@@ -16,7 +16,7 @@ export const CreateBlockAtom = atom<{ resolve: CreateResolve; reject: CreateReje
 )
 
 const CreateBlockQuery = gql`
-	mutation($type: String!, $input: String!) {
+	mutation ($type: String!, $input: String!) {
 		createBlock(type: $type, input: $input) {
 			id
 		}
@@ -27,7 +27,7 @@ type CreateBlockResult = { createBlock: { id: number } }
 type CreateBlockArgs = { type: string; input: string }
 
 const CreationDisplayQuery = gql`
-	query($type: String!) {
+	query ($type: String!) {
 		blockCreationDisplay(type: $type)
 	}
 `

@@ -1,5 +1,5 @@
 import { AppProps } from "next/dist/next-server/lib/router/router"
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, Box, Text } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { Provider as JotaiProvider, useAtom } from "jotai"
@@ -12,6 +12,7 @@ import { ChangeEmailModal } from "../components/user/changeEmail"
 import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
 import { WithUrql } from "../utils/urql"
 import "../utils/theme/masonry.css"
+import { isMobile } from "react-device-detect"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -37,6 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					<ChangeUsernameModal username={username} />
 					<ChangePasswordModal />
 					<ChangeEmailModal email={email} />
+					{isMobile && <MobileAlert />}
 				</ChakraProvider>
 			</JotaiProvider>
 		</WithUrql>
@@ -50,6 +52,20 @@ const WithAuth: React.FC = ({ children }) => {
 	} else {
 		return <>{children}</>
 	}
+}
+
+const MobileAlert: React.FC = () => {
+	return (
+		<Box p={2} position='absolute' top={0} left={0} right={0} bg='yellow.300'>
+			<Text fontWeight='bold' fontSize='2xl'>
+				Notice
+			</Text>
+			<Text>
+				The Loop website does not work well on phones. Please email <u>support@loop.page</u> to recieve instructions on
+				how to install the app on your phone.
+			</Text>
+		</Box>
+	)
 }
 
 export default MyApp
