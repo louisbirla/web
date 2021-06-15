@@ -24,7 +24,7 @@ if (prod) {
 
 const MobileAlert: React.FC = () => {
 	return (
-		<Alert status='warning' mt={12}>
+		<Alert status='warning' position='absolute' top='0' maxW='100%'>
 			<Box flex='1'>
 				<AlertTitle>Notice!</AlertTitle>
 				<AlertDescription>
