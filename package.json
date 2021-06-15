@@ -28,6 +28,7 @@
 		"next-seo": "4.24.0",
 		"react": "0.0.0-experimental-3310209d0",
 		"react-datepicker": "^3.8.0",
+		"react-device-detect": "^1.17.0",
 		"react-dom": "0.0.0-experimental-3310209d0",
 		"react-feather": "2.0.9",
 		"react-ga": "3.3.0",
