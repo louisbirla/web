@@ -37,9 +37,10 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 					{customListed &&
 						customListed.map((item) => {
 							const [ActionWrap, action] = genActionObject(item.interact)
+							let isSearch = item.interact?.search != null
 							return (
 								<ActionWrap>
-									<MenuItem key={item.text} onClick={action}>
+									<MenuItem ml={isSearch ? 3 : undefined} key={item.text} onClick={action}>
 										<Box mr={2}>
 											<IconComponent color='none' size={17} name={item.icon} />
 										</Box>
