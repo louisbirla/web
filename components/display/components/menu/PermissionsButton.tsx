@@ -8,6 +8,8 @@ import { Avatar, Icon, Select, Tooltip, Button, useToast } from "@chakra-ui/reac
 import { Info } from "react-feather"
 import { UserResult } from "../../../search/UserSearchResults"
 import { SearchComponentWrapper } from "../Search"
+import { userAtom } from "../../../user/userAtom"
+import { useAtom } from "jotai"
 
 export const SetVisibilityQuery = gql`
 	mutation($blockId: Int!, $public: Boolean!) {
@@ -82,6 +84,8 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [view, setView] = useState<UserResult[]>([])
 	const [loading, setLoading] = useState(false)
 
+	const [logged] = useAtom(userAtom)
+
 	const [visRes, setVis] = useMutation<{}, SetVisibilityArgsVars>(SetVisibilityQuery)
 	const [userPermissionResponse, getUserPermissions] = useQuery<GetUserPermissionResult, GetUserPerissionsVars>({
 		query: GetUserPermissions,
@@ -93,9 +97,12 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		getUserPermissions()
 	}, [])
 
+	let hasEditPermission = false
+
 	useEffect(() => {
 		if (userPermissionResponse.data?.blockById) {
 			const permissions = userPermissionResponse.data?.blockById
+			hasEditPermission = permissions?.full.filter(({ id }: UserResult) => id === logged?.id).length > 0
 			setFull(permissions.full)
 			setEdit(permissions.edit)
 			setView(permissions.view)
@@ -140,7 +147,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Text>@{user.username}</Text>
 						</Stack>
 						<Box width='70%' justifyContent='flex-end'>
-							<Select
+							{hasEditPermission && <Select
 								value={type}
 								onChange={(e: any) => {
 									const index = e.target.value
@@ -162,7 +169,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								<option value={0}>Full</option>
 								<option value={1}>Edit</option>
 								<option value={2}>Read-Only</option>
-							</Select>
+							</Select>}
 						</Box>
 					</HStack>
 				</Flex>
@@ -230,7 +237,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								</Text>
 							</Flex>
 							<Switch
-								isDisabled={visLoading}
+								isDisabled={visLoading || !hasEditPermission}
 								onChange={() => {
 									setVisLoading(true)
 									setVis({ public: !pub, blockId })
@@ -246,30 +253,32 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Heading width='100%' size='md' fontWeight='semibold'>
 								User Permissions
 							</Heading>
-							<SearchComponentWrapper
-								component={{ cid: "search", type: "User" }}
-								onChoose={(result) => {
-									let userObject = result as UserResult
-									console.log("onChoose: ", userObject)
-									const exists = view.some((e) => e.id === userObject.id)
-									if (!exists) {
-										setView((oldView) => [...oldView, userObject])
-									}
-								}}
-							>
-								<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
-									Add
-								</Button>
-							</SearchComponentWrapper>
-							<Button
-								isLoading={loading}
-								justifyContent='flex-end'
-								colorScheme='orange'
-								variant='link'
-								onClick={onSaveUserPermissions}
-							>
-								Save
-							</Button>
+
+							{hasEditPermission && <>
+								<SearchComponentWrapper
+									component={{ cid: "search", type: "User" }}
+									onChoose={(result) => {
+										let userObject = result as UserResult
+										console.log("onChoose: ", userObject)
+										const exists = view.some((e) => e.id === userObject.id)
+										if (!exists) {
+											setView((oldView) => [...oldView, userObject])
+										}
+									}}
+								>
+									<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
+										Add
+									</Button>
+								</SearchComponentWrapper>
+								<Button
+									isLoading={loading}
+									justifyContent='flex-end'
+									colorScheme='orange'
+									variant='link'
+									onClick={onSaveUserPermissions}
+								>
+									Save
+								</Button></>}
 						</HStack>
 
 						{userPermissionResponse && renderUserList()}
