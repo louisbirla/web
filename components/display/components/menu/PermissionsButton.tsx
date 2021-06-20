@@ -12,7 +12,7 @@ import { userAtom } from "../../../user/userAtom"
 import { useAtom } from "jotai"
 
 export const SetVisibilityQuery = gql`
-	mutation($blockId: Int!, $public: Boolean!) {
+	mutation ($blockId: Int!, $public: Boolean!) {
 		updateVisibility(public: $public, blockId: $blockId) {
 			id
 		}
@@ -20,13 +20,13 @@ export const SetVisibilityQuery = gql`
 `
 
 export const GetUserPermissions = gql`
-	query($blockId: Int!) {
+	query ($blockId: Int!) {
 		blockById(id: $blockId) {
 			owner {
-				id, 
-				username,
+				id
+				username
 				displayName
-			},
+			}
 			full: permFull(level: FULL) {
 				id
 				username
@@ -46,7 +46,7 @@ export const GetUserPermissions = gql`
 	}
 `
 export const SetUserPermissions = gql`
-	mutation($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
+	mutation ($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
 		setPerms(permFull: $full, permEdit: $edit, permView: $view, blockId: $blockId) {
 			full: permFull(level: FULL) {
 				id
@@ -70,7 +70,7 @@ export const SetUserPermissions = gql`
 export type SetVisibilityArgsVars = { blockId: number; public: boolean }
 export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; view: Array<number>; blockId: number }
 export type GetUserPerissionsVars = { blockId: number }
-export type UserPermission = { owner: UserResult, full: UserResult[]; edit: UserResult[]; view: UserResult[] }
+export type UserPermission = { owner: UserResult; full: UserResult[]; edit: UserResult[]; view: UserResult[] }
 export type GetUserPermissionResult = { blockById: UserPermission }
 export type SetPermissionRequest = { blockId: number; full: Array<number>; edit: Array<number>; view: Array<number> }
 export enum PermissionType {
@@ -89,7 +89,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [view, setView] = useState<UserResult[]>([])
 	const [loading, setLoading] = useState(false)
 	const [saveEnabled, setSaveEnabled] = useState(false)
-	const [hasEditPermission, setHasEditPermission] = useState(false);
+	const [hasEditPermission, setHasEditPermission] = useState(false)
 
 	const [logged] = useAtom(userAtom)
 
@@ -101,10 +101,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [, setPermissions] = useMutation<GetUserPermissionResult, SetPermissionRequest>(SetUserPermissions)
 
 	useEffect(() => {
-		console.log('getting permssions');
+		console.log("getting permssions")
 		getUserPermissions()
 	}, [])
-
 
 	useEffect(() => {
 		if (userPermissionResponse.data?.blockById) {
@@ -112,7 +111,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 
 			let canEdit = permissions?.full.filter(({ id }: UserResult) => id === logged?.id).length > 0
 			canEdit = permissions.owner.id === logged?.id || canEdit
-			setHasEditPermission(canEdit);
+			setHasEditPermission(canEdit)
 			setFull(permissions.full)
 			setEdit(permissions.edit)
 			setView(permissions.view)
@@ -167,29 +166,31 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Text>@{user.username}</Text>
 						</Stack>
 						<Box width='70%' justifyContent='flex-end'>
-							{hasEditPermission && <Select
-								value={type}
-								onChange={(e: any) => {
-									const index = e.target.value
-									const destination = index == 0 ? full : index == 1 ? edit : index == 2 ? view : undefined
-									if (!destination) {
-										return
-									}
+							{hasEditPermission && (
+								<Select
+									value={type}
+									onChange={(e: any) => {
+										const index = e.target.value
+										const destination = index == 0 ? full : index == 1 ? edit : index == 2 ? view : undefined
+										if (!destination) {
+											return
+										}
 
-									const setDestination = index == 0 ? setFull : index == 1 ? setEdit : setView
-									const exists = destination.some((e) => e.username === user.username)
-									if (!exists) {
-										setView((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setEdit((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setFull((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setDestination((oldValue) => [...oldValue, user])
-									}
-								}}
-							>
-								<option value={0}>Full</option>
-								<option value={1}>Edit</option>
-								<option value={2}>Read-Only</option>
-							</Select>}
+										const setDestination = index == 0 ? setFull : index == 1 ? setEdit : setView
+										const exists = destination.some((e) => e.username === user.username)
+										if (!exists) {
+											setView((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setEdit((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setFull((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setDestination((oldValue) => [...oldValue, user])
+										}
+									}}
+								>
+									<option value={0}>Full</option>
+									<option value={1}>Edit</option>
+									<option value={2}>Read-Only</option>
+								</Select>
+							)}
 						</Box>
 					</HStack>
 				</Flex>
@@ -240,7 +241,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		<Drawer size='sm' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
-					<DrawerCloseButton theme="link"/>
+					<DrawerCloseButton theme='link' />
 					<DrawerHeader>Block Permissions</DrawerHeader>
 					<DrawerBody>
 						<Flex width='100%' justifyContent='space-between'>
@@ -274,31 +275,34 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								User Permissions
 							</Heading>
 
-							{hasEditPermission && <>
-								<SearchComponentWrapper
-									component={{ cid: "search", type: "User" }}
-									onChoose={(result) => {
-										let userObject = result as UserResult
-										const exists = view.some((e) => e.id === userObject.id)
-										if (!exists) {
-											setView((oldView) => [...oldView, userObject])
-										}
-									}}
-								>
-									<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
-										Add
+							{hasEditPermission && (
+								<>
+									<SearchComponentWrapper
+										component={{ cid: "search", type: "User" }}
+										onChoose={(result) => {
+											let userObject = result as UserResult
+											const exists = view.some((e) => e.id === userObject.id)
+											if (!exists) {
+												setView((oldView) => [...oldView, userObject])
+											}
+										}}
+									>
+										<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
+											Add
+										</Button>
+									</SearchComponentWrapper>
+									<Button
+										isLoading={loading}
+										disabled={!saveEnabled}
+										justifyContent='flex-end'
+										colorScheme={saveEnabled ? "orange" : "gray"}
+										variant='link'
+										onClick={onSaveUserPermissions}
+									>
+										Save
 									</Button>
-								</SearchComponentWrapper>
-								<Button
-									isLoading={loading}
-									disabled={!saveEnabled}
-									justifyContent='flex-end'
-									colorScheme={saveEnabled ? 'orange' : 'gray'}
-									variant='link'
-									onClick={onSaveUserPermissions}
-								>
-									Save
-								</Button></>}
+								</>
+							)}
 						</HStack>
 
 						{userPermissionResponse && renderUserList()}

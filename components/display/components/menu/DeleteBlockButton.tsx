@@ -11,7 +11,7 @@ import { gql, useMutation } from "urql"
 import { Button } from "@chakra-ui/react"
 
 export const DeleteBlockQuery = gql`
-	mutation($blockId: Int!) {
+	mutation ($blockId: Int!) {
 		deleteBlock(blockId: $blockId)
 	}
 `

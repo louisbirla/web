@@ -23,7 +23,7 @@ import { slateTextToComponent } from "../richtext/slateDisplayConversion"
 import { getFormattedTime } from "../../../../utils/helper"
 
 export const GET_BLOCK_COMMENTS = gql`
-	query($id: Int!) {
+	query ($id: Int!) {
 		blockById(id: $id) {
 			comments {
 				id
@@ -49,7 +49,7 @@ export const GET_BLOCK_COMMENTS = gql`
 `
 
 const CreateBlockQuery = gql`
-	mutation($type: String!, $input: String!) {
+	mutation ($type: String!, $input: String!) {
 		createBlock(type: $type, input: $input) {
 			id
 		}
@@ -57,7 +57,7 @@ const CreateBlockQuery = gql`
 `
 
 const CreateCommentQuery = gql`
-	mutation($blockId: Int!, $contentId: Int!) {
+	mutation ($blockId: Int!, $contentId: Int!) {
 		createComment(blockId: $blockId, contentId: $contentId) {
 			id
 			createdAt
@@ -71,7 +71,7 @@ const CreateCommentQuery = gql`
 `
 
 const SetCommentStarred = gql`
-	mutation($commentId: Int!, $starred: Boolean!) {
+	mutation ($commentId: Int!, $starred: Boolean!) {
 		setCommentStarred(commentId: $commentId, starred: $starred) {
 			id
 			starCount
@@ -158,7 +158,7 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 		<Drawer size='md' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
-					<DrawerCloseButton theme="link" />
+					<DrawerCloseButton theme='link' />
 					<DrawerHeader>{comment ? "Thread" : "Comments"}</DrawerHeader>
 					{comment && (
 						<Box p='4' boxShadow='xl' pt='6' pb='4' bgColor='#F5F5F5'>

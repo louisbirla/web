@@ -13,7 +13,7 @@ import { useChangeEmail } from "./changeEmail"
 import { SearchComponentWrapper } from "../display/components/Search"
 
 const UserPageQuery = gql`
-	query($username: String!) {
+	query ($username: String!) {
 		userByName(username: $username) {
 			id
 			displayName
@@ -46,7 +46,7 @@ type UserPageQueryResult = {
 type UserPageQueryVars = { username: string }
 
 const SET_SPECIAL_BLOCK = gql`
-	mutation($blockId: Int!, $type: String!) {
+	mutation ($blockId: Int!, $type: String!) {
 		setSpecialBlock(blockId: $blockId, type: $type) {
 			id
 		}
@@ -56,7 +56,7 @@ type SetSpecialBlockResult = { setSpecialBlock: { id: number } }
 type SetSpecialBlockRequest = { blockId: number; type: string }
 
 const REMOVE_SPECIAL_BLOCK = gql`
-	mutation($type: String!) {
+	mutation ($type: String!) {
 		removeSpecialBlock(type: $type) {
 			id
 		}

@@ -18,7 +18,7 @@ import { gql, useMutation } from "urql"
 import { User } from "./userAtom"
 
 const UpdateUsernameMutation = gql`
-	mutation($newUsername: String!, $password: String!) {
+	mutation ($newUsername: String!, $password: String!) {
 		updateUsername(newUsername: $newUsername, password: $password) {
 			id
 			username

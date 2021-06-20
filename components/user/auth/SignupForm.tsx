@@ -11,7 +11,7 @@ import { PinInput, PinInputField } from "@chakra-ui/pin-input"
 import { isThisAnAuthPage } from "../../../utils/isAuthPage"
 
 const SignupMutation = gql`
-	mutation($username: String!, $password: String!, $email: String!, $displayName: String) {
+	mutation ($username: String!, $password: String!, $email: String!, $displayName: String) {
 		signup(username: $username, password: $password, email: $email, displayName: $displayName) {
 			sessionCode
 		}
