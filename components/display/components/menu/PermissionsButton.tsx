@@ -22,6 +22,11 @@ export const SetVisibilityQuery = gql`
 export const GetUserPermissions = gql`
 	query($blockId: Int!) {
 		blockById(id: $blockId) {
+			owner {
+				id, 
+				username,
+				displayName
+			},
 			full: permFull(level: FULL) {
 				id
 				username
@@ -65,7 +70,7 @@ export const SetUserPermissions = gql`
 export type SetVisibilityArgsVars = { blockId: number; public: boolean }
 export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; view: Array<number>; blockId: number }
 export type GetUserPerissionsVars = { blockId: number }
-export type UserPermission = { full: UserResult[]; edit: UserResult[]; view: UserResult[] }
+export type UserPermission = { owner: UserResult, full: UserResult[]; edit: UserResult[]; view: UserResult[] }
 export type GetUserPermissionResult = { blockById: UserPermission }
 export type SetPermissionRequest = { blockId: number; full: Array<number>; edit: Array<number>; view: Array<number> }
 export enum PermissionType {
@@ -83,6 +88,8 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [edit, setEdit] = useState<UserResult[]>([])
 	const [view, setView] = useState<UserResult[]>([])
 	const [loading, setLoading] = useState(false)
+	const [saveEnabled, setSaveEnabled] = useState(false)
+	const [hasEditPermission, setHasEditPermission] = useState(false);
 
 	const [logged] = useAtom(userAtom)
 
@@ -94,20 +101,33 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [, setPermissions] = useMutation<GetUserPermissionResult, SetPermissionRequest>(SetUserPermissions)
 
 	useEffect(() => {
+		console.log('getting permssions');
 		getUserPermissions()
 	}, [])
 
-	let hasEditPermission = false
 
 	useEffect(() => {
 		if (userPermissionResponse.data?.blockById) {
 			const permissions = userPermissionResponse.data?.blockById
-			hasEditPermission = permissions?.full.filter(({ id }: UserResult) => id === logged?.id).length > 0
+
+			let canEdit = permissions?.full.filter(({ id }: UserResult) => id === logged?.id).length > 0
+			canEdit = permissions.owner.id === logged?.id || canEdit
+			setHasEditPermission(canEdit);
 			setFull(permissions.full)
 			setEdit(permissions.edit)
 			setView(permissions.view)
 		}
 	}, [userPermissionResponse])
+
+	useEffect(() => {
+		const blockById = userPermissionResponse.data?.blockById
+
+		const hasFullChanged = blockById?.full.length !== full.length || blockById?.full.some((e, i) => e.id !== full[i].id)
+		const hasEditChanged = blockById?.edit.length !== edit.length || blockById?.edit.some((e, i) => e.id !== edit[i].id)
+		const hasViewChanged = blockById?.view.length !== view.length || blockById?.view.some((e, i) => e.id !== view[i].id)
+
+		setSaveEnabled(hasFullChanged || hasEditChanged || hasViewChanged)
+	}, [view, edit, full])
 
 	const onSaveUserPermissions = () => {
 		const fullIds = full.map(({ id }: UserResult) => id)
@@ -220,7 +240,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		<Drawer size='sm' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
-					<DrawerCloseButton />
+					<DrawerCloseButton theme="link"/>
 					<DrawerHeader>Block Permissions</DrawerHeader>
 					<DrawerBody>
 						<Flex width='100%' justifyContent='space-between'>
@@ -259,7 +279,6 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 									component={{ cid: "search", type: "User" }}
 									onChoose={(result) => {
 										let userObject = result as UserResult
-										console.log("onChoose: ", userObject)
 										const exists = view.some((e) => e.id === userObject.id)
 										if (!exists) {
 											setView((oldView) => [...oldView, userObject])
@@ -272,8 +291,9 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								</SearchComponentWrapper>
 								<Button
 									isLoading={loading}
+									disabled={!saveEnabled}
 									justifyContent='flex-end'
-									colorScheme='orange'
+									colorScheme={saveEnabled ? 'orange' : 'gray'}
 									variant='link'
 									onClick={onSaveUserPermissions}
 								>

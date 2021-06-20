@@ -158,7 +158,7 @@ export const useCommentsButton = (blockId: number, comment?: Comment): [JSX.Elem
 		<Drawer size='md' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
-					<DrawerCloseButton />
+					<DrawerCloseButton theme="link" />
 					<DrawerHeader>{comment ? "Thread" : "Comments"}</DrawerHeader>
 					{comment && (
 						<Box p='4' boxShadow='xl' pt='6' pb='4' bgColor='#F5F5F5'>
