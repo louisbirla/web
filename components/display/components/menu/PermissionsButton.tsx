@@ -8,9 +8,11 @@ import { Avatar, Icon, Select, Tooltip, Button, useToast } from "@chakra-ui/reac
 import { Info } from "react-feather"
 import { UserResult } from "../../../search/UserSearchResults"
 import { SearchComponentWrapper } from "../Search"
+import { userAtom } from "../../../user/userAtom"
+import { useAtom } from "jotai"
 
 export const SetVisibilityQuery = gql`
-	mutation($blockId: Int!, $public: Boolean!) {
+	mutation ($blockId: Int!, $public: Boolean!) {
 		updateVisibility(public: $public, blockId: $blockId) {
 			id
 		}
@@ -18,8 +20,13 @@ export const SetVisibilityQuery = gql`
 `
 
 export const GetUserPermissions = gql`
-	query($blockId: Int!) {
+	query ($blockId: Int!) {
 		blockById(id: $blockId) {
+			owner {
+				id
+				username
+				displayName
+			}
 			full: permFull(level: FULL) {
 				id
 				username
@@ -39,7 +46,7 @@ export const GetUserPermissions = gql`
 	}
 `
 export const SetUserPermissions = gql`
-	mutation($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
+	mutation ($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
 		setPerms(permFull: $full, permEdit: $edit, permView: $view, blockId: $blockId) {
 			full: permFull(level: FULL) {
 				id
@@ -63,7 +70,7 @@ export const SetUserPermissions = gql`
 export type SetVisibilityArgsVars = { blockId: number; public: boolean }
 export type SetUserPerissionsVars = { full: Array<number>; edit: Array<number>; view: Array<number>; blockId: number }
 export type GetUserPerissionsVars = { blockId: number }
-export type UserPermission = { full: UserResult[]; edit: UserResult[]; view: UserResult[] }
+export type UserPermission = { owner: UserResult; full: UserResult[]; edit: UserResult[]; view: UserResult[] }
 export type GetUserPermissionResult = { blockById: UserPermission }
 export type SetPermissionRequest = { blockId: number; full: Array<number>; edit: Array<number>; view: Array<number> }
 export enum PermissionType {
@@ -81,6 +88,10 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [edit, setEdit] = useState<UserResult[]>([])
 	const [view, setView] = useState<UserResult[]>([])
 	const [loading, setLoading] = useState(false)
+	const [saveEnabled, setSaveEnabled] = useState(false)
+	const [hasEditPermission, setHasEditPermission] = useState(false)
+
+	const [logged] = useAtom(userAtom)
 
 	const [visRes, setVis] = useMutation<{}, SetVisibilityArgsVars>(SetVisibilityQuery)
 	const [userPermissionResponse, getUserPermissions] = useQuery<GetUserPermissionResult, GetUserPerissionsVars>({
@@ -90,17 +101,32 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 	const [, setPermissions] = useMutation<GetUserPermissionResult, SetPermissionRequest>(SetUserPermissions)
 
 	useEffect(() => {
+		console.log("getting permssions")
 		getUserPermissions()
 	}, [])
 
 	useEffect(() => {
 		if (userPermissionResponse.data?.blockById) {
 			const permissions = userPermissionResponse.data?.blockById
+
+			let canEdit = permissions?.full.filter(({ id }: UserResult) => id === logged?.id).length > 0
+			canEdit = permissions.owner.id === logged?.id || canEdit
+			setHasEditPermission(canEdit)
 			setFull(permissions.full)
 			setEdit(permissions.edit)
 			setView(permissions.view)
 		}
 	}, [userPermissionResponse])
+
+	useEffect(() => {
+		const blockById = userPermissionResponse.data?.blockById
+
+		const hasFullChanged = blockById?.full.length !== full.length || blockById?.full.some((e, i) => e.id !== full[i].id)
+		const hasEditChanged = blockById?.edit.length !== edit.length || blockById?.edit.some((e, i) => e.id !== edit[i].id)
+		const hasViewChanged = blockById?.view.length !== view.length || blockById?.view.some((e, i) => e.id !== view[i].id)
+
+		setSaveEnabled(hasFullChanged || hasEditChanged || hasViewChanged)
+	}, [view, edit, full])
 
 	const onSaveUserPermissions = () => {
 		const fullIds = full.map(({ id }: UserResult) => id)
@@ -140,29 +166,31 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Text>@{user.username}</Text>
 						</Stack>
 						<Box width='70%' justifyContent='flex-end'>
-							<Select
-								value={type}
-								onChange={(e: any) => {
-									const index = e.target.value
-									const destination = index == 0 ? full : index == 1 ? edit : index == 2 ? view : undefined
-									if (!destination) {
-										return
-									}
+							{hasEditPermission && (
+								<Select
+									value={type}
+									onChange={(e: any) => {
+										const index = e.target.value
+										const destination = index == 0 ? full : index == 1 ? edit : index == 2 ? view : undefined
+										if (!destination) {
+											return
+										}
 
-									const setDestination = index == 0 ? setFull : index == 1 ? setEdit : setView
-									const exists = destination.some((e) => e.username === user.username)
-									if (!exists) {
-										setView((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setEdit((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setFull((oldValue) => oldValue.filter((e) => e.username !== user.username))
-										setDestination((oldValue) => [...oldValue, user])
-									}
-								}}
-							>
-								<option value={0}>Full</option>
-								<option value={1}>Edit</option>
-								<option value={2}>Read-Only</option>
-							</Select>
+										const setDestination = index == 0 ? setFull : index == 1 ? setEdit : setView
+										const exists = destination.some((e) => e.username === user.username)
+										if (!exists) {
+											setView((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setEdit((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setFull((oldValue) => oldValue.filter((e) => e.username !== user.username))
+											setDestination((oldValue) => [...oldValue, user])
+										}
+									}}
+								>
+									<option value={0}>Full</option>
+									<option value={1}>Edit</option>
+									<option value={2}>Read-Only</option>
+								</Select>
+							)}
 						</Box>
 					</HStack>
 				</Flex>
@@ -213,7 +241,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 		<Drawer size='sm' isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
 			<DrawerOverlay>
 				<DrawerContent>
-					<DrawerCloseButton />
+					<DrawerCloseButton theme='link' />
 					<DrawerHeader>Block Permissions</DrawerHeader>
 					<DrawerBody>
 						<Flex width='100%' justifyContent='space-between'>
@@ -230,7 +258,7 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 								</Text>
 							</Flex>
 							<Switch
-								isDisabled={visLoading}
+								isDisabled={visLoading || !hasEditPermission}
 								onChange={() => {
 									setVisLoading(true)
 									setVis({ public: !pub, blockId })
@@ -246,30 +274,35 @@ export const usePermissionButton = (blockId: number, pub: boolean): [JSX.Element
 							<Heading width='100%' size='md' fontWeight='semibold'>
 								User Permissions
 							</Heading>
-							<SearchComponentWrapper
-								component={{ cid: "search", type: "User" }}
-								onChoose={(result) => {
-									let userObject = result as UserResult
-									console.log("onChoose: ", userObject)
-									const exists = view.some((e) => e.id === userObject.id)
-									if (!exists) {
-										setView((oldView) => [...oldView, userObject])
-									}
-								}}
-							>
-								<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
-									Add
-								</Button>
-							</SearchComponentWrapper>
-							<Button
-								isLoading={loading}
-								justifyContent='flex-end'
-								colorScheme='orange'
-								variant='link'
-								onClick={onSaveUserPermissions}
-							>
-								Save
-							</Button>
+
+							{hasEditPermission && (
+								<>
+									<SearchComponentWrapper
+										component={{ cid: "search", type: "User" }}
+										onChoose={(result) => {
+											let userObject = result as UserResult
+											const exists = view.some((e) => e.id === userObject.id)
+											if (!exists) {
+												setView((oldView) => [...oldView, userObject])
+											}
+										}}
+									>
+										<Button justifyContent='flex-end' colorScheme='orange' variant='link'>
+											Add
+										</Button>
+									</SearchComponentWrapper>
+									<Button
+										isLoading={loading}
+										disabled={!saveEnabled}
+										justifyContent='flex-end'
+										colorScheme={saveEnabled ? "orange" : "gray"}
+										variant='link'
+										onClick={onSaveUserPermissions}
+									>
+										Save
+									</Button>
+								</>
+							)}
 						</HStack>
 
 						{userPermissionResponse && renderUserList()}
