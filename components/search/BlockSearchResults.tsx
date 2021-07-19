@@ -18,7 +18,7 @@ import { IconComponent } from "../display/components/Icon"
 import { BlockSortType } from "./SearchSubFilters"
 
 const BlockQuery = gql`
-	query ($query: String!, $filters: BlockSearchFilters, $sortBy: BlockSortType) {
+	query($query: String!, $filters: BlockSearchFilters, $sortBy: BlockSortType) {
 		searchBlocks(query: $query, filters: $filters, sortBy: $sortBy) {
 			id
 			color
