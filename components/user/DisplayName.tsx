@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useMutation } from "urql"
 
 const UpdateQuery = gql`
-	mutation ($newDisplayName: String) {
+	mutation($newDisplayName: String) {
 		updateDisplayName(newDisplayName: $newDisplayName) {
 			id
 		}

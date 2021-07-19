@@ -9,7 +9,7 @@ import { ArrowLeft, Eye, EyeOff } from "react-feather"
 import { AuthAtom } from "./AuthScreen"
 
 export const ForgotPassword = gql`
-	mutation ($username: String!) {
+	mutation($username: String!) {
 		forgotPassword(username: $username) {
 			sessionCode
 			email
@@ -18,7 +18,7 @@ export const ForgotPassword = gql`
 `
 
 export const ConfirmForgotPassword = gql`
-	mutation ($username: String!, $sessionCode: String!, $verificationCode: String!, $newPassword: String!) {
+	mutation($username: String!, $sessionCode: String!, $verificationCode: String!, $newPassword: String!) {
 		confirmForgotPassword(
 			username: $username
 			sessionCode: $sessionCode

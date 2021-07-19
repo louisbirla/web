@@ -6,7 +6,7 @@ import { Breadcrumb, Crumb } from "../nav/Breadcrumb"
 import Link from "next/link"
 
 const BlockQuery = gql`
-	query ($id: Int!) {
+	query($id: Int!) {
 		blockById(id: $id) {
 			pageDisplay
 			breadcrumb {

@@ -12,7 +12,7 @@ import { userAtom } from "../../../user/userAtom"
 import { useAtom } from "jotai"
 
 export const SetVisibilityQuery = gql`
-	mutation ($blockId: Int!, $public: Boolean!) {
+	mutation($blockId: Int!, $public: Boolean!) {
 		updateVisibility(public: $public, blockId: $blockId) {
 			id
 		}
@@ -20,7 +20,7 @@ export const SetVisibilityQuery = gql`
 `
 
 export const GetUserPermissions = gql`
-	query ($blockId: Int!) {
+	query($blockId: Int!) {
 		blockById(id: $blockId) {
 			owner {
 				id
@@ -46,7 +46,7 @@ export const GetUserPermissions = gql`
 	}
 `
 export const SetUserPermissions = gql`
-	mutation ($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
+	mutation($full: [Int!]!, $edit: [Int!]!, $view: [Int!]!, $blockId: Int!) {
 		setPerms(permFull: $full, permEdit: $edit, permView: $view, blockId: $blockId) {
 			full: permFull(level: FULL) {
 				id

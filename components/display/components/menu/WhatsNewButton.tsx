@@ -28,7 +28,7 @@ const allUpdates = gql`
 `
 
 const SET_LATEST_SEEN = gql`
-	mutation ($latestUpdateId: Int!) {
+	mutation($latestUpdateId: Int!) {
 		setLatestSeen(latestUpdateId: $latestUpdateId) {
 			id
 		}

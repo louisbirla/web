@@ -1,5 +1,5 @@
 import { AppProps } from "next/dist/next-server/lib/router/router"
-import { ChakraProvider, Box, Text } from "@chakra-ui/react"
+import { ChakraProvider, Box, Text, Flex, Button } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
 import { Provider as JotaiProvider, useAtom } from "jotai"
@@ -13,6 +13,7 @@ import { AuthScreen, AuthAtom } from "../components/user/auth/AuthScreen"
 import { WithUrql } from "../utils/urql"
 import "../utils/theme/masonry.css"
 import { isMobile } from "react-device-detect"
+import { useState } from "react"
 
 const prod = process.env.NODE_ENV === "production"
 
@@ -55,17 +56,26 @@ const WithAuth: React.FC = ({ children }) => {
 }
 
 const MobileAlert: React.FC = () => {
-	return (
-		<Box p={2} position='absolute' top={0} left={0} right={0} bg='yellow.300'>
-			<Text fontWeight='bold' fontSize='2xl'>
-				Notice
-			</Text>
-			<Text>
-				The Loop website does not work well on phones. Please email <u>support@loop.page</u> to recieve instructions on
-				how to install the app on your phone.
-			</Text>
-		</Box>
-	)
+	let [shown, setShown] = useState(true)
+	if (shown) {
+		return (
+			<Box p={2} position='absolute' top={0} left={0} right={0} bg='yellow.300'>
+				<Flex width='100%' justifyContent='space-between'>
+					<Text fontWeight='bold' fontSize='2xl'>
+						Notice
+					</Text>
+					<Button onClick={() => setShown(false)} size='sm' colorScheme='orange' variant='solid'>
+						Close
+					</Button>
+				</Flex>
+				<Text>
+					The Loop website does not work well on phones. Please email <u>support@loop.page</u> to recieve instructions
+					on how to install the app on your phone.
+				</Text>
+			</Box>
+		)
+	}
+	return <></>
 }
 
 export default MyApp
