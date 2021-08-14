@@ -43,10 +43,10 @@ export const IconComponent: React.FC<{ name?: IconName; icon?: IconName; color?:
 	size = 23,
 	icon,
 }) => {
-	if (color !== "none") {
-		color = "#5276f3"
-	} else {
+	if (color === "none") {
 		color = undefined
+	} else if (!color?.startsWith("#")) {
+		color = "#5276f3"
 	}
 	let commonProps: IconProps = { color, size: size ?? 23 }
 	switch (name ?? icon) {
