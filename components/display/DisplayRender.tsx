@@ -2,7 +2,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react"
 import { DisplayObject } from "display-api"
 import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
-import { PageMenu } from "./components/menu/PageMenu"
+import { CardMenu } from "./components/menu/CardMenu"
 
 export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display }) => {
 	const component = display.display
@@ -40,7 +40,7 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 					<Flex justifyContent='space-between'>
 						<Box>{meta}</Box>
 						<Box>
-							<PageMenu menu={display.meta.page.menu} />
+							<CardMenu menu={display.meta.page.menu} />
 						</Box>
 					</Flex>
 				</>
