@@ -20,6 +20,11 @@ import { IconComponent } from "./components/Icon"
 export type Environment = "create" | "page" | "cardheader" | "popover" | "displaylist"
 
 export const ComponentDelegate: React.FC<{ component: ComponentObject; env?: Environment }> = ({ component, env }) => {
+	if (component) {
+		component.args = component?.args || {}
+	} else {
+		return <Text color='red'>Error When Rendering Component.</Text>
+	}
 	switch (component.cid) {
 		case "text":
 			return <TextComponent env={env} {...component.args} />
