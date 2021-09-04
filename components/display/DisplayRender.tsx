@@ -4,7 +4,7 @@ import Head from "next/head"
 import { ComponentDelegate } from "./ComponentDelegate"
 import { CardMenu } from "./components/menu/CardMenu"
 
-export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display }) => {
+export const DisplayRender: React.FC<{ display: DisplayObject; color?: string }> = ({ display, color }) => {
 	const component = display.display
 	let meta = <></>
 
@@ -40,7 +40,7 @@ export const DisplayRender: React.FC<{ display: DisplayObject }> = ({ display })
 					<Flex justifyContent='space-between'>
 						<Box>{meta}</Box>
 						<Box>
-							<CardMenu menu={display.meta.page.menu} />
+							<CardMenu color={color} menu={display.meta.page.menu} />
 						</Box>
 					</Flex>
 				</>
