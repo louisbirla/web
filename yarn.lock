@@ -5353,10 +5353,10 @@ react-ga@3.3.0:
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-3.3.0.tgz#c91f407198adcb3b49e2bc5c12b3fe460039b3ca"
   integrity sha512-o8RScHj6Lb8cwy3GMrVH6NJvL+y0zpJvKtc0+wmH7Bt23rszJmnqEQxRbyrqUzk9DTJIHoP42bfO5rswC9SWBQ==
 
-react-hook-form@6.15.5:
-  version "6.15.5"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.15.5.tgz#c2578f9ce6a6df7b33015587d40cd880dc13e2db"
-  integrity sha512-so2jEPYKdVk1olMo+HQ9D9n1hVzaPPFO4wsjgSeZ964R7q7CHsYRbVF0PGBi83FcycA5482WHflasdwLIUVENg==
+react-hook-form@7.9.0:
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.9.0.tgz#0b5ed2f262a1e3cc64cfcf855f09a6e236d46ac3"
+  integrity sha512-1SazsTvsC5A4jLxc8fIf0bB92kEp4MGjP69k8s+2nI1spHPha5UkLwaebOXhO9vY95aGqcyBU67pRiv+6T5KZQ==
 
 react-input-autosize@^3.0.0:
   version "3.0.0"
