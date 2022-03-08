@@ -2,17 +2,8 @@ import { Heading, Text } from "@chakra-ui/react"
 import { TextArgs } from "display-api"
 import { Environment } from "../ComponentDelegate"
 
-export const TextComponent: React.FC<TextArgs & { env?: Environment }> = ({
-	text,
-	color,
-	preset,
-	env,
-	bold,
-	italic,
-	underline,
-	strikethrough,
-	monospace,
-}) => {
+export const TextComponent: React.FC<TextArgs & { env?: Environment }> = (args) => {
+	let { text, color, preset, env } = args
 	if (preset === "Heading") {
 		return (
 			<Heading mx={2} size={env === "create" ? "lg" : undefined} color={color}>
@@ -23,7 +14,16 @@ export const TextComponent: React.FC<TextArgs & { env?: Environment }> = ({
 	if (preset === "Info") {
 		color = "gray.500"
 	}
-	let component = <Text color={color}>{text}</Text>
+
+	return (
+		<Text color={color}>
+			<Textify {...args}>{text}</Textify>
+		</Text>
+	)
+}
+
+export const Textify: React.FC<TextArgs> = ({ bold, italic, underline, strikethrough, monospace, children }) => {
+	let component = <>{children}</>
 
 	if (bold) {
 		component = <b>{component}</b>

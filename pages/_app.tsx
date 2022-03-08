@@ -1,4 +1,3 @@
-import { AppProps } from "next/dist/next-server/lib/router/router"
 import { ChakraProvider, Box, Text, Flex, Button } from "@chakra-ui/react"
 import { Metadata } from "../components/Metadata"
 import { init } from "@sentry/react"
@@ -14,6 +13,7 @@ import { WithUrql } from "../utils/urql"
 import "../utils/theme/masonry.css"
 import { isMobile } from "react-device-detect"
 import { useState } from "react"
+import { AppProps } from "next/dist/shared/lib/router/router"
 
 const prod = process.env.NODE_ENV === "production"
 

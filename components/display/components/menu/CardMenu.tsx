@@ -1,6 +1,6 @@
 import { Box, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { MenuComponent } from "display-api"
-import { Bell, BellOff, MessageSquare, MoreHorizontal, Share, Star, Trash, User } from "react-feather"
+import { Bell, BellOff, MessageSquare, MoreHorizontal, PenTool, Share, Star, Trash, User } from "react-feather"
 import { StarIcon } from "@chakra-ui/icons"
 import { useShareButton } from "./ShareButton"
 import { useDeleteBlockButton } from "./DeleteBlockButton"
@@ -11,14 +11,20 @@ import { CustomMenu } from "./CustomMenu"
 import { useCommentsButton } from "./CommentsButton"
 import { genActionObject } from "../../ActionObject"
 import { IconComponent } from "../Icon"
+import { useChangeColor } from "./UseColorSwitch"
 
-export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ menu, margin }) => {
+export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean; color?: string }> = ({
+	menu,
+	margin,
+	color,
+}) => {
 	const [starButton] = useStarButton(menu.block_id, menu.star_button?.starred ?? false)
 	const [notificationButton] = useNotificationsButton(menu.block_id, menu.notifications_enabled ?? false)
 	const [shareButton] = useShareButton(menu.block_id)
 	const [drawer, openDrawer, btnRef] = usePermissionButton(menu.block_id, menu.permissions?.public ?? false)
 	const [commentDrawer, openCommentDrawer, btnCommentRef] = useCommentsButton(menu.block_id)
 	const [deleteButton, deleteDialog] = useDeleteBlockButton(menu.block_id)
+	const [openColorChangeModal, colorChangeModal] = useChangeColor(menu.block_id, color)
 	let customListed = menu.custom?.filter(({ listed }) => listed)
 	let customNotListed = menu.custom?.filter(({ listed }) => !listed)
 	return (
@@ -83,6 +89,10 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 							</MenuItem>
 						</>
 					)}
+					<MenuItem onClick={openColorChangeModal}>
+						{<Icon as={PenTool} mr={2} size={17} />}
+						Update Color
+					</MenuItem>
 					{menu.delete && (
 						<MenuItem onClick={deleteButton} disabled>
 							{<Icon as={Trash} mr={2} size={17} />}
@@ -98,6 +108,7 @@ export const CardMenu: React.FC<{ menu: MenuComponent; margin?: boolean }> = ({ 
 			</Menu>
 			{drawer}
 			{commentDrawer}
+			{colorChangeModal}
 		</>
 	)
 }

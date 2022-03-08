@@ -2,6 +2,7 @@ import { Link, Text } from "@chakra-ui/react"
 import { LinkArgs } from "display-api"
 import NextLink from "next/link"
 import { text_color } from "../../../utils/theme/colors"
+import { Textify } from "./Text"
 
 export const LinkComponent: React.FC<LinkArgs> = ({ text, external, app_path, url, no_style }) => {
 	let color = no_style ? text.color ?? text_color : "blue.500"
@@ -11,14 +12,14 @@ export const LinkComponent: React.FC<LinkArgs> = ({ text, external, app_path, ur
 		return (
 			<Link href={app_path} as={NextLink} isExternal={external}>
 				<Text cursor='pointer' fontWeight={fontWeight} color={color} textDecoration={textDec}>
-					{text.text}
+					<Textify {...text}>{text.text}</Textify>
 				</Text>
 			</Link>
 		)
 	}
 	return (
 		<Link href={url} fontWeight={fontWeight} isExternal={external} color={color} textDecoration={textDec}>
-			{text.text}
+			<Textify {...text}>{text.text}</Textify>
 		</Link>
 	)
 }

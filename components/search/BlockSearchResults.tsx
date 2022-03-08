@@ -16,6 +16,7 @@ import { Suspense } from "react"
 import { Crumb } from "../nav/Breadcrumb"
 import { IconComponent } from "../display/components/Icon"
 import { BlockSortType } from "./SearchSubFilters"
+import { IconName } from "display-api"
 
 const BlockQuery = gql`
 	query($query: String!, $filters: BlockSearchFilters, $sortBy: BlockSortType) {
@@ -87,9 +88,9 @@ export const BlockResults: React.FC<{
 		const lastCrumbIndex = crumbs.length - 1
 		const blockId = crumbs[lastCrumbIndex].blockId
 		const content = (
-			<Flex alignItems='center'>
-				<IconComponent name='Folder' />
-				<Breadcrumb ml={2} spacing={1} display='block'>
+			<Flex alignItems='center' textAlign='left'>
+				<IconComponent color={blockResult.color} name={blockResult.icon as IconName} />
+				<Breadcrumb ml={4} spacing={1} display='block'>
 					{crumbs.map((crumb) => (
 						<BreadcrumbItem key={crumb.name}>
 							<Text>{crumb.name}</Text>

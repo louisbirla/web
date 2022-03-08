@@ -6,18 +6,19 @@ import { Breadcrumb, Crumb } from "../nav/Breadcrumb"
 import Link from "next/link"
 
 const BlockQuery = gql`
-	query($id: Int!) {
+	query ($id: Int!) {
 		blockById(id: $id) {
 			pageDisplay
 			breadcrumb {
 				name
 				blockId
 			}
+			color
 		}
 	}
 `
 
-type BlockResult = { blockById: { pageDisplay: string; breadcrumb: Crumb[] } }
+type BlockResult = { blockById: { pageDisplay: string; breadcrumb: Crumb[]; color?: string } }
 type BlockArgs = { id: number }
 
 export const PageRender: React.FC<{ id: number; display?: DisplayObject; withBreadcrumb?: boolean }> = ({
@@ -72,7 +73,7 @@ export const PageRender: React.FC<{ id: number; display?: DisplayObject; withBre
 	return (
 		<Box>
 			{withBreadcrumb && crumbs && <Breadcrumb crumbs={crumbs} />}
-			<DisplayRender display={display} />
+			<DisplayRender color={block?.color} display={display} />
 		</Box>
 	)
 }

@@ -13,7 +13,7 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({
 	env,
 	detached_menu,
 }) => {
-	color = color || "#5D80FE"
+	color = color || "rgb(78,117,253)"
 	const [isMouseover, setIsMouseover] = useState(false)
 	let cardHeader = <></>
 	if (header) {
@@ -46,7 +46,7 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({
 						<></>
 					) : (
 						<Fade in={isMouseover}>
-							<CardMenu menu={header.menu} />
+							<CardMenu color={color} menu={header.menu} />
 						</Fade>
 					)}
 				</Box>
@@ -67,7 +67,7 @@ export const CardComponent: React.FC<CardArgs & { env?: Environment }> = ({
 		addon_menu = (
 			<Box position='relative' left='92%' top={0}>
 				<Fade in={isMouseover}>
-					<CardMenu menu={detached_menu.menu} />
+					<CardMenu color={color} menu={detached_menu.menu} />
 				</Fade>
 			</Box>
 		)

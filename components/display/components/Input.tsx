@@ -232,6 +232,9 @@ export const InputComponent: React.FC<InputArgs> = ({
 					onClick={() => setInputShown(true)}
 					fontSize={mask.preset === "Heading" ? 30 : undefined}
 					mx={mask.preset === "Heading" ? 2 : undefined}
+					style={{
+						textDecoration: mask.strikethrough ? "line-through" : undefined,
+					}}
 				>
 					{mask.text || label || "Data"}
 				</Button>
